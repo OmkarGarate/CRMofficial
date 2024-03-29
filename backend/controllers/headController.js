@@ -45,7 +45,7 @@ const loginHead = async (req, res) => {
 };
 
 const getAllHeads = async(req, res) =>{
-    const heads = await Head.find({}).sort({createdAt: -1})
+    const heads = await Head.find({password: req.password}).sort({createdAt: -1})
     res.status(200).json(heads)
 }
 
