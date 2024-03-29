@@ -53,7 +53,7 @@ function Login() {
             <form className="login3" onSubmit={handleSubmit}>
                 <div className="subLogin3">
                 <h1>Login</h1>
-                <img src={login3profile} alt="profile" />
+                <img className='userprofileimg' src={login3profile} alt="profile" />
                 <input type="text" placeholder='Organisation ID' onChange={(e)=>setOrgId(e.target.value)} value={orgId}/>
                 <input type="text" placeholder='Employee ID' onChange={(e)=>setEmpId(e.target.value)} value={empId}/>
                 <div className="passBox">

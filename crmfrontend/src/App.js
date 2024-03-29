@@ -10,6 +10,7 @@ import CBProfessionalInfo from './Components/CBProfessionalInfo';
 import DRP from './Components/DRP';
 import { useAuthContext } from './hooks/useAuthContext';
 import CBrif from './Components/CBrif';
+import '../src/css/mq.css'
 
 function App() {
   const {user} = useAuthContext()
