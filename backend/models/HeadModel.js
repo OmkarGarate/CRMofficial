@@ -109,7 +109,12 @@ const headSchema = mongoose.Schema({
     userType: {
         type: String,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
+
 })
 
 headSchema.statics.signupHead = async function(orgId, department, role, empId, password, userType)
@@ -130,10 +135,10 @@ headSchema.statics.signupHead = async function(orgId, department, role, empId, p
 
     }
 
-    const exists = await this.findOne({empId})
+    const exists = await this.findOne({orgId, empId})
         if(exists)
         {
-            throw Error("Email already in use")
+            throw Error("Employee ID already in use")
         }
 
     // const salt = await bcrypt.genSalt(10)

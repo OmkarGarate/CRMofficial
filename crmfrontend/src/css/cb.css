@@ -351,27 +351,62 @@ input[type="number"]::-webkit-outer-spin-button {
 .drpMain .prevNext{
     margin-top: 0;
 }
-.cbpInfo .allHeads {
-    border: 1px solid black;
+.cbpInfo .ahdMain {
+    /* border: 1px solid black; */
     width: 80%; /* Adjust as needed */
     height: 500px;
-    overflow: hidden;
-    overflow-y: scroll;
+   
     margin: 100px 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+    gap: 20px;
+    
 }
 
+.ehText{
+    padding: 10px 20px;
+    width: max-content;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #FBF7F7;
+    color: #800000;
+    font-weight: 600;
+}
+
+.cbpInfo .allHeads{
+    border: 1px solid #800000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.cbpInfo .allHeads::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar width */
+    height: 0; /* Remove scrollbar height */
+}
 .allHeads p{
     width: 25%;
     /* padding: 10px; */
+    background-color: transparent;
+    padding: 10px 15px;
+    cursor: pointer;
+}
 
+.ahDetails:hover{
+    background-color: #FBF7F7;
 }
 
 .ahHead p{
     font-weight: 600;
+}
+
+.ahHead{
+    background-color: #FBF7F7;
+    color: #800000;
 }
 
 

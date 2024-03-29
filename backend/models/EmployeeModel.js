@@ -109,6 +109,10 @@ const employeeSchema = mongoose.Schema({
     userType: {
         type: String,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 })
 
