@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+.loginMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.login{
+    /* border: 1px solid black; */
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    /* color: #F4F4F4; */
+    background-color: #f4f4f4;
+}
+
+.login1{
+    width: 32%;
+}
+
+.subLogin1{
+    width: 80%;
+    margin: 40px auto;
+    height: 85%;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.crmlogo{
+    width: 150px;
+}
+
+.subLogin1 h1{
+    color: #800000;
+    font-weight: 400;
+}
+
+.subLogin1 span{
+    /* border: 1px solid black; */
+    color: #FF3D3D;
+    position: relative;
+}
+
+.subLogin1 span::after{
+    content: "";
+    position: absolute;
+    bottom: 9px;
+    right: -16px;
+    width: 8px;
+    height: 8px;
+    background-color: #FF3D3D;
+}
+
+.subLogin1 p{
+    color: #800000;
+    font-weight: 500;
+    text-decoration:underline;
+}
+
+
+.learnmore{
+    width: 10px;
+    height: 10px;
+}
+
+
+
+.login2{
+    width: 30%;
+}
+
+.login2 img{
+    width: 100%;
+    height: 100%;
+}
+
+.login3{
+    width: 38%;
+    background-color: #800000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.subLogin3{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.subLogin3 h1{
+    color: white;
+    font-weight: 500;
+}
+
+
+
+.subLogin3 img{
+    /* border: 1px solid black; */
+    width: 80px;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+}
+
+.subLogin3 input{
+    border: none;
+    border-bottom: 1px solid #F08989;
+    outline: none;
+    /* cursor: pointer; */
+    background: transparent;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    color: #F08989;
+}
+
+.subLogin3 ::placeholder{
+    color: #F08989;
+}
+
+.subLogin3 button{
+    width: max-content;
+    margin: 0 auto;
+    cursor: pointer;
+    color: #800000;
+    font-size: 1rem;
+    padding: 8px 30px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 500;
+}
