@@ -107,7 +107,7 @@ function CBProfessionalInfo() {
             </div>
             </div>
             <div className="prevNext">
-            <Link to={'/profile/cbpersInfo'}><button className='previous'>Previous</button></Link>
+            <Link to={'/profile/'}><button className='previous'>Previous</button></Link>
             <Link><button className='next'>Next</button></Link>
             </div>
         </form>

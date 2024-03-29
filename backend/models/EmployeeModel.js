@@ -136,9 +136,9 @@ employeeSchema.statics.signupEmployee = async function(orgId, department, role, 
             throw Error("Email already in use")
         }
 
-    const salt = await bcrypt.genSalt(10)
+    // const salt = await bcrypt.genSalt(10)
     // console.log("Salt:", salt)
-    const hash = await bcrypt.hash(password, salt)
+    // const hash = await bcrypt.hash(password, salt)
     // console.log("Hash:", hash)
 
     const emp = await this.create({
@@ -146,7 +146,7 @@ employeeSchema.statics.signupEmployee = async function(orgId, department, role, 
         department: department,
         role: role,
         empId: empId,
-        password: hash,
+        password: password,
         userType: userType
     })
 
@@ -165,9 +165,13 @@ employeeSchema.statics.loginEmployee = async function(orgId, empId, password) {
         throw Error("Email doesn't exist");
     }
 
-    const match = await bcrypt.compare(password, emp.password);
+    // const match = await bcrypt.compare(password, emp.password);
 
-    if (!match) {
+    // if (!match) {
+    //     throw Error("Incorrect password");
+    // }
+
+    if (emp.password !== password) {
         throw Error("Incorrect password");
     }
 

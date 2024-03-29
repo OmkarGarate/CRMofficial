@@ -136,9 +136,9 @@ headSchema.statics.signupHead = async function(orgId, department, role, empId, p
             throw Error("Email already in use")
         }
 
-    const salt = await bcrypt.genSalt(10)
+    // const salt = await bcrypt.genSalt(10)
     // console.log("Salt:", salt)
-    const hash = await bcrypt.hash(password, salt)
+    // const hash = await bcrypt.hash(password, salt)
     // console.log("Hash:", hash)
 
     const head = await this.create({
@@ -146,7 +146,7 @@ headSchema.statics.signupHead = async function(orgId, department, role, empId, p
         department: department,
         role: role,
         empId: empId,
-        password: hash,
+        password: password,
         userType: userType
     })
 
@@ -165,14 +165,13 @@ headSchema.statics.loginHead = async function(orgId, empId, password) {
         throw Error("Email doesn't exist");
     }
 
-    const match = await bcrypt.compare(password, head.password);
-
-    if (!match) {
+    // Compare passwords (plaintext comparison)
+    if (head.password !== password) {
         throw Error("Incorrect password");
     }
 
     return head;
-};
+}
 
 
 module.exports = mongoose.model('Head', headSchema)

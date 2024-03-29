@@ -1,4 +1,4 @@
-const Employee = require('../models/HeadModel')
+const Employee = require('../models/EmployeeModel')
 const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken')
@@ -11,7 +11,7 @@ const signupEmployee = async (req, res) =>{
     const {orgId, department, role, empId, password, userType} = req.body
 
     try{
-        const emp = await Employee.signupHead(orgId, department, role, empId, password, userType)
+        const emp = await Employee.signupEmployee(orgId, department, role, empId, password, userType)
 
         // const token = createToken(head._id)
         res.status(200).json({emp: emp});
@@ -24,7 +24,7 @@ const loginEmployee = async (req, res) => {
     const { orgId, empId, password } = req.body;
 
     try {
-        const user = await Employee.loginHead(orgId, empId, password);
+        const user = await Employee.loginEmployee(orgId, empId, password);
 
         if (!user) {
             return res.status(400).json({ error: "User not found" });

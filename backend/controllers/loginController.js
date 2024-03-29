@@ -33,7 +33,7 @@ const Head = require('../models/HeadModel')
                 }
             } else if (emp) {
                 try {
-                    await Employee.loginEmp(orgId, empId, password);
+                    await Employee.loginEmployee(orgId, empId, password);
                     const token = createToken(emp._id);
                     res.status(200).json({ user: emp, token });
                 } catch (error) {
