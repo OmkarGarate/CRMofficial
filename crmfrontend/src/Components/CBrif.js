@@ -191,10 +191,50 @@ useEffect(()=>{
     }
 }
 
+    const [heads, setHeads] = useState('')
+
+    useEffect(()=>{
+        const fetchHeads = async ()=>{
+            const response = await fetch('http://localhost:4000/heads/getAllHeads')
+
+            const json = await response.json()
+            if(response.ok)
+            {
+                setHeads(json)
+            }
+            console.log("Heads",json)
+        }
+
+        if(user)
+        {
+            fetchHeads()
+        }
+        
+    }, [user])
+
   return (
     <div className='cbpInfo'>
       <div className="cbTop">
             <p style={pi}>Company Brif</p>
+        </div>
+        <div className="allHeads">
+            <table>
+                <tr>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Employee ID</th>
+                    <th>Password</th>
+                </tr>
+                {heads && heads.map((head, index)=>(
+                    <tr key={index}>
+                        <td>{head.department}</td>
+                        <td>{head.role}</td>
+                        <td>{head.empId}</td>
+                        <td>{head.password}</td>
+                    </tr>
+                ))}
+                
+            </table>
         </div>
         <div className="drpMain">
           <div className="CbLogo"></div>
