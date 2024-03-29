@@ -68,14 +68,14 @@
             throw Error("Email already in use")
         }
 
-        const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(password, salt)
+        // const salt = await bcrypt.genSalt(10)
+        // const hash = await bcrypt.hash(password, salt)
 
         const org = await this.create({
             fullName: fullName,
             email: email,
             phoneNumber: phoneNumber,
-            password: hash,
+            password: password,
             companyName: companyName,
             companyEmail: companyEmail,
             orgId: orgId,
@@ -102,11 +102,17 @@
             throw Error("Incorrect employee ID")
         }
 
-        const match = await bcrypt.compare(password, org.password)
+        // const match = await bcrypt.compare(password, org.password)
 
-        if(!match)
-        {
-            throw Error("Incorrect Password")
+        // if(!match)
+        // {
+        //     throw Error("Incorrect Password")
+        // }
+
+
+         // Compare passwords (plaintext comparison)
+        if (org.password !== password) {
+            throw Error("Incorrect password");
         }
 
         return org

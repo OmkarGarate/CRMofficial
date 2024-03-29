@@ -29,11 +29,10 @@ function App() {
         <Route path='/orgsignup' element={<OrgSignup/>}/>
         <Route path='/profile' element={<Profile/>}>
             <Route path='/profile' element={<DRP/>}>
-              <Route path='/profile/cbp' element={<CBrif/>}/>
-              <Route path='cbpersInfo' element={<CBPersonalInfo/>}/>
+              {/* <Route path='/profile/cbp' element={<CBrif/>}/> */}
+              <Route path='/profile/' element={<CBPersonalInfo/>}/>
               <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
             </Route>
-            
         </Route>
       </Routes>
     </Router>

@@ -153,9 +153,7 @@ useEffect(()=>{
             display: "flex"
           });
           setUserType('Head')
-    }
-
-    if(department2 && role2){
+    }else if(department2 && role2){
         setEmpas({
             display: "flex"
           });
@@ -173,14 +171,26 @@ useEffect(()=>{
   
 
 //   console.log(department, role, empId, password, userType)
-  console.log(department2, role2, userType)
+//   console.log(department2, role2, userType)
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
     if(user.user.userType === 'Org')
     {
         await signupHead(orgId, department, role, empId, password, userType);
+    }
+
+    if(!error){
+        setConf("Successfully Registered!!")
     }else{
+        setErrorM(error || error2)
+    }
+}
+
+const handleSubmit2 = async (e) =>{
+    e.preventDefault()
+    
+    if(user.user.userType === 'Head' && user.user.role === 'Human Resource Head2'){
         await signupEmp(orgId, department2, role2, empId, password, userType);
     }
 
@@ -191,14 +201,56 @@ useEffect(()=>{
     }
 }
 
+
+    const [heads, setHeads] = useState('')
+
+    useEffect(() => {
+        const fetchHeads = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/heads/getAllHeads');
+                if (response.ok) {
+                    const json = await response.json();
+                    // Sort the heads in descending order based on the _id field
+                    const sortedHeads = json.sort((a, b) => b._id.localeCompare(a._id));
+                    setHeads(sortedHeads);
+                }
+            } catch (error) {
+                console.error('Error fetching heads:', error);
+            }
+        };
+        
+    
+        if (user) {
+            fetchHeads();
+        }
+    }, [user]);
+    
+
   return (
     <div className='cbpInfo'>
       <div className="cbTop">
             <p style={pi}>Company Brif</p>
         </div>
+                <div className="allHeads">
+                    <div className="ahHead">
+                        <p>Department</p>
+                        <p>Role</p>
+                        <p>Employee ID</p>
+                        <p>Password</p>
+                    </div>
+                {heads && heads.map((head, index) => (
+                    <div key={index} className='ahDetails'>
+                        <p>{head.department}</p>
+                        <p>{head.role}</p>
+                        <p>{head.empId}</p>
+                        <p>{head.password}</p>
+                    </div>
+                ))}
+                </div>  
+
         <div className="drpMain">
           <div className="CbLogo"></div>
-          <form action="" className='drpForm' onSubmit={handleSubmit}>
+          <form action="" className='drpForm' onSubmit={user.user.userType === 'Org'? handleSubmit : handleSubmit2}>
             {user && user.user.userType === "Org" ? (
                 <>
                 <div className="labDrop">

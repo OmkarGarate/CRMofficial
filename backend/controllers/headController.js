@@ -44,10 +44,14 @@ const loginHead = async (req, res) => {
     }
 };
 
-const getAllHeads = async(req, res) =>{
-    const heads = await Head.find({}).sort({createdAt: -1})
-    res.status(200).json(heads)
-}
+const getAllHeads = async (req, res) => {
+    try {
+        const heads = await Head.find({}).sort({ createdAt: 1 });
+        res.status(200).json(heads);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getOneHead = async(req, res) =>{
     const {id} = req.params
