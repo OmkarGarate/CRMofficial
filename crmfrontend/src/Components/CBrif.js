@@ -46,6 +46,7 @@ function CBrif() {
     transform: "translateX(-200px)",
     opacity: "0",
     animation: "none",
+    backgroundColor: '#fdd5d5'
   });
   const [department, setDepartment] = useState("");
   const [role, setRole] = useState("");
@@ -139,7 +140,8 @@ function CBrif() {
   useEffect(() => {
     setTimeout(() => {
       setPi({
-        animation: "fadeIn 0.3s ease-in-out",
+          animation: "fadeIn 0.3s ease-in-out",
+        backgroundColor: '#fdd5d5'
       });
     }, 200);
 

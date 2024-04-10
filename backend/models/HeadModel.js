@@ -3,7 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const headSchema = mongoose.Schema({
-    fistName:{
+    firstName:{
         type: String
     },
     middleName: {

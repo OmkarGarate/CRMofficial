@@ -10,8 +10,6 @@ function DRP() {
   const { user } = useAuthContext();
   const [ud, setUd] = useState(false);
 
-  
-
   useEffect(()=>{
     if(user && user.user)
   {
@@ -31,7 +29,7 @@ function DRP() {
         {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (
           <CBrif />
         ) : (
-          // <CBPersonalInfo />
+          // <CBPersonalInfo /> 
           <Outlet/>
         )
         }
