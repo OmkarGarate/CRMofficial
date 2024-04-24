@@ -10,11 +10,20 @@ function CBProfessionalInfo() {
     opacity: "0",
     animation: "none"
   })
+  const [pi2, setPi2] = useState({
+    transform: "translateX(-200px)",
+    opacity: "0",
+    animation: "none"
+  })
 
   useEffect(()=>{
     setTimeout(() => {
       setPi({
-        animation: "fadeIn 0.3s ease-in-out"
+        animation: "fadeIn 0.3s ease-in-out",
+        backgroundColor: "rgb(253, 213, 213)"
+      })
+      setPi2({
+        animation: "fadeIn 0.3s ease-in-out",
       })
     }, 200);
   }, [])
@@ -42,11 +51,12 @@ function CBProfessionalInfo() {
     <>
     <div className='cbpInfo'>
         <div className="cbTop">
-            <p>Company Brif</p>
+          <Link to={'/profile/'}><p>Company Brif</p></Link>
             <img src={rightArrow} alt="rightArrow" />
-            <p>Personal Info</p>
-            <img src={rightArrow} alt="rightArrow" style={pi}/>
-            <p style={pi}>Professional Info</p>
+            <Link to={'/profile/cbp'}><p>Personal Info</p></Link>
+            <img src={rightArrow} alt="rightArrow" style={pi2}/>
+            <Link to={'cbprofinfo'}><p style={pi}>Professional Info</p></Link>
+            
         </div>
         <form className="cpInMain cpInMainn">
             <div className="cpms cpmss">

@@ -254,7 +254,7 @@ function CBrif() {
   return (
     <div className="cbpInfo">
       <div className="cbTop">
-        <p style={pi}>Company Brif</p>
+        <Link to={'/profile/'}><p style={pi}>Company Brif</p></Link>
       </div>
 
       <div className="ahdMain">

@@ -39,6 +39,10 @@ const employeeSchema = mongoose.Schema({
         type: String,
         default: ""
     },
+    nationality: {
+        type: String,
+        default: ""
+    },
     age:{
         type: String,
         default: ""

@@ -4,12 +4,19 @@ import rightArrow from '../Images/rgtarrow.png'
 import profileDefault from '../Images/login3profile.png'
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function CBPersonalInfo() {
   const {user} = useAuthContext();
+  const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
-    const [selectedBloodGroup, setSelectedBloodGroup] = useState('');
+    const [selectedBloodGroup, setSelectedBloodGroup] = useState(user.user.bloodGroup);
     const [pi, setPi] = useState({
+      transform: "translateX(-200px)",
+    opacity: "0",
+      animation: "none"
+    })
+    const [pi2, setPi2] = useState({
       transform: "translateX(-200px)",
     opacity: "0",
       animation: "none"
@@ -18,6 +25,10 @@ function CBPersonalInfo() {
     useEffect(()=>{
       setTimeout(() => {
         setPi({
+          animation: "fadeIn 0.3s ease-in-out",
+          backgroundColor: "rgb(253, 213, 213)"
+        })
+        setPi2({
           animation: "fadeIn 0.3s ease-in-out"
         })
       }, 200);
@@ -48,6 +59,7 @@ function CBPersonalInfo() {
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
     setMaritalStatus(event.target.value)
+    // console.log(maritalStatus)
   };
 
   useEffect(()=>{
@@ -68,83 +80,119 @@ function CBPersonalInfo() {
   const [address, setAddress] = useState('')
   const [pinCode, setPinCode] = useState('')
   const [age, setAge] = useState('')
-  const [bloodGroup, setBloodGroup] = useState('')
+  const [bloodGroup, setBloodGroup] = useState(selectedBloodGroup)
   const [gender, setGender] = useState('')
   const [religion, setReligion] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [maritalStatus, setMaritalStatus] = useState('')
+  const [nationality, setNationality] = useState('')
+  const [error, setError] = useState(null)
+  const [conf, setConf] = useState('')
+  const [profUrl, setProfUrl] = useState('')
 
 
   useEffect(()=>{
 
     const fetchData = async ()=>{
-      const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`)
-
-      const json = await response.json()
-
-      if(response.ok)
-      {
-        setProfilePic(json.profilePic)
-        setFirstName(json.firstName)
-        setMiddleName(json.middleName)
-        setSurname(json.surname)
-        setMobileNumber(json.mobileNumber)
-        setAlternateMobileNumber(json.alternateMobileNumber)
-        setEmail(json.email)
-        setAddress(json.address)
-        setPinCode(json.pinCode)
-        setAge(json.age)
-        setBloodGroup(json.bloodGroup)
-        setGender(json.gender)
-        setReligion(json.religion)
-        setDateOfBirth(json.dateOfBirth)
-        setMaritalStatus(json.maritalStatus)
+      try {
+        const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
+        const json = await response.json();
+  
+        if (response.ok) {
+          setProfilePic(user.user.profilePic);
+          console.log("prof2", profilePic)
+          setFirstName(user.firstName);
+          setMiddleName(user.middleName);
+          setSurname(user.surname);
+          setMobileNumber(user.mobileNumber);
+          setAlternateMobileNumber(user.alternateMobileNumber);
+          setEmail(user.email);
+          setAddress(user.address);
+          setPinCode(user.pinCode);
+          setNationality(user.nationality);
+          setAge(user.age);
+          setBloodGroup(user.bloodGroup);
+          setGender(user.gender);
+          setReligion(user.religion);
+          setDateOfBirth(user.dateOfBirth);
+          setMaritalStatus(user.maritalStatus);
+        } else {
+          setError(json.error);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data. Please try again later.");
       }
     }
 
     if(user)  
       {
-        fetchData()
+        fetchData();
       }
-  }, [user])
+  }, [user, user.user]);
 
 const handleSubmit = async(e) =>{
       e.preventDefault()
 
+      console.log("prof2",profilePic)
       const formData = new FormData()
-      formData.append(profilePic)
-      formData.append(firstName)
-      formData.append(middleName)
-      formData.append(mobileNumber)
-      formData.append(alternateMobileNumber)
-      formData.append(email)
-      formData.append(address)
-      formData.append(pinCode)
-      formData.append(age)
-      formData.append(bloodGroup)
-      formData.append(gender)
-      formData.append(religion)
-      formData.append(dateOfBirth)
-      formData.append(maritalStatus)
+      formData.append("uploaded_file", profilePic)
+      formData.append("firstName", firstName)
+      formData.append("middleName", middleName)
+      formData.append("surname", surname)
+      formData.append("mobileNumber", mobileNumber)
+      formData.append("alternateMobileNumber", alternateMobileNumber)
+      formData.append("email", email)
+      formData.append("address", address)
+      formData.append("pinCode", pinCode)
+      formData.append("nationality", nationality)
+      formData.append("age", age)
+      formData.append("bloodGroup", bloodGroup)
+      formData.append("gender", gender)
+      formData.append("religion", religion)
+      formData.append("dateOfBirth", dateOfBirth)
+      formData.append("maritalStatus", maritalStatus)
+      console.log("formdata", formData)
 
-      try{
+      try {
         const response = await fetch(`http://localhost:4000/employees/updateEmployee/${user.user._id}`, {
-          method: 'PATCH',
-          body: formData
+            method: 'PATCH',
+            body: formData
         });
-      }catch(error){
-          
-      }
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setError(json.error);
+        } else {
+            setError(null);
+            setConf("Successfully updated the profile's part 1");
+            console.log("updated", json);
+        }
+    } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+    }
 }
 
-  // console.log("user data: ", user) 
+// console.log("up", user.user.profilePic)
+  console.log("user data: ", user) 
+
+  const goToNext = () =>{
+    setTimeout(() => {
+      navigate('/profile/cbprofinfo')
+    }, 1000);
+  }
+
+  console.log(profUrl)
 
   return (
     <div className='cbpInfo'>
         <div className="cbTop">
-            <p>Company Brif</p>
-            <img src={rightArrow} alt="rightArrow" style={pi}/>
-            <p style={pi}>Personal Info</p>
+          <Link to={'/profile/'}><p>Company Brif</p></Link>
+            <img src={rightArrow} alt="rightArrow" style={pi2}/>
+            <Link to={'/profile/cbp'}><p style={pi}>Personal Info</p></Link>
+            
             {/* <img src={rightArrow} alt="rightArrow" />
             <p>Professional Info</p>
             <img src={rightArrow} alt="rightArrow" />
@@ -154,17 +202,29 @@ const handleSubmit = async(e) =>{
           method="post" onSubmit={handleSubmit}>
             <div className="cpms">
             <div className="cpm">
-                <div className="upImg">
-                    <img src={profilePic === '' ? profileDefault : `http://localhost:4000/uploads/${user.user.profilePic}`} alt="profileDefault" />
-                    {/* <input type="file" id='uploadImage'/> */}
-                    <input
-                      type="file"
-                      className="form-control-file"
-                      name="uploaded_file"
-                      onChange={(e) => setProfilePic(e.target.files[0])}
-                    />
-                    <label htmlFor="uploadImage">Upload Image</label>
-                </div>
+            <div className="upImg">
+              <img src={
+                // user.user.profilePic === "" && profUrl === "" ? 
+                // profileDefault : 
+                // profUrl !== "" ? 
+                // profUrl : 
+                `http://localhost:4000/uploads/${user.user.profilePic}`} 
+                alt="profileDefault" 
+              />
+
+              {/* <img src={`http://localhost:4000/uploads/${user.user.profilePic}`} alt="" /> */}
+              <input
+                type="file"
+                className="form-control-file"
+                name="uploaded_file"
+                onChange={(e) => {
+                  setProfilePic(e.target.files[0])
+                  setProfUrl(URL.createObjectURL(e.target.files[0]));
+                }}
+                id='upImg'
+              />
+              <label htmlFor="upImg">Upload Image</label>
+            </div>
                 <input type="text" placeholder='First Name' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
                 <input type="text" placeholder='Middle Name' value={middleName} onChange={(e)=>setMiddleName(e.target.value)}/>
                 <input type="text" placeholder='Surname' value={surname} onChange={(e)=>setSurname(e.target.value)}/>
@@ -175,7 +235,7 @@ const handleSubmit = async(e) =>{
             <div className="cpm">
                 <input type="text" placeholder='Residential Address' value={address} onChange={(e)=>setAddress(e.target.value)}/>
                 <input type="text" placeholder='PIN code' value={pinCode} onChange={(e)=>setPinCode(e.target.value)}/>
-                <input type="text" placeholder='Nationality'/>
+                <input type="text" placeholder='Nationality'value={nationality} onChange={(e)=>setNationality(e.target.value)}/>
                 <div className="abg">
                     <input type="text" placeholder='Age' value={age} onChange={(e)=>setAge(e.target.value)}/>
                     <select className='bldg' value={selectedBloodGroup} onChange={handleChange} >
@@ -230,10 +290,20 @@ const handleSubmit = async(e) =>{
             <div className="prevNext">
                 {/* <button>Previous</button> */}
               {isHO ? (
-                <Link to={'/profile'}><button className='previous'>Previous</button></Link>
+                <Link to={'/profile'}>
+                  <button className='previous'>Previous</button>
+                  </Link>
 
               ):(null)}
-                <Link to={'/profile/cbprofinfo'}><button className='next'>Next</button></Link>
+                
+                  <button className='next' onClick={goToNext}>
+                  {/* <Link to={'/profile/cbprofinfo'}> */}
+                    Next
+                    {/* </Link> */}
+                    </button>
+                  
+                {/* <button className='next'>Next</button> */}
+                {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
             </div>
         </form>
     </div>

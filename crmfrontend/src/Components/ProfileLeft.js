@@ -7,7 +7,7 @@ function ProfileLeft() {
     <>
     <div className="subLogin1 pLHeading">
       <img src={crmlogo} alt="" />
-    <h1>Complete your<br/> <span>Profile</span> </h1>
+      <Link to={'/profile/'}><h1>Complete your<br/> <span>Profile</span> </h1></Link>
     </div>
     </>
   )

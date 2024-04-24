@@ -11,9 +11,11 @@ import DRP from './Components/DRP';
 import { useAuthContext } from './hooks/useAuthContext';
 import CBrif from './Components/CBrif';
 import '../src/css/mq.css'
+import { useState } from 'react';
 
 function App() {
   const {user} = useAuthContext()
+  // console.log("app",user)
 
   return (
     // <>
@@ -29,7 +31,11 @@ function App() {
         <Route path='/orgsignup' element={<OrgSignup/>}/>
         <Route path='/profile' element={<Profile/>}>
             <Route path='/profile' element={<DRP/>}>
-              {/* <Route path='/profile/cbp' element={<CBrif/>}/> */}
+              {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (
+                  <Route path='/profile/' element={<CBrif/>}/>
+              ):(
+                null
+              )}
               <Route path='/profile/' element={<CBPersonalInfo/>}/>
               <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
             </Route>

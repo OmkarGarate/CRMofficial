@@ -45,6 +45,11 @@
 .subLogin1 h1{
     color: #800000;
     font-weight: 400;
+    
+}
+
+.subLogin1 a{
+    text-decoration: none;
 }
 
 .subLogin1 span{
