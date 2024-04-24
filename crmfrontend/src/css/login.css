@@ -13,6 +13,8 @@
     justify-content: center;
     width: 100%;
     height: 100vh;
+    position: relative;
+    z-index: 25;
 }
 
 .login{
@@ -29,13 +31,42 @@
 }
 
 .subLogin1{
-    width: 80%;
-    margin: 40px auto;
-    height: 85%;
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: column;
+        /* width: 80%; */
+        margin: 40px auto;
+        height: 88%;
+        /* border: 1px solid black; */
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        position: fixed;
+}
+
+.sbl1{
     justify-content: space-between;
+    position: static;
+    width: 80%;
+}
+
+.subLogin1 .logoutBtn{
+    /* border: 1px solid black; */
+    border: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #800000;
+    font-size: 1rem;
+    /* border: 1px solid black; */
+    padding: 10px 25px;
+    background-color: rgb(253, 213, 213);
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.subLogin1 .logoutBtn:hover{
+    background-color: rgb(255, 200, 200);
 }
 
 .crmlogo{
@@ -107,6 +138,14 @@
     justify-content: space-evenly;
     flex-direction: column;
     /* align-items: center; */
+}
+
+.subLogin3 .profileImg{
+    width: 70px;
+    height: 70px;
+    border-radius: 50px;
+    object-fit: cover;
+    margin: 0 auto;
 }
 
 .subLogin3 h1{

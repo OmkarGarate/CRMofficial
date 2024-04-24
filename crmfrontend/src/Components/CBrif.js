@@ -176,6 +176,7 @@ function CBrif() {
     e.preventDefault();
     if (user.user.userType === "Org") {
       await signupHead(orgId, department, role, empId, password, userType);
+      fetchHeads()
     }
 
     if (!error) {
@@ -193,6 +194,7 @@ function CBrif() {
       user.user.role === "Human Resource Head2"
     ) {
       await signupEmp(orgId, department2, role2, empId, password, userType);
+      fetchEmps()
     }
 
     if (!error) {
@@ -205,40 +207,42 @@ function CBrif() {
   const [heads, setHeads] = useState("");
   const [ehText, setEhText] = useState("");
 
-  useEffect(() => {
-    const fetchHeads = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/heads/getAllHeads");
-        if (response.ok) {
-          const json = await response.json();
-          // Sort the heads in descending order based on the _id field
-          const sortedHeads = json.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-          );
-          setHeads(sortedHeads);
-        }
-      } catch (error) {
-        console.error("Error fetching heads:", error);
-      }
-    };
-
-    const fetchEmps = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:4000/employees/getAllEmployees"
+  const fetchHeads = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/heads/getAllHeads");
+      if (response.ok) {
+        const json = await response.json();
+        // Sort the heads in descending order based on the _id field
+        const sortedHeads = json.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-        if (response.ok) {
-          const json = await response.json();
-          // Sort the heads in descending order based on the _id field
-          const sortedHeads = json.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-          );
-          setHeads(sortedHeads);
-        }
-      } catch (error) {
-        console.error("Error fetching heads:", error);
+        setHeads(sortedHeads);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching heads:", error);
+    }
+  };
+
+  const fetchEmps = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/employees/getAllEmployees"
+      );
+      if (response.ok) {
+        const json = await response.json();
+        // Sort the heads in descending order based on the _id field
+        const sortedHeads = json.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setHeads(sortedHeads);
+      }
+    } catch (error) {
+      console.error("Error fetching heads:", error);
+    }
+  };
+
+  useEffect(() => {
+    
 
     if (user.user.userType === "Org") {
       fetchHeads();
@@ -253,6 +257,8 @@ function CBrif() {
 
   return (
     <div className="cbpInfo">
+      
+      
       <div className="cbTop">
         <Link to={'/profile/'}><p style={pi}>Company Brif</p></Link>
       </div>

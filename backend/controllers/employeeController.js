@@ -4,18 +4,6 @@ const multer = require('multer')
 
 const jwt = require('jsonwebtoken')
 
-let storage = multer.diskStorage({
-    destination: './uploads',
-    filename: (req, file, cb)=>{
-        // cb(null, Date.now(+file+originalname))
-        cb(null, file.originalname)
-    }
-})
-
-let upload = multer({
-    storage: storage
-})
-
 const createToken = (_id) =>{
     return jwt.sign({_id}, process.env.SECRET, {expiresIn: "1d"})
 }

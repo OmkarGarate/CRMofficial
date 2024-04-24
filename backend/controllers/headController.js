@@ -63,6 +63,28 @@ const getOneHead = async(req, res) =>{
     res.status(200).json(head)
 }
 
+const updateHead = async(req, res) =>{
+    try{
+        const {id} = req.params
+        let updateData = { ...req.body }
+
+        if(req.file){
+            // console.log("file is here")
+            updateData.profilePic = req.file.filename;
+        }
+
+        const head = await Head.findOneAndUpdate({_id: id}, updateData, {new: true})
+
+        if(!head){
+            return res.status(404).json({error: "No such Head"});
+        }
+
+        res.status(200).json(head)
+    }catch(error){
+        console.error("Error updating head profile:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+}
 
 
-module.exports = {signupHead, loginHead, getAllHeads, getOneHead};
+module.exports = {signupHead, loginHead, getAllHeads, getOneHead, updateHead};

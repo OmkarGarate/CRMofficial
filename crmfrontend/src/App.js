@@ -12,6 +12,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 import CBrif from './Components/CBrif';
 import '../src/css/mq.css'
 import { useState } from 'react';
+import CbpNew from './Components/CbpNew';
 
 function App() {
   const {user} = useAuthContext()
@@ -26,13 +27,19 @@ function App() {
     // </>
     <Router>
       <Loader/>
+      {!user ? <div className="pageCover"></div> : null}
       <Routes>
         <Route path='/' element={<Login/>}/>
+        
         <Route path='/orgsignup' element={<OrgSignup/>}/>
         <Route path='/profile' element={<Profile/>}>
             <Route path='/profile' element={<DRP/>}>
               {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (
-                  <Route path='/profile/' element={<CBrif/>}/>
+                <>
+                <Route path='/profile/' element={<CBrif/>}/>
+                  <Route path='/profile/cbpPer' element={<CBPersonalInfo/>}/>
+                  <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
+                </>
               ):(
                 null
               )}

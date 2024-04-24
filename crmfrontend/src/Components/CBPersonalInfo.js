@@ -10,7 +10,6 @@ function CBPersonalInfo() {
   const {user} = useAuthContext();
   const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
-    const [selectedBloodGroup, setSelectedBloodGroup] = useState(user.user.bloodGroup);
     const [pi, setPi] = useState({
       transform: "translateX(-200px)",
     opacity: "0",
@@ -35,42 +34,30 @@ function CBPersonalInfo() {
     }, [])
 
     const handleChange = (event) => {
-      setSelectedBloodGroup(event.target.value);
-      setBloodGroup(event.target.value)
+      setBloodGroup(event.target.value);
     };
 
-    const [selectedGender, setSelectedGender] = useState('');
-
   const handleGenderChange = (event) => {
-    setSelectedGender(event.target.value);
     setGender(event.target.value)
   };
 
-
-  const [selectedReligion, setSelectedReligion] = useState('');
-
   const handleReligionChange = (event) => {
-    setSelectedReligion(event.target.value);
     setReligion(event.target.value)
   };
 
-  const [selectedStatus, setSelectedStatus] = useState('');
-
   const handleStatusChange = (event) => {
-    setSelectedStatus(event.target.value);
     setMaritalStatus(event.target.value)
-    // console.log(maritalStatus)
   };
 
   useEffect(()=>{
-    if(user.user.role === "Human Resource Head2" || user.user.userType === "Org")
+    if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
     {
       setIsHO(!isHO)
     }
   }, [user])
 
   //update emp logic
-  const [profilePic, setProfilePic] = useState('')
+  const [profilePic, setProfilePic] = useState(`http://localhost:4000/uploads/login3profile.png`)
   const [firstName, setFirstName] = useState('')
   const [middleName, setMiddleName] = useState('')
   const [surname, setSurname] = useState('')
@@ -80,7 +67,7 @@ function CBPersonalInfo() {
   const [address, setAddress] = useState('')
   const [pinCode, setPinCode] = useState('')
   const [age, setAge] = useState('')
-  const [bloodGroup, setBloodGroup] = useState(selectedBloodGroup)
+  const [bloodGroup, setBloodGroup] = useState('')
   const [gender, setGender] = useState('')
   const [religion, setReligion] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState('')
@@ -90,51 +77,96 @@ function CBPersonalInfo() {
   const [conf, setConf] = useState('')
   const [profUrl, setProfUrl] = useState('')
 
-
   useEffect(()=>{
 
-    const fetchData = async ()=>{
-      try {
-        const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
-        const json = await response.json();
-  
-        if (response.ok) {
-          setProfilePic(user.user.profilePic);
-          console.log("prof2", profilePic)
-          setFirstName(user.firstName);
-          setMiddleName(user.middleName);
-          setSurname(user.surname);
-          setMobileNumber(user.mobileNumber);
-          setAlternateMobileNumber(user.alternateMobileNumber);
-          setEmail(user.email);
-          setAddress(user.address);
-          setPinCode(user.pinCode);
-          setNationality(user.nationality);
-          setAge(user.age);
-          setBloodGroup(user.bloodGroup);
-          setGender(user.gender);
-          setReligion(user.religion);
-          setDateOfBirth(user.dateOfBirth);
-          setMaritalStatus(user.maritalStatus);
-        } else {
-          setError(json.error);
+    if(user && user.user.userType === 'Employee')
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
+          const json = await response.json();
+    
+          if (response.ok) {
+            setProfilePic(json.profilePic);
+            console.log("prof2", json.profilePic)
+            setFirstName(json.firstName);
+            setMiddleName(json.middleName);
+            setSurname(json.surname);
+            setMobileNumber(json.mobileNumber);
+            setAlternateMobileNumber(json.alternateMobileNumber);
+            setEmail(json.email);
+            setAddress(json.address);
+            setPinCode(json.pinCode);
+            setNationality(json.nationality);
+            setAge(json.age);
+            setBloodGroup(json.bloodGroup);
+            setGender(json.gender);
+            setReligion(json.religion);
+            setDateOfBirth(json.dateOfBirth);
+            setMaritalStatus(json.maritalStatus);
+            
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setError("Error fetching user data. Please try again later.");
       }
+  
+      if(user)  
+        {
+          fetchData();
+        }
+    }else if(user && user.user.userType === 'Head')
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
+          const json = await response.json();
+    
+          if (response.ok) {
+            setProfilePic(json.profilePic);
+            console.log("prof2", json.profilePic)
+            setFirstName(json.firstName);
+            setMiddleName(json.middleName);
+            setSurname(json.surname);
+            setMobileNumber(json.mobileNumber);
+            setAlternateMobileNumber(json.alternateMobileNumber);
+            setEmail(json.email);
+            setAddress(json.address);
+            setPinCode(json.pinCode);
+            setNationality(json.nationality);
+            setAge(json.age);
+            setBloodGroup(json.bloodGroup);
+            setGender(json.gender);
+            setReligion(json.religion);
+            setDateOfBirth(json.dateOfBirth);
+            setMaritalStatus(json.maritalStatus);
+            
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
+        }
+      }
+  
+      if(user)  
+        {
+          fetchData();
+        }
     }
+    
 
-    if(user)  
-      {
-        fetchData();
-      }
-  }, [user, user.user]);
+  }, [user]);
+
 
 const handleSubmit = async(e) =>{
       e.preventDefault()
 
-      console.log("prof2",profilePic)
+      // console.log("prof2",profilePic)
       const formData = new FormData()
       formData.append("uploaded_file", profilePic)
       formData.append("firstName", firstName)
@@ -155,7 +187,11 @@ const handleSubmit = async(e) =>{
       console.log("formdata", formData)
 
       try {
-        const response = await fetch(`http://localhost:4000/employees/updateEmployee/${user.user._id}`, {
+        const response = await fetch(
+          user && user.user.userType === 'Head' ? `http://localhost:4000/heads/updateHead/${user.user._id}` : 
+          `http://localhost:4000/employees/updateEmployee/${user.user._id}`
+          // `http://localhost:4000/employees/updateEmployee/${user.user._id}` 
+          , {
             method: 'PATCH',
             body: formData
         });
@@ -165,27 +201,34 @@ const handleSubmit = async(e) =>{
         if (!response.ok) {
             setError(json.error);
         } else {
-            setError(null);
+            setError('');
             setConf("Successfully updated the profile's part 1");
             console.log("updated", json);
         }
     } catch (error) {
+
         console.error("Error during form submission:", error);
         setError("Error during form submission. Please try again later.");
     }
 }
 
 // console.log("up", user.user.profilePic)
-  console.log("user data: ", user) 
+  // console.log("user data: ", user) 
+  // console.log("dateOfBirth", dateOfBirth)
 
-  const goToNext = () =>{
-    setTimeout(() => {
-      navigate('/profile/cbprofinfo')
-    }, 1000);
+  const goToPrev = () =>{
+    if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
+    {
+      navigate('/profile/')
+    }
   }
 
-  console.log(profUrl)
-
+  const goToNext = () =>{
+    // setTimeout(() => {
+      navigate('/profile/cbprofinfo')
+    // }, 1000);
+  }
+console.log(user)
   return (
     <div className='cbpInfo'>
         <div className="cbTop">
@@ -198,21 +241,28 @@ const handleSubmit = async(e) =>{
             <img src={rightArrow} alt="rightArrow" />
             <p>Documents</p> */}
         </div>
-        <form className="cpInMain" encType="multipart/form-data"
-          method="post" onSubmit={handleSubmit}>
+        <form className="cpInMain"
+            encType="multipart/form-data"
+            method="post"
+            onSubmit={handleSubmit}
+            >
             <div className="cpms">
             <div className="cpm">
             <div className="upImg">
-              <img src={
-                // user.user.profilePic === "" && profUrl === "" ? 
-                // profileDefault : 
-                // profUrl !== "" ? 
-                // profUrl : 
-                `http://localhost:4000/uploads/${user.user.profilePic}`} 
-                alt="profileDefault" 
-              />
+                {/* <img src={
+                  user.user.profilePic === "" && profUrl === "" ? 
+                  profileDefault : 
+                  profUrl !== "" ? 
+                  profUrl : 
+                  `http://localhost:4000/uploads/${user.user.profilePic}`
+                } 
+                  alt="profileDefault" 
+                /> */}
+              
 
-              {/* <img src={`http://localhost:4000/uploads/${user.user.profilePic}`} alt="" /> */}
+              <img src={
+                profilePic === "" && profUrl === "" ? profileDefault : profUrl != "" ? profUrl : 
+                `http://localhost:4000/uploads/${profilePic}`} alt="" />
               <input
                 type="file"
                 className="form-control-file"
@@ -238,45 +288,58 @@ const handleSubmit = async(e) =>{
                 <input type="text" placeholder='Nationality'value={nationality} onChange={(e)=>setNationality(e.target.value)}/>
                 <div className="abg">
                     <input type="text" placeholder='Age' value={age} onChange={(e)=>setAge(e.target.value)}/>
-                    <select className='bldg' value={selectedBloodGroup} onChange={handleChange} >
-                    <option value="">Blood Group</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
+                    <select className='bldg' value={bloodGroup} onChange={handleChange} >
+                      <option value="">Blood Group</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
                     </select>
+
                 </div>
                 <div className="abg genRel">
-                    <select name="" id=""  value={selectedGender} onChange={handleGenderChange}>
+                    <select name="" id="" value={gender} onChange={handleGenderChange}>
                     <option value="">Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                     </select>
-                    <select name="" id="" value={selectedReligion} onChange={handleReligionChange}>
-                    <option value="">Religion</option>
-                    <option value="christianity">Christianity</option>
-                    <option value="islam">Islam</option>
-                    <option value="hinduism">Hinduism</option>
-                    <option value="buddhism">Buddhism</option>
-                    <option value="sikhism">Sikhism</option>
-                    <option value="judaism">Judaism</option>
-                    <option value="other">Other</option>
+                    <select name="" id="" value={religion} onChange={handleReligionChange}>
+                      <option value="">Religion</option>
+                      <option value="christianity">Christianity</option>
+                      <option value="islam">Islam</option>
+                      <option value="hinduism">Hinduism</option>
+                      <option value="buddhism">Buddhism</option>
+                      <option value="sikhism">Sikhism</option>
+                      <option value="judaism">Judaism</option>
+                      <option value="other">Other</option>
                     </select>
                 </div>
                 <div className="dob">
                     <label htmlFor="">Date of Birth</label>
-                    <div className="dobIn">
-                        <input type="number" placeholder='DD'/>/
-                        <input type="number" placeholder='MM'/>/
-                        <input type="number" placeholder='YYYY'/>
-                    </div>
+                    {/* <div className="dobIn">
+                        <input type="number" placeholder='DD' value={dd} onChange={(e)=>{
+                          setDd(e.target.value)
+                          setDateOfBirth(dd +"-"+ mm +"-"+ yy)
+                        }
+                        }/>/
+                        <input type="number" placeholder='MM' value={mm} onChange={(e)=>{
+                          setMm(e.target.value)
+                          setDateOfBirth(dd +"-"+ mm +"-"+ yy)
+                        }
+                      }/>/
+                        <input type="number" placeholder='YYYY' value={yy} onChange={(e)=>{
+                          setYy(e.target.value)
+                          setDateOfBirth(dd +"-"+ mm +"-"+ yy)
+                          }}/>
+                    </div> */}
+                    <input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
                 </div>
-                <select name="" id="" className='marStat'  value={selectedStatus} onChange={handleStatusChange}>
+                <select name="" id="" className='marStat' value={maritalStatus} onChange={handleStatusChange}>
                     <option value="">Marital Status</option>
                     <option value="single">Single</option>
                     <option value="married">Married</option>
@@ -291,7 +354,7 @@ const handleSubmit = async(e) =>{
                 {/* <button>Previous</button> */}
               {isHO ? (
                 <Link to={'/profile'}>
-                  <button className='previous'>Previous</button>
+                  <button className='previous' onClick={goToPrev}>Previous</button>
                   </Link>
 
               ):(null)}

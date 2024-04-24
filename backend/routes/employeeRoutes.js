@@ -5,6 +5,7 @@ const {signupEmployee, loginEmployee, getAllEmployees, getOneEmployee, updateEmp
 
 const router = express.Router()
 
+//storage and filename setting  
 let storage = multer.diskStorage({
     destination: './uploads',
     filename: (req, file, cb)=>{

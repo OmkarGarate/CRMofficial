@@ -28,7 +28,7 @@ function DRP() {
       
       {ud ? (
        <>
-         <div className="userProfile">{user.user.userType}</div>
+         <div className="userProfile">{user && user.user.userType}</div>
           <Outlet/>
        </>
       ) : (null)}
