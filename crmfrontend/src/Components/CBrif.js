@@ -140,31 +140,51 @@ function CBrif() {
   useEffect(() => {
     setTimeout(() => {
       setPi({
-          animation: "fadeIn 0.3s ease-in-out",
-        backgroundColor: '#fdd5d5'
-      });
+        animation: "fadeIn 0.3s ease-in-out",
+        backgroundColor: "rgb(253, 213, 213)"
+      })
     }, 200);
-
-    if (
-      user.user.role === "Human Resource Head2" ||
-      user.user.userType === "Org"
-    ) {
+    if (user.user.userType === "Org") {
       if (department && role) {
+        // Generate employee ID and password
+        // const empId = generateEmployeeId(firstName);
+        // const password = generatePassword(firstName);
+  
+        // Update state with generated employee ID and password
+        // setEmpId(empId);
+        // setPassword(password);
+  
+        // Show the employee ID and password fields
         setEmpas({
           display: "flex",
         });
         setUserType("Head");
-      } else if (department2 && role2) {
+      }
+    } else if (user.user.role === "Human Resource Head2") {
+      if (department2 && role2) {
+        // // Generate employee ID and password
+        // const empId = generateEmployeeId(firstName);
+        // const password = generatePassword(firstName);
+  
+        // Update state with generated employee ID and password
+        // setEmpId(empId);
+        // setPassword(password);
+  
+        // Show the employee ID and password fields
         setEmpas({
           display: "flex",
         });
         setUserType("Employee");
       }
-      setEmpId(generateEmployeeId(firstName));
-      setPassword(generatePassword(firstName));
     }
   }, [department, role, department2, role2]);
+  
   console.log("empId", empId);
+
+  const generateId = ()=>{
+    setEmpId(generateEmployeeId(firstName));
+      setPassword(generatePassword(firstName));
+  }
 
   const { signupHead, error, isLoading } = useSignupHead();
   const { signupEmp, error2, isLoading2 } = useSignupEmp();
@@ -209,7 +229,7 @@ function CBrif() {
 
   const fetchHeads = async () => {
     try {
-      const response = await fetch("http://localhost:4000/heads/getAllHeads");
+      const response = await fetch(`http://localhost:4000/heads/getOrgHeads/${user.user.orgId}`);
       if (response.ok) {
         const json = await response.json();
         // Sort the heads in descending order based on the _id field
@@ -226,7 +246,7 @@ function CBrif() {
   const fetchEmps = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/employees/getAllEmployees"
+        `http://localhost:4000/employees/getOrgEmp/${user.user.orgId}`
       );
       if (response.ok) {
         const json = await response.json();
@@ -335,7 +355,9 @@ function CBrif() {
                 <select
                   name=""
                   id=""
-                  onChange={(e) => setDepartment2(e.target.value)}
+                  onChange={(e) =>{
+                    setDepartment2(e.target.value);
+                  } }
                 >
                   <option value="">Employee Department</option>
                   <option value="Department 1">Department 1</option>
@@ -348,7 +370,9 @@ function CBrif() {
                 <select
                   name=""
                   id=""
-                  onChange={(e) => setRole2(e.target.value)}
+                  onChange={(e) =>{
+                    setRole2(e.target.value);
+                  } }
                 >
                   <option value="">Employee Role</option>
                   <option value="Role 1">Role 1</option>
@@ -368,6 +392,7 @@ function CBrif() {
             <input type="text" readOnly value={password} />
           </div>
           <div className="prevNext">
+            <div className="gen" onClick={generateId}>Generate</div>
             <button className="next">Create</button>
           </div>
           {!errorM && errorM != "" ? (

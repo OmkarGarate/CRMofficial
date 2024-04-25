@@ -159,6 +159,39 @@ useEffect(()=>{
       {
         fetchData();
       }
+  }else
+  {
+    const fetchData = async ()=>{
+      try {
+        const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
+        const json = await response.json();
+        if (response.ok) {
+          setDateOfJoining(json.dateOfJoining)
+          setWorkExp(json.workExperience)
+          setPrevComp(json.prevCompany)
+          setEducation(json.education)
+          setSoftSkills(json.softSkills)
+          setProfSkills(json.professionalSkills)
+          setOfficeEmail(json.officeEmailId)
+          setOptAcc(json.accommodation)
+          setOfcBranch(json.branch)
+          setEmpType(json.employeeType)
+          setCurrentCTC(json.currentCTC)
+          setEmpBen(json.employeeBenefits)
+          setDateOfLeave(json.dateOfLeave)
+          setSystemUsage(json.systemUsage)
+        } else {
+          setError(json.error);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data. Please try again later.");
+      }
+    }
+    if(user)  
+      {
+        fetchData();
+      }
   }
 
   
@@ -183,34 +216,68 @@ const handleSubmit = async(e) =>{
     formData.append("systemUsage", systemUsage)
     console.log("formdata", formData)
 
-    try {
-      
-      if(user)
+    if(user && user.user.userType === "Head")
       {
-        const response = await fetch(
-          // user && user.user.userType === 'Head' ? 
-          // `http://localhost:4000/heads/updateHead/${user.user._id}` : 
-          // `http://localhost:4000/employees/updateEmployee/${user.user._id}`
-          `http://localhost:4000/heads/updateHead/${user.user._id}`
-          , {
+        try {
+          const response = await fetch(
+            `http://localhost:4000/heads/updateHead/${user.user._id}`
+          ,{
             method: 'PATCH',
             body: formData
-        });
-  
-        const json = await response.json();
-  
-        if (!response.ok) {
-            setError(json.error);
-        } else {
-            setError('');
-            setConf("Successfully updated the profile's part 1");
-            console.log("updated", json);
-        }
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
       }
-  } catch (error) {
-      console.error("Error during form submission:", error);
-      setError("Error during form submission. Please try again later.");
-  }
+      }else if(user && user.user.userType === "Employee"){
+        try {
+          const response = await fetch(
+            `http://localhost:4000/employees/updateEmployee/${user.user._id}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }else{
+        try {
+          const response = await fetch(
+            `http://localhost:4000/orgs/updateOrg/${user.user._id}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }
 }
 
 // console.log("up", user.user.profilePic)
@@ -222,15 +289,15 @@ const goToNext = () =>{
   }, 1000);
 }
 const goToPrev = () =>{
-  if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
-  {
-    navigate('/profile/cbpPer')
-  }else{
-    navigate('/profile/')
-  }
-  // setTimeout(() => {
-    
-  // }, 1000);
+  
+  setTimeout(() => {
+    if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
+    {
+      navigate('/profile/cbpPer')
+    }else{
+      navigate('/profile/')
+    }
+  }, 1000);
 }
 
 
@@ -240,15 +307,16 @@ const goToPrev = () =>{
         <div className="cbTop">
           <Link to={'/profile/'}><p>Company Brif</p></Link>
             <img src={rightArrow} alt="rightArrow" />
-            <Link to={'/profile/cbp'}><p>Personal Info</p></Link>
+            {/* <Link to={'/profile/cbp'}> */}
+              <p>Personal Info</p>
+              {/* </Link> */}
             <img src={rightArrow} alt="rightArrow" style={pi2}/>
-            <Link to={'cbprofinfo'}><p style={pi}>Professional Info</p></Link>
+            {/* <Link to={'cbprofinfo'}> */}
+              <p style={pi}>Professional Info</p>
+              {/* </Link> */}
             
         </div>
-        <form className="cpInMain cpInMainn"
-          encType="multipart/form-data"
-          method="post"
-          onSubmit={handleSubmit}>
+        <form className="cpInMain cpInMainn" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
             <div className="cpms cpmss">
             <div className="cpm">
             <div className="dob">
@@ -282,7 +350,7 @@ const goToPrev = () =>{
         <option value="fullTime">Full-Time</option>
         <option value="partTime">Part-Time</option>
         <option value="contract">Contract</option>
-        <option value="freelance">Freelance</option>
+        <option value="freelance">Freelancer</option>
         <option value="intern">Intern</option>
         <option value="other">Other</option>
       </select>

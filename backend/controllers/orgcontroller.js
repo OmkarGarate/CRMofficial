@@ -12,9 +12,9 @@
         try{
             const org = await Org.signupOrg(fullName, email, phoneNumber, password, companyName, companyEmail, orgId, empId, tnc, userType)
 
-            const token = createToken(org._id)
+            // const token = createToken(org._id)
 
-            res.status(200).json({org: org, token: token});
+            res.status(200).json({user: org});
         }catch(error){
             res.status(400).json({error: error.message})
         }
@@ -28,7 +28,7 @@
 
             const token = createToken(org._id)
 
-            res.status(200).json({org: org, token: token});
+            res.status(200).json({user: org, token: token});
         }catch(error){
             res.status(400).json({error: error.message})
         }
@@ -45,8 +45,31 @@
         if(!org){
             return res.status(400).json({error: "No such Organisation"})
         }
-
         res.status(200).json(org)
     }
 
-    module.exports = {signupOrg, loginOrg, getAllOrgs, getOneOrg}
+
+    const updateOrg = async(req, res) =>{
+        try{
+            const {id} = req.params
+            let updateData = { ...req.body }
+    
+            if(req.file){
+                // console.log("file is here")
+                updateData.profilePic = req.file.filename;
+            }
+    
+            const org = await Org.findOneAndUpdate({_id: id}, updateData, {new: true})
+    
+            if(!org){
+                return res.status(404).json({error: "No such Organisation"});
+            }
+    
+            res.status(200).json(org)
+        }catch(error){
+            console.error("Error updating organisation profile:", error);
+            res.status(500).json({error: "Internal server error"});
+        }
+    }
+
+    module.exports = {signupOrg, loginOrg, getAllOrgs, getOneOrg, updateOrg}

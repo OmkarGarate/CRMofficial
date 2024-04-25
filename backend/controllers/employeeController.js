@@ -15,7 +15,7 @@ const signupEmployee = async (req, res) =>{
         const emp = await Employee.signupEmployee(orgId, department, role, empId, password, userType)
 
         // const token = createToken(head._id)
-        res.status(200).json({emp: emp});
+        res.status(200).json({user: emp});
     }catch(error){
         res.status(400).json({error: error.message})
     }
@@ -49,6 +49,20 @@ const getAllEmployees = async(req, res) =>{
     const emps = await Employee.find({}).sort({createdAt: -1})
     res.status(200).json(emps)
 }
+
+const getOrgEmps = async (req, res) => {
+    try {
+        // Assuming orgId is passed as a query parameter
+        const { orgId } = req.params;
+        
+        // Fetch all heads with the specified orgId
+        const emps = await Employee.find({ orgId }).sort({ createdAt: 1 });
+        
+        res.status(200).json(emps);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getOneEmployee = async(req, res) =>{
     const {id} = req.params
@@ -84,4 +98,4 @@ const updateEmployee = async(req, res) =>{
 }
 
 
-module.exports = {signupEmployee, loginEmployee, getAllEmployees, getOneEmployee, updateEmployee};
+module.exports = {signupEmployee, loginEmployee, getAllEmployees, getOneEmployee, updateEmployee, getOrgEmps};

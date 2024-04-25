@@ -1,7 +1,7 @@
 const express = require('express')
 const multer = require('multer')
 
-const {signupEmployee, loginEmployee, getAllEmployees, getOneEmployee, updateEmployee} = require('../controllers/employeeController')
+const {signupEmployee, loginEmployee, getAllEmployees, getOneEmployee, updateEmployee, getOrgEmps} = require('../controllers/employeeController')
 
 const router = express.Router()
 
@@ -26,7 +26,11 @@ router.get('/loginEmployee', loginEmployee)
 
 router.get('/getAllEmployees', getAllEmployees)
 
+router.get('/getOrgEmp/:orgId', getOrgEmps)
+
 router.get('/getOneEmployee/:id', getOneEmployee)
+
+
 
 router.patch('/updateEmployee/:id', upload.single('uploaded_file'), updateEmployee)
 

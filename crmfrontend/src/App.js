@@ -16,7 +16,7 @@ import CbpNew from './Components/CbpNew';
 
 function App() {
   const {user} = useAuthContext()
-  // console.log("app",user)
+  console.log("app",user)
 
   return (
     // <>
@@ -36,7 +36,7 @@ function App() {
             <Route path='/profile' element={<DRP/>}>
               {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (
                 <>
-                <Route path='/profile/' element={<CBrif/>}/>
+                  <Route path='/profile/' element={<CBrif/>}/>
                   <Route path='/profile/cbpPer' element={<CBPersonalInfo/>}/>
                   <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
                 </>

@@ -53,6 +53,21 @@ const getAllHeads = async (req, res) => {
     }
 };
 
+const getOrgHeads = async (req, res) => {
+    try {
+        // Assuming orgId is passed as a query parameter
+        const { orgId } = req.params;
+        
+        // Fetch all heads with the specified orgId
+        const heads = await Head.find({ orgId }).sort({ createdAt: 1 });
+        
+        res.status(200).json(heads);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 const getOneHead = async(req, res) =>{
     const {id} = req.params
     const head = await Head.findById(id)
@@ -87,4 +102,4 @@ const updateHead = async(req, res) =>{
 }
 
 
-module.exports = {signupHead, loginHead, getAllHeads, getOneHead, updateHead};
+module.exports = {signupHead, loginHead, getAllHeads, getOneHead, updateHead, getOrgHeads};

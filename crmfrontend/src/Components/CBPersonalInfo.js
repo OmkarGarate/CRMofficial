@@ -57,7 +57,8 @@ function CBPersonalInfo() {
   }, [user])
 
   //update emp logic
-  const [profilePic, setProfilePic] = useState(`http://localhost:4000/uploads/login3profile.png`)
+  const [profilePic, setProfilePic] = useState('')
+  const [pp, setPp] = useState('http://localhost:4000/uploads/login3profile.png')
   const [firstName, setFirstName] = useState('')
   const [middleName, setMiddleName] = useState('')
   const [surname, setSurname] = useState('')
@@ -157,6 +158,45 @@ function CBPersonalInfo() {
         {
           fetchData();
         }
+    }else
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
+          const json = await response.json();
+    
+          if (response.ok) {
+            setProfilePic(json.profilePic);
+            console.log("prof2", json.profilePic)
+            setFirstName(json.firstName);
+            setMiddleName(json.middleName);
+            setSurname(json.surname);
+            setMobileNumber(json.mobileNumber);
+            setAlternateMobileNumber(json.alternateMobileNumber);
+            setEmail(json.email);
+            setAddress(json.address);
+            setPinCode(json.pinCode);
+            setNationality(json.nationality);
+            setAge(json.age);
+            setBloodGroup(json.bloodGroup);
+            setGender(json.gender);
+            setReligion(json.religion);
+            setDateOfBirth(json.dateOfBirth);
+            setMaritalStatus(json.maritalStatus);
+            
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
+        }
+      }
+  
+      if(user)  
+        {
+          fetchData();
+        }
     }
     
 
@@ -186,30 +226,71 @@ const handleSubmit = async(e) =>{
       formData.append("maritalStatus", maritalStatus)
       console.log("formdata", formData)
 
-      try {
-        const response = await fetch(
-          user && user.user.userType === 'Head' ? `http://localhost:4000/heads/updateHead/${user.user._id}` : 
-          `http://localhost:4000/employees/updateEmployee/${user.user._id}`
-          // `http://localhost:4000/employees/updateEmployee/${user.user._id}` 
-          , {
+        
+
+      if(user && user.user.userType === "Head")
+      {
+        try {
+          const response = await fetch(
+            `http://localhost:4000/heads/updateHead/${user.user._id}`
+          ,{
             method: 'PATCH',
             body: formData
-        });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setError(json.error);
-        } else {
-            setError('');
-            setConf("Successfully updated the profile's part 1");
-            console.log("updated", json);
-        }
-    } catch (error) {
-
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
         console.error("Error during form submission:", error);
         setError("Error during form submission. Please try again later.");
-    }
+      }
+      }else if(user && user.user.userType === "Employee"){
+        try {
+          const response = await fetch(
+            `http://localhost:4000/employees/updateEmployee/${user.user._id}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }else{
+        try {
+          const response = await fetch(
+            `http://localhost:4000/orgs/updateOrg/${user.user._id}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }
+
 }
 
 // console.log("up", user.user.profilePic)
@@ -217,35 +298,35 @@ const handleSubmit = async(e) =>{
   // console.log("dateOfBirth", dateOfBirth)
 
   const goToPrev = () =>{
-    if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
-    {
-      navigate('/profile/')
-    }
+    setTimeout(() => {
+      if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
+      {
+        navigate('/profile/')
+      }
+    }, 1000);
   }
 
   const goToNext = () =>{
-    // setTimeout(() => {
+    setTimeout(() => {
       navigate('/profile/cbprofinfo')
-    // }, 1000);
+    }, 1000);
   }
-console.log(user)
+console.log(profilePic)
   return (
     <div className='cbpInfo'>
         <div className="cbTop">
           <Link to={'/profile/'}><p>Company Brif</p></Link>
             <img src={rightArrow} alt="rightArrow" style={pi2}/>
-            <Link to={'/profile/cbp'}><p style={pi}>Personal Info</p></Link>
+            {/* <Link to={'/profile/'}> */}
+              <p style={pi}>Personal Info</p>
+              {/* </Link> */}
             
             {/* <img src={rightArrow} alt="rightArrow" />
             <p>Professional Info</p>
             <img src={rightArrow} alt="rightArrow" />
             <p>Documents</p> */}
         </div>
-        <form className="cpInMain"
-            encType="multipart/form-data"
-            method="post"
-            onSubmit={handleSubmit}
-            >
+        <form className="cpInMain" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
             <div className="cpms">
             <div className="cpm">
             <div className="upImg">
@@ -259,10 +340,28 @@ console.log(user)
                   alt="profileDefault" 
                 /> */}
               
+              {user && user.user.profilePic === '' && profUrl === '' && profilePic === ''? 
+                <img src={
+                  pp
+                } alt="" /> 
+                : null
+              }
 
-              <img src={
-                profilePic === "" && profUrl === "" ? profileDefault : profUrl != "" ? profUrl : 
-                `http://localhost:4000/uploads/${profilePic}`} alt="" />
+              {user && profUrl !=='' ? 
+                <img src={
+                  profUrl
+                } alt="" /> 
+                : null
+              }
+
+              {user && profUrl === '' && profilePic != ''? 
+                <img src={
+                  `http://localhost:4000/uploads/${profilePic}`
+                } alt="" /> 
+                : null
+              }
+
+              
               <input
                 type="file"
                 className="form-control-file"
@@ -353,9 +452,9 @@ console.log(user)
             <div className="prevNext">
                 {/* <button>Previous</button> */}
               {isHO ? (
-                <Link to={'/profile'}>
+                // <Link to={'/profile'}>
                   <button className='previous' onClick={goToPrev}>Previous</button>
-                  </Link>
+                  // </Link>
 
               ):(null)}
                 

@@ -129,7 +129,7 @@ function OrgSignup() {
     
 
     return (
-        <>
+        <div className='orgSg'>
             <Navbar />
             <div className="orgSignupMain">
                 <h1>
@@ -210,7 +210,7 @@ function OrgSignup() {
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

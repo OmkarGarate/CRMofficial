@@ -1,0 +1,1 @@
+ && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") 

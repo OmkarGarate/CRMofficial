@@ -3,7 +3,7 @@ const multer = require('multer')
 
 const router = express.Router()
 
-const {signupHead, loginHead, getAllHeads, getOneHead, updateHead} = require('../controllers/headController')
+const {signupHead, loginHead, getAllHeads, getOneHead, updateHead, getOrgHeads} = require('../controllers/headController')
 
 
 //storage and filename setting  
@@ -24,6 +24,8 @@ router.post('/signupHead', signupHead)
 router.post('/loginHead', loginHead)
 
 router.get('/getAllHeads', getAllHeads)
+
+router.get('/getOrgHeads/:orgId', getOrgHeads)
 
 router.get('/getOneHead/:id', getOneHead)
 
