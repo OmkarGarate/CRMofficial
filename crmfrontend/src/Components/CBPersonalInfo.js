@@ -164,7 +164,6 @@ function CBPersonalInfo() {
         try {
           const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
           const json = await response.json();
-    
           if (response.ok) {
             setProfilePic(json.profilePic);
             console.log("prof2", json.profilePic)

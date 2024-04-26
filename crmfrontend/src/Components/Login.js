@@ -64,7 +64,8 @@ function Login() {
                 <div className="subLogin3">
                 <h1>Login</h1>
                 {/* <img className='userprofileimg' src={login3profile} alt="profile" /> */}
-                <img src={user && user.token ? `http://localhost:4000/uploads/${profilePic}` : login3profile} alt="profileImg" className='profileImg'/>
+                <img src={user && user.token && profilePic != '' ? `http://localhost:4000/uploads/${profilePic}` : login3profile} alt="profileImg" className='profileImg'/>
+                
                 <input type="text" placeholder='Organisation ID' onChange={(e)=>setOrgId(e.target.value)} value={orgId}/>
                 <input type="text" placeholder='Employee ID' onChange={(e)=>setEmpId(e.target.value)} value={empId}/>
                 <div className="passBox">

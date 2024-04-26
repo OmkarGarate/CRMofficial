@@ -16,7 +16,7 @@ let upload = multer({
     storage: storage
 })
 
-const {signupOrg, loginOrg, getAllOrgs, getOneOrg, updateOrg} = require('../controllers/orgcontroller')
+const {signupOrg, loginOrg, getAllOrgs, getOneOrg, updateOrg, getOneOrgByOrgId} = require('../controllers/orgcontroller')
 
 router.post('/signupOrg', signupOrg)
 
@@ -24,7 +24,9 @@ router.post('/loginOrg', loginOrg)
 
 router.get('/getAllOrgs', getAllOrgs)
 
-router.get('/getOneOrg/:orgId', getOneOrg)
+router.get('/getOneOrgByOrgId/:orgId', getOneOrgByOrgId)
+
+router.get('/getOneOrg/:id', getOneOrg)
 
 router.patch('/updateOrg/:id', upload.single('uploaded_file'), updateOrg)
 

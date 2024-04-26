@@ -39,9 +39,18 @@
         res.status(200).json(orgs)
     }
 
-    const getOneOrg = async(req, res) =>{
+    const getOneOrgByOrgId = async(req, res) =>{
         const {orgId} = req.params
         const org = await Org.findOne({orgId})
+        if(!org){
+            return res.status(400).json({error: "No such Organisation"})
+        }
+        res.status(200).json(org)
+    }
+
+    const getOneOrg = async(req, res) =>{
+        const {id} = req.params
+        const org = await Org.findById(id)
         if(!org){
             return res.status(400).json({error: "No such Organisation"})
         }
@@ -72,4 +81,4 @@
         }
     }
 
-    module.exports = {signupOrg, loginOrg, getAllOrgs, getOneOrg, updateOrg}
+    module.exports = {signupOrg, loginOrg, getAllOrgs, getOneOrg, updateOrg, getOneOrgByOrgId}
