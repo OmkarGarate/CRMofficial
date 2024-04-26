@@ -14,7 +14,16 @@
 .cbRight{
     /* padding: 20px; */
     width: 82%;
+    min-height: 100vh;
     /* border: 1px solid black; */
+}
+
+.cbRight .drp{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .cbpInfo{
@@ -22,7 +31,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .cbpInfo .cbTop{
@@ -76,7 +85,11 @@
     /* gap: 70px; */
     /* margin: 5vh auto; */
     /* heigh */
+    margin-top: 95px;
+}
 
+.cpInMainn{
+    margin-top: 70px;
 }
 
 .cpms{
@@ -145,6 +158,9 @@
 .upImg img{
     width: 70px;
     margin-bottom: 15px;
+    /* border: 1px solid black; */
+    height: 70px;
+    border-radius: 50px;
 }
 
 .workExp{
@@ -193,9 +209,18 @@
 }
 
 .dob{
-    /* border: 1px solid black; */
     color: #A8A8A8;
     margin-top: -5px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    /* gap: 20px; */
+    justify-content: space-between;
+}
+
+.dob input{
+    width: 50%;
+    text-align: center;
 }
 
 .dob .dobIn{
@@ -244,6 +269,7 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: center;
     gap: 20px;
     margin-top: 50px;
+    /* flex-direction: column; */
 }
 
 .prevNext button{
@@ -254,6 +280,18 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
+    
+}
+
+.prevNext .gen{
+    padding: 10px 50px;
+    border: 2px solid #800000;
+    border-radius: 50px;
+    /* width: 200px; */
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #800000;
 }
 
 .prevNext .previous
@@ -268,6 +306,14 @@ input[type="number"]::-webkit-outer-spin-button {
     /* background-color: black; */
     color: white;
     background-color: #800000;
+}
+
+.prevNext a{
+    pointer-events: all;
+}
+
+.next a, .previous a{
+    color: white;
 }
 
 
@@ -352,11 +398,11 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-top: 0;
 }
 .cbpInfo .ahdMain {
-    /* border: 1px solid black; */
-    width: 80%; /* Adjust as needed */
-    height: 500px;
-   
-    margin: 100px 0;
+    width: 80%;
+    /* height: 500px; */
+    margin: 80px 0;
+    margin-bottom: 30px;
+    /* margin-top: 150px; */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -371,6 +417,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: #FBF7F7;
     color: #800000;
     font-weight: 600;
+    
 }
 
 .cbpInfo .allHeads{
@@ -379,9 +426,10 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     flex-direction: column;
     /* gap: 10px; */
-    
+    height: 14vw;
     overflow: hidden;
     overflow-y: scroll;
+    position: relative;
 }
 
 .cbpInfo .allHeads::-webkit-scrollbar {
@@ -413,6 +461,8 @@ input[type="number"]::-webkit-outer-spin-button {
 .allHeads .ahHead{
     /* border: 1px solid black; */
     display: flex;
+    position: sticky;
+    top: 0;
 }
 
 .allHeads .ahDetails{

@@ -39,7 +39,131 @@
             type: Boolean,
             required: true
         },
-        userType:{
+        profilePic: {
+            type: String,
+            default: ""
+        },
+        firstName:{
+            type: String,
+            default: ""
+        },
+        middleName: {
+            type: String,
+            default: ""
+        },
+        surname: {
+            type: String,
+            default: ""
+        },
+        mobileNumber: {
+            type: String,
+            default: ""
+        },
+        alternateMobileNumber: {
+            type: String,
+            default: ""
+        },
+        address: {
+            type: String,
+            default: ""
+        },
+        pinCode: {
+            type: String,
+            default: ""
+        },
+        nationality: {
+            type: String,
+            default: ""
+        },
+        age:{
+            type: String,
+            default: ""
+        },
+        bloodGroup: {
+            type: String,
+            default: ""
+        },
+        gender:{
+            type: String,
+            default: ""
+        },
+        religion:{
+            type: String,
+            default: ""
+        },
+        dateOfBirth: {
+            type: String,
+            default: ""
+        },
+        maritalStatus: {
+            type: String,
+            default: ""
+        },
+        dateOfJoining: {
+            type: String,
+            default: ""
+        },
+        workExperience: {
+            type: String,
+            default: ""
+        },
+        prevCompany:{
+            type: String,
+            default: ""
+        },
+        education: {
+            type: String,
+            default: ""
+        },
+        softSkills: {
+            type: String,
+            default: ""
+        },
+        professionalSkills: {
+            type: String,
+            default: ""
+        },
+        officeEmailId: {
+            type: String,
+            default: ""
+        },
+        accommodation: {
+            type: String,
+            default: ""
+        },
+        branch: {
+            type: String,
+            default: ""
+        }, 
+        employeeType: {
+            type: String,
+            default: ""
+        },
+        currentCTC:{
+            type: String,
+            default: ""
+        },
+        employeeBenefits:{
+            type: String,
+            default: ""
+        },
+        dateOfLeave:{
+            type: String,
+            default: ""
+        },
+        systemUsage:{
+            type: String,
+            default: ""
+        },
+        department:{
+            type:String,
+            default: ""
+        },
+        role: {
+            type: String,
+            default: ""
+        },
+        userType: {
             type: String,
             required: true
         },

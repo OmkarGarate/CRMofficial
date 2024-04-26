@@ -46,6 +46,7 @@ function CBrif() {
     transform: "translateX(-200px)",
     opacity: "0",
     animation: "none",
+    backgroundColor: '#fdd5d5'
   });
   const [department, setDepartment] = useState("");
   const [role, setRole] = useState("");
@@ -140,29 +141,50 @@ function CBrif() {
     setTimeout(() => {
       setPi({
         animation: "fadeIn 0.3s ease-in-out",
-      });
+        backgroundColor: "rgb(253, 213, 213)"
+      })
     }, 200);
-
-    if (
-      user.user.role === "Human Resource Head2" ||
-      user.user.userType === "Org"
-    ) {
+    if (user.user.userType === "Org") {
       if (department && role) {
+        // Generate employee ID and password
+        // const empId = generateEmployeeId(firstName);
+        // const password = generatePassword(firstName);
+  
+        // Update state with generated employee ID and password
+        // setEmpId(empId);
+        // setPassword(password);
+  
+        // Show the employee ID and password fields
         setEmpas({
           display: "flex",
         });
         setUserType("Head");
-      } else if (department2 && role2) {
+      }
+    } else if (user.user.role === "Human Resource Head2") {
+      if (department2 && role2) {
+        // // Generate employee ID and password
+        // const empId = generateEmployeeId(firstName);
+        // const password = generatePassword(firstName);
+  
+        // Update state with generated employee ID and password
+        // setEmpId(empId);
+        // setPassword(password);
+  
+        // Show the employee ID and password fields
         setEmpas({
           display: "flex",
         });
         setUserType("Employee");
       }
-      setEmpId(generateEmployeeId(firstName));
-      setPassword(generatePassword(firstName));
     }
   }, [department, role, department2, role2]);
+  
   console.log("empId", empId);
+
+  const generateId = ()=>{
+    setEmpId(generateEmployeeId(firstName));
+      setPassword(generatePassword(firstName));
+  }
 
   const { signupHead, error, isLoading } = useSignupHead();
   const { signupEmp, error2, isLoading2 } = useSignupEmp();
@@ -174,6 +196,7 @@ function CBrif() {
     e.preventDefault();
     if (user.user.userType === "Org") {
       await signupHead(orgId, department, role, empId, password, userType);
+      fetchHeads()
     }
 
     if (!error) {
@@ -191,6 +214,7 @@ function CBrif() {
       user.user.role === "Human Resource Head2"
     ) {
       await signupEmp(orgId, department2, role2, empId, password, userType);
+      fetchEmps()
     }
 
     if (!error) {
@@ -203,40 +227,42 @@ function CBrif() {
   const [heads, setHeads] = useState("");
   const [ehText, setEhText] = useState("");
 
-  useEffect(() => {
-    const fetchHeads = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/heads/getAllHeads");
-        if (response.ok) {
-          const json = await response.json();
-          // Sort the heads in descending order based on the _id field
-          const sortedHeads = json.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-          );
-          setHeads(sortedHeads);
-        }
-      } catch (error) {
-        console.error("Error fetching heads:", error);
-      }
-    };
-
-    const fetchEmps = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:4000/employees/getAllEmployees"
+  const fetchHeads = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/heads/getOrgHeads/${user.user.orgId}`);
+      if (response.ok) {
+        const json = await response.json();
+        // Sort the heads in descending order based on the _id field
+        const sortedHeads = json.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-        if (response.ok) {
-          const json = await response.json();
-          // Sort the heads in descending order based on the _id field
-          const sortedHeads = json.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-          );
-          setHeads(sortedHeads);
-        }
-      } catch (error) {
-        console.error("Error fetching heads:", error);
+        setHeads(sortedHeads);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching heads:", error);
+    }
+  };
+
+  const fetchEmps = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/employees/getOrgEmp/${user.user.orgId}`
+      );
+      if (response.ok) {
+        const json = await response.json();
+        // Sort the heads in descending order based on the _id field
+        const sortedHeads = json.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setHeads(sortedHeads);
+      }
+    } catch (error) {
+      console.error("Error fetching heads:", error);
+    }
+  };
+
+  useEffect(() => {
+    
 
     if (user.user.userType === "Org") {
       fetchHeads();
@@ -251,8 +277,10 @@ function CBrif() {
 
   return (
     <div className="cbpInfo">
+      
+      
       <div className="cbTop">
-        <p style={pi}>Company Brif</p>
+        <Link to={'/profile/'}><p style={pi}>Company Brif</p></Link>
       </div>
 
       <div className="ahdMain">
@@ -327,7 +355,9 @@ function CBrif() {
                 <select
                   name=""
                   id=""
-                  onChange={(e) => setDepartment2(e.target.value)}
+                  onChange={(e) =>{
+                    setDepartment2(e.target.value);
+                  } }
                 >
                   <option value="">Employee Department</option>
                   <option value="Department 1">Department 1</option>
@@ -340,7 +370,9 @@ function CBrif() {
                 <select
                   name=""
                   id=""
-                  onChange={(e) => setRole2(e.target.value)}
+                  onChange={(e) =>{
+                    setRole2(e.target.value);
+                  } }
                 >
                   <option value="">Employee Role</option>
                   <option value="Role 1">Role 1</option>
@@ -360,6 +392,7 @@ function CBrif() {
             <input type="text" readOnly value={password} />
           </div>
           <div className="prevNext">
+            <div className="gen" onClick={generateId}>Generate</div>
             <button className="next">Create</button>
           </div>
           {!errorM && errorM != "" ? (

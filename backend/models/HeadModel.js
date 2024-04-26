@@ -3,92 +3,129 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const headSchema = mongoose.Schema({
-    fistName:{
-        type: String
+    profilePic: {
+        type: String,
+        default: ""
+    },
+    firstName:{
+        type: String,
+        default: ""
     },
     middleName: {
-        type: String
+        type: String,
+        default: ""
     },
     surname: {
-        type: String
+        type: String,
+        default: ""
     },
     mobileNumber: {
-        type: String
+        type: String,
+        default: ""
     },
     alternateMobileNumber: {
-        type: String
+        type: String,
+        default: ""
     },
     email: {
-        type: String
+        type: String,
+        default: ""
     },
     address: {
-        type: String
+        type: String,
+        default: ""
     },
     pinCode: {
-        type: String
+        type: String,
+        default: ""
+    },
+    nationality: {
+        type: String,
+        default: ""
     },
     age:{
-        type: String
+        type: String,
+        default: ""
     },
     bloodGroup: {
-        type: String
+        type: String,
+        default: ""
     },
     gender:{
-        type: String
+        type: String,
+        default: ""
     },
     religion:{
-        type: String
+        type: String,
+        default: ""
     },
     dateOfBirth: {
-        type: String
+        type: String,
+        default: ""
     },
     maritalStatus: {
-        type: String
+        type: String,
+        default: ""
     },
     dateOfJoining: {
-        type: String
+        type: String,
+        default: ""
     },
     workExperience: {
-        type: String
+        type: String,
+        default: ""
     },
     prevCompany:{
-        type: String
+        type: String,
+        default: ""
     },
     education: {
-        type: String
+        type: String,
+        default: ""
     },
     softSkills: {
-        type: String
+        type: String,
+        default: ""
     },
     professionalSkills: {
-        type: String
+        type: String,
+        default: ""
     },
     officeEmailId: {
-        type: String
+        type: String,
+        default: ""
     },
     accommodation: {
-        type: String
+        type: String,
+        default: ""
     },
     branch: {
-        type: String
+        type: String,
+        default: ""
     }, 
     employeeType: {
-        type: String
+        type: String,
+        default: ""
     },
     currentCTC:{
-        type: String
+        type: String,
+        default: ""
     },
     employeeBenefits:{
-        type: String
+        type: String,
+        default: ""
     },
     dateOfLeave:{
-        type: String
+        type: String,
+        default: ""
     },
     systemUsage:{
-        type: String
+        type: String,
+        default: ""
     },
     orgId:{
-        type: String
+        type: String,
+        default: ""
     },
     department:{
         type:String,
@@ -114,7 +151,6 @@ const headSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-
 })
 
 headSchema.statics.signupHead = async function(orgId, department, role, empId, password, userType)
