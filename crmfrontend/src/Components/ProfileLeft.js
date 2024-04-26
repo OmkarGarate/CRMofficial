@@ -1,13 +1,13 @@
 import React from 'react'
-import crmlogo from '../Images/crmlogo.png'
+import PLOldcontent from './PLOldcontent'
+import PLNewcontent from './PLNewcontent'
+
 
 function ProfileLeft() {
   return (
     <>
-    <div className="subLogin1 pLHeading">
-      <img src={crmlogo} alt="" />
-    <h1>Complete your<br/> <span>Profile</span> </h1>
-    </div>
+    {/* <PLOldcontent/> */}
+    <PLNewcontent/>
     </>
   )
 }

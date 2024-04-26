@@ -1,0 +1,42 @@
+.newCMain{
+    border: 1px solid black;
+}
+
+.nc1{
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.executive{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 10px;
+}
+
+.executive img{
+    width: 12px;
+    height: 15px;
+}
+
+.executive p{
+    font-weight: 600;
+    color: #800000;
+}
+
+.sirName{
+    font-size: 0.9rem;
+}
+
+.sirName p{
+    font-weight: bold;
+}
+
+.sirName span{
+    color: #727272;
+    font-weight: bold;
+}
