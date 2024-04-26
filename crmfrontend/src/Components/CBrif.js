@@ -27,7 +27,7 @@ function CBrif() {
   useEffect(() => {
     const fetchOrg = async () => {
       const response = await fetch(
-        `http://localhost:4000/orgs/getOneOrg/${user.user.orgId}`
+        `http://localhost:4000/orgs/getOneOrgByOrgId/${user.user.orgId}`
       );
 
       const json = await response.json();

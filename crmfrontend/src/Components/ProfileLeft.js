@@ -15,6 +15,8 @@ function ProfileLeft() {
       navigate('/');
     }, 1000);
   };
+  const currentUrl = window.location.pathname
+  console.log(currentUrl)
   return (
     <>
     <div className="subLogin1 pLHeading">
