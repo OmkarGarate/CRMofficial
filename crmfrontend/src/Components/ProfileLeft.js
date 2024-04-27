@@ -3,6 +3,9 @@ import crmlogo from '../Images/crmlogo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../context/useLogout'
+import PLOldcontent from './PLOldcontent'
+import PLNewcontent from './PLNewcontent'
+
 
 function ProfileLeft() {
   const {user} = useAuthContext()
@@ -17,6 +20,13 @@ function ProfileLeft() {
   };
   const currentUrl = window.location.pathname
   console.log(currentUrl)
+  if(currentUrl === '/profile/')
+  {
+    console.log('red')
+  }else if(currentUrl === '/profile/cbpPer')
+  {
+    console.log('blue')
+  }
   return (
     <>
     <div className="subLogin1 pLHeading">
