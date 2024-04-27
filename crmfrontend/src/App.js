@@ -14,6 +14,10 @@ import '../src/css/mq.css'
 import { useState } from 'react';
 import CbpNew from './Components/CbpNew';
 import Feed from './Components/Feed';
+import MySpace from './Components/MySpace';
+import Workforce from './Components/Workforce';
+import Inventory from './Components/Inventory';
+import Settings from './Components/Settings';
 
 function App() {
   const {user} = useAuthContext()
@@ -41,12 +45,20 @@ function App() {
                   <Route path='/profile/' element={<CBrif/>}/>
                   <Route path='/profile/cbpPer' element={<CBPersonalInfo/>}/>
                   <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
+                  <Route path='mySpace' element={<MySpace/>}/>
+                <Route path='workforce' element={<Workforce/>}/>
+                <Route path='inventory' element={<Inventory/>}/>
+                <Route path='settings' element={<Settings/>}/>
                 </>
               ):(
                 null
               )}
               <Route path='/profile/' element={<CBPersonalInfo/>}/>
               <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
+              <Route path='mySpace' element={<MySpace/>}/>
+              <Route path='workforce' element={<Workforce/>}/>
+              <Route path='inventory' element={<Inventory/>}/>
+              <Route path='settings' element={<Settings/>}/>
             </Route>
         </Route>
       </Routes>
