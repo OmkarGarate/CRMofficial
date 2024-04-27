@@ -13,6 +13,7 @@ import CBrif from './Components/CBrif';
 import '../src/css/mq.css'
 import { useState } from 'react';
 import CbpNew from './Components/CbpNew';
+import Feed from './Components/Feed';
 
 function App() {
   const {user} = useAuthContext()
@@ -32,6 +33,7 @@ function App() {
         <Route path='/' element={<Login/>}/>
         
         <Route path='/orgsignup' element={<OrgSignup/>}/>
+        <Route path='/mySpace' element={<Feed/>}/>
         <Route path='/profile' element={<Profile/>}>
             <Route path='/profile' element={<DRP/>}>
               {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (

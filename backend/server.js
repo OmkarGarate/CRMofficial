@@ -6,6 +6,7 @@ const employeeRoutes = require('./routes/employeeRoutes')
 const orgRoutes = require('./routes/orgRoutes')
 const headRoutes = require('./routes/headRoutes')
 const loginRoutes = require('./routes/loginRoute')
+const feedRoutes = require('./routes/feedRoutes')
 const bodyParser = require('body-parser');
 
 const app = express()
@@ -33,6 +34,7 @@ app.use('/employees', employeeRoutes)
 app.use('/orgs', orgRoutes)
 app.use('/heads', headRoutes)
 app.use('/logins', loginRoutes)
+app.use('/feeds', feedRoutes)
 app.use('/uploads', express.static('uploads'));
 app.use((req, res, next)=>{
     console.log(req.path, req.method)
