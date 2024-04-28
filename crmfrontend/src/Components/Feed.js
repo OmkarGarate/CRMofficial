@@ -121,9 +121,10 @@ const formatTime = (createdAt) => {
 
   return (
     <>
-    <div className="profileLeft">
+    {/* <div className="profileLeft">
           <ProfileLeft/>
-      </div>
+      </div> */}
+        <h2>Feed</h2>
       <div className='feedMain'>
         <div className="postFeed">
             <img src={rgtArrow} alt="rgtArrow" />

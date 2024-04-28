@@ -40,7 +40,10 @@ function PLNewcontent() {
         <img src={crmlogo} alt="" />
         <div className="ncMain">
         <div className="nc1">
+          <Link to={user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? ('/profile/cbpPer') : ('/profile/')}>
           <img src={sir} alt="" />
+          </Link>
+          
           <div className="executive">
             <img src={uparrows} alt="" />
             <p>EXECUTIVE</p>

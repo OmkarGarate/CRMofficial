@@ -1,0 +1,48 @@
+.mySpaceMain{
+    /* border: 1px solid black; */
+    display: flex;
+    background: #FBF7F7;
+    padding: 20px;
+    gap: 90px;
+    height: 100%;
+    border-radius: 30px 30px 30px 0;
+}
+
+.mySpaceMain .msp{
+    /* border: 1px solid black; */
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.msp .status{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 180px;
+}
+
+.mySpaceMain .dashboard{
+    border: 1px solid black;
+    width: 40%;
+    height: 70%;
+}
+
+.mySpaceMain h2{
+    text-align: left;
+    /* border: 1px solid black; */
+    width: 100%;
+    position: relative;
+    font-weight: 700;
+}
+
+.mySpaceMain h2::after{
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    margin-left: 5px;
+    height: 8px;
+    width: 8px;
+    background-color: #800000;
+}
