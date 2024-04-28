@@ -13,13 +13,13 @@
 
 .cbRight{
     /* padding: 20px; */
-    width: 80%;
+    width: 100%;
     height: 100vh;
     /* border: 1px solid black; */
     /* padding: 20px; */
-    padding-top: 20px;
+    /* padding-top: 20px;
     padding-right: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 20px; */
 }
 
 .cbRight .drp{
@@ -36,6 +36,7 @@
     align-items: center;
     justify-content: center;
     /* height: 100vh; */
+    width: 80%;
 }
 
 .cbpInfo .cbTop{
@@ -165,6 +166,8 @@
     /* border: 1px solid black; */
     height: 70px;
     border-radius: 50px;
+    object-position: top;
+    object-fit: cover;
 }
 
 .workExp{

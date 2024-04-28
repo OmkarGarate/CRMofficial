@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useSignupHead } from "../hooks/useSignupHead";
 import { useSignupEmp } from "../hooks/useSignupEmp";
+import PLNewcontent from "./PLNewcontent";
 
 function CBrif() {
   const { user } = useAuthContext();
@@ -276,6 +277,11 @@ function CBrif() {
   }, [user]);
 
   return (
+   
+    <div className="pbr">
+      <div className="profileLeft">
+      <PLNewcontent/>
+    </div>
     <div className="cbpInfo">
       
       
@@ -402,6 +408,7 @@ function CBrif() {
           )}
         </form>
       </div>
+    </div>
     </div>
   );
 }

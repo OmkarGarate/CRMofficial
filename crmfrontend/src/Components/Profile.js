@@ -9,10 +9,9 @@ function Profile() {
   return (
     <>
         <div className="profile">
-          <div className="profileLeft">
-          {/* <ProfileLeft/> */}
+          {/* <div className="profileLeft">
           <PLNewcontent/>
-          </div>
+          </div> */}
           <CBRight/>
         </div>
     

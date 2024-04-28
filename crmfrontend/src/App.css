@@ -49,3 +49,9 @@ a{
   position: fixed;
   z-index: 20;
 }
+
+.pbr{
+  display: flex;
+  width: 100%;
+  /* border: 1px solid black; */
+}

@@ -20,6 +20,7 @@
     margin: auto;
     display: flex;
     margin-top: 15px;
+    cursor: pointer;
 }
 
 .ncMain{
@@ -38,6 +39,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.nc1 .profileImg{
+    width: 85px;
+    height: 85px;
+    border-radius: 50px;
+    object-fit: cover;
+    object-position: top;
 }
 
 .executive{

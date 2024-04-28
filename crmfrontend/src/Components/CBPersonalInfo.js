@@ -5,6 +5,7 @@ import profileDefault from '../Images/login3profile.png'
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import PLNewcontent from './PLNewcontent';
 
 function CBPersonalInfo() {
   const {user} = useAuthContext();
@@ -312,6 +313,10 @@ const handleSubmit = async(e) =>{
   }
 console.log(profilePic)
   return (
+    <div className='pbr'>
+    <div className="profileLeft">
+      <PLNewcontent/>
+    </div>
     <div className='cbpInfo'>
         <div className="cbTop">
           <Link to={'/profile/'}><p>Company Brif</p></Link>
@@ -468,6 +473,8 @@ console.log(profilePic)
             </div>
         </form>
     </div>
+    </div>
+    
   )
 }
 
