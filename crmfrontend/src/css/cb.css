@@ -13,9 +13,13 @@
 
 .cbRight{
     /* padding: 20px; */
-    width: 82%;
-    min-height: 100vh;
+    width: 80%;
+    height: 100vh;
     /* border: 1px solid black; */
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }
 
 .cbRight .drp{
