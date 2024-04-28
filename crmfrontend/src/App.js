@@ -11,17 +11,20 @@ import DRP from './Components/DRP';
 import { useAuthContext } from './hooks/useAuthContext';
 import CBrif from './Components/CBrif';
 import '../src/css/mq.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CbpNew from './Components/CbpNew';
 import Feed from './Components/Feed';
 import MySpace from './Components/MySpace';
 import Workforce from './Components/Workforce';
 import Inventory from './Components/Inventory';
 import Settings from './Components/Settings';
+import Mwis from './Components/Mwis';
 
 function App() {
   const {user} = useAuthContext()
+
   console.log("app",user)
+  
 
   return (
     // <>
@@ -45,21 +48,25 @@ function App() {
                   <Route path='/profile/' element={<CBrif/>}/>
                   <Route path='/profile/cbpPer' element={<CBPersonalInfo/>}/>
                   <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
-                  <Route path='mySpace' element={<MySpace/>}/>
+                  {/* <Route path='mySpace' element={<MySpace/>}/>
                 <Route path='workforce' element={<Workforce/>}/>
                 <Route path='inventory' element={<Inventory/>}/>
-                <Route path='settings' element={<Settings/>}/>
+                <Route path='settings' element={<Settings/>}/> */}
                 </>
               ):(
                 null
               )}
               <Route path='/profile/' element={<CBPersonalInfo/>}/>
               <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
-              <Route path='mySpace' element={<MySpace/>}/>
-              <Route path='workforce' element={<Workforce/>}/>
-              <Route path='inventory' element={<Inventory/>}/>
-              <Route path='settings' element={<Settings/>}/>
+              
             </Route>
+
+        </Route>
+        <Route path='/mwis' element={<Mwis/>}>
+              <Route path='/mwis' element={<MySpace/>}/>
+              <Route path='/mwis/workforce' element={<Workforce/>}/>
+              <Route path='/mwis/inventory' element={<Inventory/>}/>
+              <Route path='/mwis/settings' element={<Settings/>}/>
         </Route>
       </Routes>
     </Router>

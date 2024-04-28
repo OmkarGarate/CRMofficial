@@ -4,6 +4,7 @@ import rightArrow from '../Images/rgtarrow.png'
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import PLNewcontent from './PLNewcontent';
 
 function CBProfessionalInfo() {
   const {user} = useAuthContext();
@@ -302,7 +303,10 @@ const goToPrev = () =>{
 
 
   return (
-    <>
+    <div className='pbr'>
+      <div className="profileLeft">
+      <PLNewcontent/>
+    </div>
     <div className='cbpInfo'>
         <div className="cbTop">
           <Link to={'/profile/'}><p>Company Brif</p></Link>
@@ -383,7 +387,7 @@ const goToPrev = () =>{
             {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
         </form>
     </div>
-    </>
+    </div>
   )
 }
 

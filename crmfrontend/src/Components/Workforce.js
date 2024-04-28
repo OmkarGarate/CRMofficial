@@ -2,7 +2,7 @@ import React from 'react'
 
 function Workforce() {
   return (
-    <div>Workforce</div>
+    <div className='mwis'>Workforce</div>
   )
 }
 

@@ -3,6 +3,7 @@ import '../css/feed.css'
 import rgtArrow from '../Images/rgtarrow.png'
 import defaultProfile from '../Images/login3profile.png'
 import ProfileLeft from './ProfileLeft'
+import uparrows from "../Images/uparrows.png";
 import { useAuthContext } from '../hooks/useAuthContext'
 
 function Feed() {
@@ -47,7 +48,8 @@ function Feed() {
 
     if(user && user.user.firstName != '')
     {
-      setFirstName(user.user.firstName)
+      const fname = user.user.firstName +" "+ user.user.surname
+      setFirstName(fname)
       console.log('firstName', firstName)
     }else{
       setFirstName('-')
@@ -127,9 +129,10 @@ const formatTime = (createdAt) => {
         <h2>Feed</h2>
       <div className='feedMain'>
         <div className="postFeed">
-            <img src={rgtArrow} alt="rgtArrow" />
+            {/* <img src={rgtArrow} alt="rgtArrow" /> */}
+            <img src={user && user.user.userType === "Org" ? uparrows : user && user.user.userType === "Head" ? uparrows : uparrows} alt="uparrows" />
             <form method="post" onSubmit={handleSubmit}>
-                <input type="text" value={post} onChange={(e)=>setPost(e.target.value)}/>
+            <input type="text" value={post} onChange={(e) => setPost(e.target.value)} placeholder="Write what's Brifin'"/>
                 <button className='postBtn'>Post</button>
             </form>
         </div>
@@ -139,7 +142,8 @@ const formatTime = (createdAt) => {
             <img src={`http://localhost:4000/uploads/${post.profilePic}`} alt="defaultProfile" className='postProf'/>
             <div className="postInfo">
               <div className="postHead">
-                <img src={rgtArrow} alt="rgtArrow" />
+                {/* <img src={rgtArrow} alt="rgtArrow" /> */}
+                <img src={user && user.user.userType === "Org" ? uparrows : user && user.user.userType === "Head" ? uparrows : uparrows} alt="uparrows" />
                 <p className='pName'>{post.name}</p>
                 <p className='pRole'>-{post.role}</p>
               </div>
