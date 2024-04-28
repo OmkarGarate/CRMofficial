@@ -10,16 +10,17 @@
 .profile{
     /* border: 1px solid black; */
     width: 100%;
-    height: max-content;
+    /* height: max-content; */
     display: flex;
 }
 
 .profileLeft{
     width: 20%;
-    background-color: #FBF7F7;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+   
+    /* background-color: #FBF7F7; */
+    /* display: flex; */
+    /* align-items: flex-start; */
+    /* justify-content: center; */
 }
 
 .profileLeft img{
