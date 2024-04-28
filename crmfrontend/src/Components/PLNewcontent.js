@@ -11,13 +11,27 @@ import settingr from "../Images/settingr.png";
 import settingg from "../Images/settingg.png";
 import uparrows from "../Images/uparrows.png";
 import "../css/plnew.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
+import { useLogout } from '../context/useLogout'
+import { AuthContext } from "../context/Authcontext";
 
 function PLNewcontent() {
   const location = window.location.pathname
   const [compColor, setCompColor] = useState({
     color: 'gray'
   })
+  const {user} = AuthContext
+
+  const {logout} = useLogout()
+  const navigate = useNavigate()
+  const handlelogout = () => {
+    logout();
+    localStorage.removeItem("user"); // Remove the user item from localStorage
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+  };
 
   const handleClick = (e) =>{
     
@@ -88,7 +102,7 @@ function PLNewcontent() {
           </Link>
         </div>
         </div>
-        <button>LOGOUT</button>
+        <button onClick={handlelogout}>LOGOUT</button>
       </div>
     </>
   );
