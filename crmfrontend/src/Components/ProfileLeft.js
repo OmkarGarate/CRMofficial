@@ -18,17 +18,6 @@ function ProfileLeft() {
       navigate('/');
     }, 1000);
   };
-<<<<<<< HEAD
-  // const currentUrl = window.location.pathname
-  // console.log(currentUrl)
-  // if(currentUrl === '/profile/')
-  // {
-  //   console.log('red')
-  // }else if(currentUrl === '/profile/cbpPer')
-  // {
-  //   console.log('blue')
-  // }
-=======
   const currentUrl = window.location.pathname
   console.log(currentUrl)
   if(currentUrl === '/profile/')
@@ -38,7 +27,6 @@ function ProfileLeft() {
   {
     console.log('blue')
   }
->>>>>>> 4ba7b85f55ecee80f78e0a91519d0fb0cdd312ca
   return (
     <>
     <div className="subLogin1 pLHeading">
