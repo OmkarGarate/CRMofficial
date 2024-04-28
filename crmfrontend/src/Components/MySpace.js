@@ -123,6 +123,9 @@ setUsers(sortedUsers);
       </div>
       <div className="dashboard">
         <h2>Dashboard</h2>
+        <div className="dashboardInner">
+          
+        </div>
       </div>
     </div>
     </div>

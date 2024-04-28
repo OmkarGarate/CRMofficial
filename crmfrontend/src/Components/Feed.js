@@ -5,6 +5,7 @@ import defaultProfile from '../Images/login3profile.png'
 import ProfileLeft from './ProfileLeft'
 import uparrows from "../Images/uparrows.png";
 import { useAuthContext } from '../hooks/useAuthContext'
+import deleteIcon from '../Images/deleteIcon.png'
 
 function Feed() {
   
@@ -121,6 +122,23 @@ const formatTime = (createdAt) => {
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 };
 
+const handleDeleteFeed = async(e) =>{
+  // e.preventDefault()
+  try{
+    const response = await fetch(`http://localhost:4000/feeds/deleteFeed/${e}`,{
+      method: "DELETE"
+    })
+    const json = await response.json()
+    if(response.ok)
+    {
+      fetchData()
+      console.log(json)
+    }
+  }catch(error){
+    console.error(error)
+  }
+}
+
   return (
     <>
     {/* <div className="profileLeft">
@@ -139,6 +157,7 @@ const formatTime = (createdAt) => {
         <div className="allPosts">
           {feed && feed.map((post, index)=>(
             <div className="post" key={index}>
+              {console.log(post._id)}
             <img src={`http://localhost:4000/uploads/${post.profilePic}`} alt="defaultProfile" className='postProf'/>
             <div className="postInfo">
               <div className="postHead">
@@ -153,7 +172,10 @@ const formatTime = (createdAt) => {
               <p className="postDesc" dangerouslySetInnerHTML={{ __html: formatPostDesc(post.post) }} />
             </div>
             <p className='postTime'>{formatTime(post.createdAt)}</p>
+            {user && user.user.userType === "Org" && <img src={deleteIcon} alt="deleteIcon" className="deletePost" onClick={(e)=>handleDeleteFeed(post._id)}/>}
+              
           </div>
+
           ))}
           
         </div>
