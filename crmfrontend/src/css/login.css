@@ -28,7 +28,11 @@
 
 .login1{
     width: 32%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .subLogin1{
     width: 20%;
@@ -45,6 +49,7 @@
     justify-content: space-between;
     position: static;
     width: 80%;
+    height: 90%;
 }
 
 .logoutBtn{
