@@ -102,7 +102,7 @@ function PLNewcontent() {
           </Link>
         </div>
         </div>
-        <button onClick={handlelogout}>LOGOUT</button>
+        <button onClick={handlelogout}>Log Out</button>
       </div>
     </>
   );
