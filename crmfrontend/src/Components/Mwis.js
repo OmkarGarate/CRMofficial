@@ -6,7 +6,6 @@ function Mwis() {
   return (
     <div className='pbr'>
         <div className="profileLeft">
-      
         <PLNewcontent/>
         </div>
         <Outlet/>

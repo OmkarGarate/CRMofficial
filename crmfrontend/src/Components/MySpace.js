@@ -4,8 +4,10 @@ import '../css/myspace.css'
 import sir from '../Images/sir.png'
 import PLNewcontent from './PLNewcontent'
 import login3profile from '../Images/login3profile.png'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 function MySpace() {
+  const {user} = useAuthContext()
 
   const [users, setUsers] = useState('')
 
@@ -17,8 +19,8 @@ function MySpace() {
           const json = await response.json();
     
           if (response.ok) {
-            const sortedUsers = json.sort((a, b) =>  a.name - b.name).reverse();
-setUsers(sortedUsers);
+            const sortedUsers = await json.sort((a, b) =>  a.name - b.name).reverse();
+          setUsers(sortedUsers);
 
             
           }
@@ -27,7 +29,7 @@ setUsers(sortedUsers);
         }
       }
   
-          fetchData();
+          // fetchData();
      
       const fetchData2 = async ()=>{
         try {
@@ -35,7 +37,7 @@ setUsers(sortedUsers);
           const json = await response.json();
     
           if (response.ok) {
-            const sortedUsers = json.sort((a, b) =>  a.name - b.name).reverse();
+            const sortedUsers = await json.sort((a, b) =>  a.name - b.name).reverse();
 setUsers(sortedUsers);
             
           }
@@ -44,15 +46,15 @@ setUsers(sortedUsers);
         }
       }
   
-          fetchData2();
+          // fetchData2();
       
       const fetchData3 = async ()=>{
         try {
           const response = await fetch(`http://localhost:4000/employees/getAllEmployees`);
           const json = await response.json();
           if (response.ok) {
-            const sortedUsers = json.sort((a, b) => a.name - b.name).reverse();
-setUsers(sortedUsers);
+            const sortedUsers = await json.sort((a, b) => a.name - b.name).reverse();
+          setUsers(sortedUsers);
             
           } 
         } catch (error) {
@@ -60,16 +62,22 @@ setUsers(sortedUsers);
         }
       }
 
-          fetchData3();
+          // fetchData3();
         
-        setUsers(users.slice(0, 3))
+        // setUsers(users.slice(0, 3))
 
+        if(user)
+        {
+          fetchData()
+          fetchData2()
+          fetchData3()
+        }
     
-  }, []);
+  }, [user]);
   console.log("users", users)
   return (
     <div className="mwis">
-      <div className='mySpaceMain'>
+      <div className='mySpaceMain mwms'>
       <div className="msp">
         {users &&
         <div className="status">
@@ -124,7 +132,7 @@ setUsers(sortedUsers);
       <div className="dashboard">
         <h2>Dashboard</h2>
         <div className="dashboardInner">
-          
+
         </div>
       </div>
     </div>

@@ -19,6 +19,14 @@ import Workforce from './Components/Workforce';
 import Inventory from './Components/Inventory';
 import Settings from './Components/Settings';
 import Mwis from './Components/Mwis';
+import WorkforceNew from './Components/WorkforceNew';
+import AllPositions from './Components/AllPositions';
+import HeadPositions from './Components/HeadPositions';
+import EmployeePositions from './Components/EmployeePositions';
+import AllProfiles from './Components/AllProfiles';
+import HeadEmployees from './Components/HeadEmployees';
+import Employees from './Components/Employees';
+import ProfilesNew from './Components/ProfilesNew';
 
 function App() {
   const {user} = useAuthContext()
@@ -64,7 +72,9 @@ function App() {
         </Route>
         <Route path='/mwis' element={<Mwis/>}>
               <Route path='/mwis' element={<MySpace/>}/>
-              <Route path='/mwis/workforce' element={<Workforce/>}/>
+              <Route path='/mwis/workforce' element={<WorkforceNew/>}/>
+              {/* <Route path='/mwis/workforce/' element={<AllPositions/>}/> */}
+              {/* </Route> */}
               <Route path='/mwis/inventory' element={<Inventory/>}/>
               <Route path='/mwis/settings' element={<Settings/>}/>
         </Route>

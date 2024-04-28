@@ -1,0 +1,276 @@
+.workforceMain{
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.workforceMain .searchAndCp{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchAndCp .searchProfile{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 15px 15px;
+    border-radius: 50px;
+    width: 55%;
+    gap: 10px;
+}
+
+.searchProfile img{
+    width: 17px;
+}
+
+.searchProfile input{
+    width: 100%;
+    border: none;
+}
+
+.searchProfile input::placeholder{
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #848484;
+}
+
+.searchAndCp button{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #790400;
+    color: white;
+    gap: 10px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.searchAndCp button:hover{
+    background-color: #6d0000;
+}
+
+.searchAndCp button img{
+    width: 17px;
+    /* filter: invert(100%); */
+}
+
+/* designation */
+.desMain h1{
+    font-size: 1.7rem;
+}
+
+.desMain .ahe{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.desMain .ahe button{
+    border: 1px solid #848484;
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.desMain .ahe button:nth-child(1)
+{
+    padding: 10px 25px;
+}
+
+.allPosMain{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.allPosMain .crNew{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 140px;
+    width: 130px;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: white;
+    font-weight: 600;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.crNew p{
+    font-size: 0.9rem;
+}
+
+.crNew img{
+    width: 18px;
+    filter: invert(100%);
+}
+
+.allPos{
+    /* border: 1px solid black; */
+    display: flex;
+    gap: 20px;
+    width: 80%;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    margin-bottom: -15px;
+}
+
+.empPos{
+    width: 100%;
+}
+
+.allPos::-webkit-scrollbar {
+    /* width: 10px;   */
+    height: 5px; 
+}
+
+.allPos::-webkit-scrollbar-thumb {
+    /* width: 10px;   */
+    height: 5px; 
+    border-radius: 50px;
+    background-color: #80000034;
+}
+
+.allPos .aps{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.allPos .pos{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 140px;
+    width: 155px;
+    justify-content: space-between;
+    border-radius: 15px;
+    background-color: white;
+    font-weight: 600;
+    gap: 10px;
+    padding: 17px;
+}
+
+.pos .posCount{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}   
+
+.posCount img{
+    width: 18px;
+    height: 18px;
+}
+
+.pos p{
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 23px;
+    /* border: 1px solid black; */
+}
+
+.posCount p{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #848484;
+   
+}
+
+
+/* profiles */
+.allProfilesMain{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 175px;
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 80%;
+    margin: auto;
+}
+
+.allProfilesMain::-webkit-scrollbar {
+    width: 5px;  
+    /* height: 5px;  */
+}
+
+.allProfilesMain::-webkit-scrollbar-thumb {
+    width: 5px;  
+    /* height: 5px;  */
+    border-radius: 50px;
+    background-color: #80000034;
+}
+
+.allProf{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    margin: auto;
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.allProf .apImg{
+    width: 45px;
+}
+
+.allProf .pn{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+    margin-right: 40px;
+    position: relative;
+    gap: 5px;
+}
+
+.pn p{
+    position: relative;
+    font-weight: 600;
+}
+
+.pn::after{
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background-color: #15bb13;
+    /* bottom: 0; */
+    right: -15px;
+    border-radius: 50px;
+}
+
+.pn img{
+    width: 12px;
+}
+
+.allProf .apRole{
+    color: #A8A8A8;
+    font-weight: 500;
+}

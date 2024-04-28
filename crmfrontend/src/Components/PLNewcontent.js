@@ -42,19 +42,35 @@ function PLNewcontent() {
       let response;
       if (user && user.user.userType === 'Employee') {
         response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
-      } else if (user && user.user.userType === 'Head') {
+        const json = await response.json();
+        if (response.ok) {
+          setUserData(json)
+          setProfilePic(json.profilePic)
+        } else {
+          console.error(json.error);
+        }
+      } 
+       if (user && user.user.userType === 'Head') {
         response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
-      } else {
+        const json = await response.json();
+        if (response.ok) {
+          setUserData(json)
+          setProfilePic(json.profilePic)
+        } else {
+          console.error(json.error);
+        }
+      }  
+      if (user && user.user.userType === 'Org') {
         response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
+        const json = await response.json();
+        if (response.ok) {
+          setUserData(json)
+          setProfilePic(json.profilePic)
+        } else {
+          console.error(json.error);
+        }
       }
-      const json = await response.json();
-
-      if (response.ok) {
-        setUserData(json)
-        setProfilePic(json.profilePic)
-      } else {
-        console.error(json.error);
-      }
+      
     } catch (error) {
       console.error("Error fetching user data:", error);
       // setError("Error fetching user data. Please try again later.");

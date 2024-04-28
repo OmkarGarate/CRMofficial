@@ -38,7 +38,7 @@
     border: none;
 }
 
-::placeholder{
+.searchbar ::placeholder{
     font-size: 0.9rem;
     font-weight: 600;
     color: #848484;
@@ -136,7 +136,7 @@ width: 18px;
 
 .createnew img{
     width: 18px;
-    filter: invert(100%);
+    filter: invert(100%);filter: invert(100%);
 }
 
 .createneww img{

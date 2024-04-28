@@ -157,7 +157,7 @@ const handleDeleteFeed = async(e) =>{
         <div className="allPosts">
           {feed && feed.map((post, index)=>(
             <div className="post" key={index}>
-              {console.log(post._id)}
+              {/* {console.log(post._id)} */}
             <img src={`http://localhost:4000/uploads/${post.profilePic}`} alt="defaultProfile" className='postProf'/>
             <div className="postInfo">
               <div className="postHead">
