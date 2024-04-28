@@ -31,14 +31,14 @@
 }
 
 .subLogin1{
-        /* width: 80%; */
-        margin: 40px auto;
-        height: 88%;
-        /* border: 1px solid black; */
-        display: flex;
-        flex-direction: column;
-        /* justify-content: space-between; */
-        position: fixed;
+    width: 20%;
+    /* margin: 40px auto; */
+    height: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    position: fixed;
 }
 
 .sbl1{
@@ -50,9 +50,9 @@
 .logoutBtn{
     /* border: 1px solid black; */
     border: none;
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
-    left: 0;
+    left: 0; */
     padding: 10px 20px;
     font-size: 1rem;
     color: #800000;
