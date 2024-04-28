@@ -6,7 +6,6 @@ import { useLogout } from '../context/useLogout'
 import PLOldcontent from './PLOldcontent'
 import PLNewcontent from './PLNewcontent'
 
-
 function ProfileLeft() {
   const {user} = useAuthContext()
   const {logout} = useLogout()

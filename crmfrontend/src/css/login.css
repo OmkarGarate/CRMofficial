@@ -47,7 +47,7 @@
     width: 80%;
 }
 
-.subLogin1 .logoutBtn{
+.logoutBtn{
     /* border: 1px solid black; */
     border: none;
     position: absolute;
@@ -65,7 +65,7 @@
     font-weight: 500;
 }
 
-.subLogin1 .logoutBtn:hover{
+.logoutBtn:hover{
     background-color: rgb(255, 200, 200);
 }
 
