@@ -89,7 +89,7 @@
     position: relative;
 }
 
-.subLogin1 span::after{
+/* .subLogin1 span::after{
     content: "";
     position: absolute;
     bottom: 9px;
@@ -97,7 +97,7 @@
     width: 8px;
     height: 8px;
     background-color: #FF3D3D;
-}
+} */
 
 .subLogin1 p{
     color: #800000;

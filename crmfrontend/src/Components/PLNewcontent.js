@@ -35,7 +35,8 @@ function PLNewcontent() {
   }
 
   return (
-      <div className="newCMain subLogin1 pLHeading">
+    <>
+      <div className="newCMain">
         <img src={crmlogo} alt="" />
         <div className="ncMain">
         <div className="nc1">
@@ -86,7 +87,7 @@ function PLNewcontent() {
         </div>
         <button>LOGOUT</button>
       </div>
-    
+    </>
   );
 }
 
