@@ -19,6 +19,8 @@ import login3profile from '../Images/login3profile.png'
 
 function PLNewcontent() {
   
+  const [profilePic, setProfilePic] = useState('')
+  const { user } = useAuthContext()
   const [compColor, setCompColor] = useState({
     color: 'gray'
   })
@@ -31,8 +33,6 @@ function PLNewcontent() {
   const [compColor4, setCompColor4] = useState({
     color: 'gray'
   })
-  const [profilePic, setProfilePic] = useState('')
-  const { user } = useAuthContext()
 
   const { logout } = useLogout()
   const [userData, setUserData] = useState('')
@@ -95,6 +95,17 @@ function PLNewcontent() {
     
   }, [user]);
 
+  function formatDate(dateString) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    
+    return `${day} ${month} ${year}`;
+  }
+
   const changeCompColor = () => {
     const location = window.location.pathname;
   
@@ -156,18 +167,6 @@ function PLNewcontent() {
   useEffect(() => {
     changeCompColor();
   }, [window.location.pathname]);
-  
-
-  function formatDate(dateString) {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    
-    return `${day} ${month} ${year}`;
-  }
 
   return (
     <>
@@ -190,34 +189,34 @@ function PLNewcontent() {
           </div>
           <div className="nc2">
             <Link to={'/mwis'} className="mySpace">
-              <div className="vrSlide"></div>
+              <div className="vrSlide" style={{height: compColor.color=== "#800000" ? "50px" : "0"}}></div>
               <div className="ncImg">
-                <img src={homeg} alt="" />
-                <img src={homer} alt="" />
+                <img src={homeg} alt="" style={{display: compColor.color=== "gray" ? "block" : "none"}} />
+                <img src={homer} alt="" style={{display: compColor.color=== "#800000" ? "block" : "none"}} />
               </div>
               <p style={compColor}>My space</p>
             </Link>
             <Link to={'/mwis/workforce'} className="mySpace">
-              <div className="vrSlide"></div>
+              <div className="vrSlide" style={{height: compColor2.color=== "#800000" ? "50px" : "0"}}></div>
               <div className="ncImg">
-                <img src={workforceg} alt="" />
-                <img src={workforcer} alt="" />
+                <img src={workforceg} alt="" style={{display: compColor2.color=== "gray" ? "block" : "none"}} />
+                <img src={workforcer} alt="" style={{display: compColor2.color=== "#800000" ? "block" : "none"}}/>
               </div>
               <p style={compColor2}>Workforce</p>
             </Link>
             <Link to={'/mwis/inventory'} className="mySpace">
-              <div className="vrSlide"></div>
+              <div className="vrSlide"style={{height: compColor3.color=== "#800000" ? "50px" : "0"}} ></div>
               <div className="ncImg">
-                <img src={inventoryg} alt="" />
-                <img src={inventoryr} alt="" />
+                <img src={inventoryg} alt="" style={{display: compColor3.color=== "gray" ? "block" : "none"}} />
+                <img src={inventoryr} alt="" style={{display: compColor3.color=== "#800000" ? "block" : "none"}}/>
               </div>
               <p style={compColor3}>Inventory</p>
             </Link>
             <Link to={'/mwis/settings'} className="mySpace">
-              <div className="vrSlide"></div>
+              <div className="vrSlide" style={{height: compColor4.color=== "#800000" ? "50px" : "0"}}></div>
               <div className="ncImg">
-                <img src={settingg} alt="" />
-                <img src={settingr} alt="" />
+                <img src={settingg} alt="" style={{display: compColor4.color=== "gray" ? "block" : "none"}} />
+                <img src={settingr} alt="" style={{display: compColor4.color=== "#800000" ? "block" : "none"}}/>
               </div>
               <p style={compColor4}>Settings</p>
             </Link>
