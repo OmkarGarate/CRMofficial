@@ -18,8 +18,17 @@ import { AuthContext } from "../context/Authcontext";
 import login3profile from '../Images/login3profile.png'
 
 function PLNewcontent() {
-  const location = window.location.pathname
+  
   const [compColor, setCompColor] = useState({
+    color: 'gray'
+  })
+  const [compColor2, setCompColor2] = useState({
+    color: 'gray'
+  })
+  const [compColor3, setCompColor3] = useState({
+    color: 'gray'
+  })
+  const [compColor4, setCompColor4] = useState({
     color: 'gray'
   })
   const [profilePic, setProfilePic] = useState('')
@@ -86,17 +95,68 @@ function PLNewcontent() {
     
   }, [user]);
 
-  const handleClick = (e) => {
-    if (location === '/profile/mySpace' && e === 'myspace') {
+  const changeCompColor = () => {
+    const location = window.location.pathname;
+  
+    if (location === '/mwis') {
       setCompColor({
-        color: "red"
-      })
-    } else {
+        color: "#800000"
+      });
+      setCompColor2({
+        color: "gray"
+      });
+      setCompColor3({
+        color: "gray"
+      });
+      setCompColor4({
+        color: "gray"
+      });
+    } else if (location === '/mwis/workforce') {
       setCompColor({
         color: "gray"
-      })
+      });
+      setCompColor2({
+        color: "#800000"
+      });
+      setCompColor3({
+        color: "gray"
+      });
+      setCompColor4({
+        color: "gray"
+      });
+    } else if (location === '/mwis/inventory') {
+      setCompColor({
+        color: "gray"
+      });
+      setCompColor2({
+        color: "gray"
+      });
+      setCompColor3({
+        color: "#800000"
+      });
+      setCompColor4({
+        color: "gray"
+      });
+    } else if (location === '/mwis/settings') {
+      setCompColor({
+        color: "gray"
+      });
+      setCompColor2({
+        color: "gray"
+      });
+      setCompColor3({
+        color: "gray"
+      });
+      setCompColor4({
+        color: "#800000"
+      });
     }
-  }
+  };
+
+  useEffect(() => {
+    changeCompColor();
+  }, [window.location.pathname]);
+  
 
   function formatDate(dateString) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -125,11 +185,11 @@ function PLNewcontent() {
             </div>
             <div className="sirName">
               <p>{userData.firstName} {userData.surname}</p>
-              <span>Registered on: {formatDate(userData.createdAt)}</span>
+              <span>Registe#800000 on: {formatDate(userData.createdAt)}</span>
             </div>
           </div>
           <div className="nc2">
-            <Link to={'/mwis'} className="mySpace" onClick={(e) => handleClick("myspace")}>
+            <Link to={'/mwis'} className="mySpace">
               <div className="vrSlide"></div>
               <div className="ncImg">
                 <img src={homeg} alt="" />
@@ -137,13 +197,13 @@ function PLNewcontent() {
               </div>
               <p style={compColor}>My space</p>
             </Link>
-            <Link to={'/mwis/workforce'} className="mySpace" onClick={(e) => handleClick("workforce")}>
+            <Link to={'/mwis/workforce'} className="mySpace">
               <div className="vrSlide"></div>
               <div className="ncImg">
                 <img src={workforceg} alt="" />
                 <img src={workforcer} alt="" />
               </div>
-              <p>Workforce</p>
+              <p style={compColor2}>Workforce</p>
             </Link>
             <Link to={'/mwis/inventory'} className="mySpace">
               <div className="vrSlide"></div>
@@ -151,7 +211,7 @@ function PLNewcontent() {
                 <img src={inventoryg} alt="" />
                 <img src={inventoryr} alt="" />
               </div>
-              <p>Inventory</p>
+              <p style={compColor3}>Inventory</p>
             </Link>
             <Link to={'/mwis/settings'} className="mySpace">
               <div className="vrSlide"></div>
@@ -159,7 +219,7 @@ function PLNewcontent() {
                 <img src={settingg} alt="" />
                 <img src={settingr} alt="" />
               </div>
-              <p>Settings</p>
+              <p style={compColor4}>Settings</p>
             </Link>
           </div>
         </div>
