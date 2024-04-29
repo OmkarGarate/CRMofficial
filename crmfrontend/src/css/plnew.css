@@ -151,4 +151,6 @@
     border-radius: 50px;
     position: absolute;
     background-color: #800000;
+    transition: 0.3s ease-in-out;
+    transform-origin: top;
 }
