@@ -18,12 +18,21 @@ import { AuthContext } from "../context/Authcontext";
 import login3profile from '../Images/login3profile.png'
 
 function PLNewcontent() {
-  const location = window.location.pathname
+  
+  const [profilePic, setProfilePic] = useState('')
+  const { user } = useAuthContext()
   const [compColor, setCompColor] = useState({
     color: 'gray'
   })
-  const [profilePic, setProfilePic] = useState('')
-  const { user } = useAuthContext()
+  const [compColor2, setCompColor2] = useState({
+    color: 'gray'
+  })
+  const [compColor3, setCompColor3] = useState({
+    color: 'gray'
+  })
+  const [compColor4, setCompColor4] = useState({
+    color: 'gray'
+  })
 
   const { logout } = useLogout()
   const [userData, setUserData] = useState('')
@@ -86,17 +95,7 @@ function PLNewcontent() {
     
   }, [user]);
 
-  const handleClick = (e) => {
-    if (location === '/profile/mySpace' && e === 'myspace') {
-      setCompColor({
-        color: "red"
-      })
-    } else {
-      setCompColor({
-        color: "gray"
-      })
-    }
-  }
+ 
 
   function formatDate(dateString) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -108,6 +107,68 @@ function PLNewcontent() {
     
     return `${day} ${month} ${year}`;
   }
+
+  const changeCompColor = () => {
+    const location = window.location.pathname;
+  
+    if (location === '/mwis') {
+      setCompColor({
+        color: "#800000"
+      });
+      setCompColor2({
+        color: "gray"
+      });
+      setCompColor3({
+        color: "gray"
+      });
+      setCompColor4({
+        color: "gray"
+      });
+    } else if (location === '/mwis/workforce') {
+      setCompColor({
+        color: "gray"
+      });
+      setCompColor2({
+        color: "#800000"
+      });
+      setCompColor3({
+        color: "gray"
+      });
+      setCompColor4({
+        color: "gray"
+      });
+    } else if (location === '/mwis/inventory') {
+      setCompColor({
+        color: "gray"
+      });
+      setCompColor2({
+        color: "gray"
+      });
+      setCompColor3({
+        color: "#800000"
+      });
+      setCompColor4({
+        color: "gray"
+      });
+    } else if (location === '/mwis/settings') {
+      setCompColor({
+        color: "gray"
+      });
+      setCompColor2({
+        color: "gray"
+      });
+      setCompColor3({
+        color: "gray"
+      });
+      setCompColor4({
+        color: "#800000"
+      });
+    }
+  };
+
+  useEffect(() => {
+    changeCompColor();
+  }, [window.location.pathname]);
 
   return (
     <>
@@ -129,37 +190,37 @@ function PLNewcontent() {
             </div>
           </div>
           <div className="nc2">
-            <Link to={'/mwis'} className="mySpace" onClick={(e) => handleClick("myspace")}>
-              <div className="vrSlide"></div>
+            <Link to={'/mwis'} className="mySpace">
+              <div className="vrSlide" style={{height: compColor.color=== "#800000" ? "50px" : "0"}}></div>
               <div className="ncImg">
-                <img src={homeg} alt="" />
-                <img src={homer} alt="" />
+                <img src={homeg} alt="" style={{display: compColor.color=== "gray" ? "block" : "none"}} />
+                <img src={homer} alt="" style={{display: compColor.color=== "#800000" ? "block" : "none"}} />
               </div>
               <p style={compColor}>My space</p>
             </Link>
-            <Link to={'/mwis/workforce'} className="mySpace" onClick={(e) => handleClick("workforce")}>
-              <div className="vrSlide"></div>
+            <Link to={'/mwis/workforce'} className="mySpace">
+              <div className="vrSlide"style={{height: compColor2.color=== "#800000" ? "50px" : "0"}} ></div>
               <div className="ncImg">
-                <img src={workforceg} alt="" />
-                <img src={workforcer} alt="" />
+                <img src={workforceg} alt="" style={{display: compColor2.color=== "gray" ? "block" : "none"}} />
+                <img src={workforcer} alt="" style={{display: compColor2.color=== "#800000" ? "block" : "none"}}/>
               </div>
-              <p>Workforce</p>
+              <p style={compColor2}>Workforce</p>
             </Link>
             <Link to={'/mwis/inventory'} className="mySpace">
-              <div className="vrSlide"></div>
+              <div className="vrSlide"style={{height: compColor3.color=== "#800000" ? "50px" : "0"}} ></div>
               <div className="ncImg">
-                <img src={inventoryg} alt="" />
-                <img src={inventoryr} alt="" />
+                <img src={inventoryg} alt="" style={{display: compColor3.color=== "gray" ? "block" : "none"}} />
+                <img src={inventoryr} alt="" style={{display: compColor3.color=== "#800000" ? "block" : "none"}}/>
               </div>
-              <p>Inventory</p>
+              <p style={compColor3}>Inventory</p>
             </Link>
             <Link to={'/mwis/settings'} className="mySpace">
-              <div className="vrSlide"></div>
+              <div className="vrSlide" style={{height: compColor4.color=== "#800000" ? "50px" : "0"}}></div>
               <div className="ncImg">
-                <img src={settingg} alt="" />
-                <img src={settingr} alt="" />
+                <img src={settingg} alt="" style={{display: compColor4.color=== "gray" ? "block" : "none"}} />
+                <img src={settingr} alt="" style={{display: compColor4.color=== "#800000" ? "block" : "none"}}/>
               </div>
-              <p>Settings</p>
+              <p style={compColor4}>Settings</p>
             </Link>
           </div>
         </div>
