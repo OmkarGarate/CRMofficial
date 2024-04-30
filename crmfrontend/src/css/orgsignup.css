@@ -237,9 +237,9 @@
     cursor: pointer;
 }
 
-::placeholder{
+/* ::placeholder{
     color: #F08989;
-}
+} */
 
 .tnc{
     display: flex;

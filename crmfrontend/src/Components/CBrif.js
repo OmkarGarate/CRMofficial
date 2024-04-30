@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import rightArrow from "../Images/rgtarrow.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useSignupHead } from "../hooks/useSignupHead";
 import { useSignupEmp } from "../hooks/useSignupEmp";
@@ -8,7 +8,7 @@ import PLNewcontent from "./PLNewcontent";
 
 function CBrif() {
   const { user } = useAuthContext();
-
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [orgId, setOrgId] = useState("");
   const [errorM, setErrorM] = useState(null);
@@ -145,42 +145,49 @@ function CBrif() {
         backgroundColor: "rgb(253, 213, 213)"
       })
     }, 200);
-    if (user.user.userType === "Org") {
-      if (department && role) {
-        // Generate employee ID and password
-        // const empId = generateEmployeeId(firstName);
-        // const password = generatePassword(firstName);
+    // if (user.user.userType === "Org") {
+    //   if (department && role) {
+    //     // Generate employee ID and password
+    //     // const empId = generateEmployeeId(firstName);
+    //     // const password = generatePassword(firstName);
   
-        // Update state with generated employee ID and password
-        // setEmpId(empId);
-        // setPassword(password);
+    //     // Update state with generated employee ID and password
+    //     // setEmpId(empId);
+    //     // setPassword(password);
   
-        // Show the employee ID and password fields
-        setEmpas({
-          display: "flex",
-        });
-        setUserType("Head");
-      }
-    } else if (user.user.role === "Human Resource Head2") {
-      if (department2 && role2) {
-        // // Generate employee ID and password
-        // const empId = generateEmployeeId(firstName);
-        // const password = generatePassword(firstName);
+    //     // Show the employee ID and password fields
+    //     setEmpas({
+    //       display: "flex",
+    //     });
+    //     // setUserType("Head");
+    //   }
+    // } else if (user.user.role === "Human Resource Head2") {
+    //   if (department2 && role2) {
+    //     // // Generate employee ID and password
+    //     // const empId = generateEmployeeId(firstName);
+    //     // const password = generatePassword(firstName);
   
-        // Update state with generated employee ID and password
-        // setEmpId(empId);
-        // setPassword(password);
+    //     // Update state with generated employee ID and password
+    //     // setEmpId(empId);
+    //     // setPassword(password);
   
-        // Show the employee ID and password fields
-        setEmpas({
-          display: "flex",
-        });
-        setUserType("Employee");
-      }
+    //     // Show the employee ID and password fields
+    //     setEmpas({
+    //       display: "flex",
+    //     });
+    //     // setUserType("Employee");
+    //   }
+    // }
+
+    if((department && role) || (department2 && role2))
+    {
+      setEmpas({
+        display: "flex"
+      })
     }
   }, [department, role, department2, role2]);
   
-  console.log("empId", empId);
+  console.log("asdfasd", department2, role2);
 
   const generateId = ()=>{
     setEmpId(generateEmployeeId(firstName));
@@ -195,10 +202,10 @@ function CBrif() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (user.user.userType === "Org") {
+    // if (user.user.userType === "Org") {
       await signupHead(orgId, department, role, empId, password, userType);
       fetchHeads()
-    }
+    // }
 
     if (!error) {
       setConf("Successfully Registered!!");
@@ -210,13 +217,13 @@ function CBrif() {
   const handleSubmit2 = async (e) => {
     e.preventDefault();
 
-    if (
-      user.user.userType === "Head" &&
-      user.user.role === "Human Resource Head2"
-    ) {
+    // if (
+    //   user.user.userType === "Head" &&
+    //   user.user.role === "Human Resource Head2"
+    // ) {
       await signupEmp(orgId, department2, role2, empId, password, userType);
       fetchEmps()
-    }
+    // }
 
     if (!error) {
       setConf("Successfully Registered!!");
@@ -226,6 +233,7 @@ function CBrif() {
   };
 
   const [heads, setHeads] = useState("");
+  const [emps, setEmps] = useState("");
   const [ehText, setEhText] = useState("");
 
   const fetchHeads = async () => {
@@ -255,7 +263,7 @@ function CBrif() {
         const sortedHeads = json.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-        setHeads(sortedHeads);
+        setEmps(sortedHeads);
       }
     } catch (error) {
       console.error("Error fetching heads:", error);
@@ -264,17 +272,30 @@ function CBrif() {
 
   useEffect(() => {
     
-
-    if (user.user.userType === "Org") {
+    if(user)
+    {
+    // if (user.user.userType === "Org") {
       fetchHeads();
-      setEhText("Heads");
-    }
+      // setEhText("Heads");
+    // }
 
-    if (user.user.role === "Human Resource Head2") {
+    // if (user.user.role === "Human Resource Head2") {
       fetchEmps();
-      setEhText("Employees");
+      // setEhText("Employees");
+    // }
+
+   
+
     }
   }, [user]);
+
+  const handleHEClick = (e) =>{
+    setTimeout(() => {
+      const urlId = e.userType +"-"+ e._id;
+      navigate(`/profile/cbpPer/${urlId}`)
+    }, 1000);
+    
+  }
 
   return (
    
@@ -289,36 +310,78 @@ function CBrif() {
         <Link to={'/profile/'}><p style={pi}>Company Brif</p></Link>
       </div>
 
+      <div className="ahdm">
       <div className="ahdMain">
-        <p className="ehText">{ehText}</p>
+        <p className="ehText">Heads</p>
         <div className="allHeads">
           <div className="ahHead">
             <p>Department</p>
             <p>Role</p>
             <p>Employee ID</p>
             <p>Password</p>
+            <p>Unique ID</p>
           </div>
           {heads &&
             heads.map((head, index) => (
-              <div key={index} className="ahDetails">
+              <div key={index} className="ahDetails" onClick={(e) =>handleHEClick(head)}>
                 <p>{head.department}</p>
                 <p>{head.role}</p>
                 <p>{head.empId}</p>
                 <p>{head.password}</p>
+                <p>{head._id}</p>
               </div>
             ))}
         </div>
       </div>
+      <div className="ahdMain">
+        <p className="ehText">Employees</p>
+        <div className="allHeads">
+          <div className="ahHead">
+            <p>Department</p>
+            <p>Role</p>
+            <p>Employee ID</p>
+            <p>Password</p>
+            <p>Unique ID</p>
+          </div>
+          {emps &&
+            emps.map((emp, index) => (
+              <div key={index} className="ahDetails" onClick={(e) =>handleHEClick(emp)}>
+                <p>{emp.department}</p>
+                <p>{emp.role}</p>
+                <p>{emp.empId}</p>
+                <p>{emp.password}</p>
+                <p>{emp._id}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+      </div>
+
+     
 
       <div className="drpMain">
         <div className="CbLogo"></div>
         <form
           action=""
           className="drpForm"
-          onSubmit={user.user.userType === "Org" ? handleSubmit : handleSubmit2}
+          onSubmit={userType === "Head" ? handleSubmit : handleSubmit2}
         >
-          {user && user.user.userType === "Org" ? (
+          <div className="labDrop">
+                <label>UserType</label>
+                <select
+                  name="department"
+                  id="department"
+                  onChange={(e) => setUserType(e.target.value)}
+                >
+                  <option value="">Select User Type</option>
+                  <option value="Head">Head</option>
+                  <option value="Employee">Employee</option>
+
+                </select>
+              </div>
+          {userType === "Head" ? (
             <>
+              
               <div className="labDrop">
                 <label>Department</label>
                 <select

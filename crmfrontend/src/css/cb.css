@@ -23,7 +23,7 @@
 }
 
 .cbRight .drp{
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -43,9 +43,11 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    position: absolute;
+    position: sticky;
     top: 20px;
-    left: 21%;
+    left: 0;
+    width: 100%;
+    z-index: 20;
 }
 
 .cbTop img{
@@ -142,6 +144,18 @@
     display: flex;
     align-items: center;
     gap: 50px;
+}
+
+.cpInMain .uid{
+    /* border: 1px solid black; */
+    margin-bottom: 20px;
+    /* display: flex; */
+
+}
+
+.uid .labDrop{
+    display: flex;
+    gap: 20px;
 }
 
 .upImg input{
@@ -404,11 +418,24 @@ input[type="number"]::-webkit-outer-spin-button {
 .drpMain .prevNext{
     margin-top: 0;
 }
+
+.ahdm{
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 .cbpInfo .ahdMain {
     width: 80%;
     /* height: 500px; */
-    margin: 80px 0;
-    margin-bottom: 30px;
+    /* margin: 80px 0;
+    margin-bottom: 30px; */
     /* margin-top: 150px; */
     display: flex;
     flex-direction: column;

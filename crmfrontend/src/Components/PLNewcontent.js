@@ -175,7 +175,7 @@ function PLNewcontent() {
         <img src={crmlogo} alt="" />
         <div className="ncMain">
           <div className="nc1">
-            <Link to={user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? ('/profile/cbpPer') : ('/profile/')}>
+            <Link to={user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? ('/profile/editProfile') : ('/profile/')}>
               <img src={profilePic !== '' ? `http://localhost:4000/uploads/${profilePic}` : login3profile} alt="profileImg" className='profileImg'/>
             </Link>
             <div className="executive">
@@ -184,7 +184,7 @@ function PLNewcontent() {
             </div>
             <div className="sirName">
               <p>{userData.firstName} {userData.surname}</p>
-              <span>Registe#800000 on: {formatDate(userData.createdAt)}</span>
+              <span>Registered on : {formatDate(userData.createdAt)}</span>
             </div>
           </div>
           <div className="nc2">

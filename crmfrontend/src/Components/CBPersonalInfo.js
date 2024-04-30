@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import rightArrow from '../Images/rgtarrow.png'
 import profileDefault from '../Images/login3profile.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import PLNewcontent from './PLNewcontent';
 
 function CBPersonalInfo() {
   const {user} = useAuthContext();
+  const location = window.location.pathname;
   const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
     const [pi, setPi] = useState({
@@ -78,10 +79,29 @@ function CBPersonalInfo() {
   const [error, setError] = useState(null)
   const [conf, setConf] = useState('')
   const [profUrl, setProfUrl] = useState('')
+  const [hasProf, setHasProf] = useState(false)
+
+  
+
+
+  const {urlId} = useParams()
+  console.log(urlId)
+  let parts = ''
+  if(location === `/profile/cbpPer/${urlId}`)
+  {
+     parts = urlId.split("-");
+  }
+  
+  const [userType, setUserType] = useState(parts[0]);
+  const [uId, setUId] = useState(parts[1]);
+  // const userType = parts[0];
+  // const uId = parts[1];
 
   useEffect(()=>{
 
-    if(user && user.user.userType === 'Employee')
+    if(location === '/profile/editProfile')
+    {
+      if(user && user.user.userType === 'Employee')
     {
       const fetchData = async ()=>{
         try {
@@ -120,16 +140,99 @@ function CBPersonalInfo() {
         {
           fetchData();
         }
-    }else if(user && user.user.userType === 'Head')
+      }else if(user && user.user.userType === 'Head')
+      {
+        const fetchData = async ()=>{
+          try {
+            const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
+            const json = await response.json();
+      
+            if (response.ok) {
+              setProfilePic(json.profilePic);
+              console.log("prof2", json.profilePic)
+              setFirstName(json.firstName);
+              setMiddleName(json.middleName);
+              setSurname(json.surname);
+              setMobileNumber(json.mobileNumber);
+              setAlternateMobileNumber(json.alternateMobileNumber);
+              setEmail(json.email);
+              setAddress(json.address);
+              setPinCode(json.pinCode);
+              setNationality(json.nationality);
+              setAge(json.age);
+              setBloodGroup(json.bloodGroup);
+              setGender(json.gender);
+              setReligion(json.religion);
+              setDateOfBirth(json.dateOfBirth);
+              setMaritalStatus(json.maritalStatus);
+              
+            } else {
+              setError(json.error);
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            setError("Error fetching user data. Please try again later.");
+          }
+        }
+    
+        if(user)  
+          {
+            fetchData();
+          }
+      }else
+      {
+        const fetchData = async ()=>{
+          try {
+            const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
+            const json = await response.json();
+            if (response.ok) {
+              setProfilePic(json.profilePic);
+              console.log("prof2", json.profilePic)
+              setFirstName(json.firstName);
+              setMiddleName(json.middleName);
+              setSurname(json.surname);
+              setMobileNumber(json.mobileNumber);
+              setAlternateMobileNumber(json.alternateMobileNumber);
+              setEmail(json.email);
+              setAddress(json.address);
+              setPinCode(json.pinCode);
+              setNationality(json.nationality);
+              setAge(json.age);
+              setBloodGroup(json.bloodGroup);
+              setGender(json.gender);
+              setReligion(json.religion);
+              setDateOfBirth(json.dateOfBirth);
+              setMaritalStatus(json.maritalStatus);
+              
+            } else {
+              setError(json.error);
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            setError("Error fetching user data. Please try again later.");
+          }
+        }
+    
+        if(user)  
+          {
+            fetchData();
+          }
+      } 
+    }else{
+      if(uId && userType === 'Employee')
     {
       const fetchData = async ()=>{
         try {
-          const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
+          const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${uId}`);
           const json = await response.json();
     
           if (response.ok) {
             setProfilePic(json.profilePic);
-            console.log("prof2", json.profilePic)
+            if(json.profilePic)
+            {
+              setHasProf(true)
+            }
+            console.log("prof2", hasProf)
             setFirstName(json.firstName);
             setMiddleName(json.middleName);
             setSurname(json.surname);
@@ -159,48 +262,53 @@ function CBPersonalInfo() {
         {
           fetchData();
         }
-    }else
-    {
-      const fetchData = async ()=>{
-        try {
-          const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
-          const json = await response.json();
-          if (response.ok) {
-            setProfilePic(json.profilePic);
-            console.log("prof2", json.profilePic)
-            setFirstName(json.firstName);
-            setMiddleName(json.middleName);
-            setSurname(json.surname);
-            setMobileNumber(json.mobileNumber);
-            setAlternateMobileNumber(json.alternateMobileNumber);
-            setEmail(json.email);
-            setAddress(json.address);
-            setPinCode(json.pinCode);
-            setNationality(json.nationality);
-            setAge(json.age);
-            setBloodGroup(json.bloodGroup);
-            setGender(json.gender);
-            setReligion(json.religion);
-            setDateOfBirth(json.dateOfBirth);
-            setMaritalStatus(json.maritalStatus);
-            
-          } else {
-            setError(json.error);
+      }else if(uId && userType === 'Head')
+      {
+        const fetchData = async ()=>{
+          try {
+            const response = await fetch(`http://localhost:4000/heads/getOneHead/${uId}`);
+            const json = await response.json();
+      
+            if (response.ok) {
+              setProfilePic(json.profilePic);
+              if(json.profilePic)
+            {
+              setHasProf(true)
+            }
+              console.log("prof2", hasProf)
+              setFirstName(json.firstName);
+              setMiddleName(json.middleName);
+              setSurname(json.surname);
+              setMobileNumber(json.mobileNumber);
+              setAlternateMobileNumber(json.alternateMobileNumber);
+              setEmail(json.email);
+              setAddress(json.address);
+              setPinCode(json.pinCode);
+              setNationality(json.nationality);
+              setAge(json.age);
+              setBloodGroup(json.bloodGroup);
+              setGender(json.gender);
+              setReligion(json.religion);
+              setDateOfBirth(json.dateOfBirth);
+              setMaritalStatus(json.maritalStatus);
+              
+            } else {
+              setError(json.error);
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            setError("Error fetching user data. Please try again later.");
           }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          setError("Error fetching user data. Please try again later.");
         }
+    
+        if(user)  
+          {
+            fetchData();
+          }
       }
-  
-      if(user)  
-        {
-          fetchData();
-        }
     }
-    
 
-  }, [user]);
+  }, [user, location, uId, userType]);
 
 
 const handleSubmit = async(e) =>{
@@ -227,8 +335,52 @@ const handleSubmit = async(e) =>{
       console.log("formdata", formData)
 
         
-
-      if(user && user.user.userType === "Head")
+      if(userType)
+      {
+        if(userType === 'Head')
+      {
+        try {
+          const response = await fetch(
+            `http://localhost:4000/heads/updateHead/${uId}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }else if(userType === 'Employee'){
+        try {
+          const response = await fetch(
+            `http://localhost:4000/employees/updateEmployee/${uId}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }
+      }else{
+        if((user && user.user.userType === "Head"))
       {
         try {
           const response = await fetch(
@@ -249,7 +401,7 @@ const handleSubmit = async(e) =>{
         console.error("Error during form submission:", error);
         setError("Error during form submission. Please try again later.");
       }
-      }else if(user && user.user.userType === "Employee"){
+      }else if((user && user.user.userType === "Employee")){
         try {
           const response = await fetch(
             `http://localhost:4000/employees/updateEmployee/${user.user._id}`
@@ -290,7 +442,9 @@ const handleSubmit = async(e) =>{
         setError("Error during form submission. Please try again later.");
       }
       }
+      }
 
+      
 }
 
 // console.log("up", user.user.profilePic)
@@ -306,11 +460,20 @@ const handleSubmit = async(e) =>{
     }, 1000);
   }
 
+  // const urlId = userType +"-"+ uId;
+
   const goToNext = () =>{
     setTimeout(() => {
-      navigate('/profile/cbprofinfo')
+      if(location === `/profile/cbpPer/${urlId}`)
+    {
+      navigate(`/profile/cbpProfInfo/${urlId}`)
+    }else{
+      navigate('/profile/editProfInfo')
+    }
     }, 1000);
+    
   }
+
 console.log(profilePic)
   return (
     <div className='pbr'>
@@ -331,6 +494,24 @@ console.log(profilePic)
             <p>Documents</p> */}
         </div>
         <form className="cpInMain" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+          {location === '/profile/cbpPer' && 
+            <div className="uid">
+              <div className="labDrop">
+                {/* <label>UserType</label> */}
+                <select
+                  name="department"
+                  id="department"
+                  onChange={(e) => setUserType(e.target.value)}
+                >
+                  <option value="">Select User Type</option>
+                  <option value="Head">Head</option>
+                  <option value="Employee">Employee</option>
+
+                </select>
+                <input type="text" onChange={(e) => setUId(e.target.value)} value={uId} placeholder='Enter User Id'/>
+              </div>
+            </div>
+            }
             <div className="cpms">
             <div className="cpm">
             <div className="upImg">
@@ -343,29 +524,35 @@ console.log(profilePic)
                 } 
                   alt="profileDefault" 
                 /> */}
-              
-              {user && user.user.profilePic === '' && profUrl === '' && profilePic === ''? 
-                <img src={
-                  pp
-                } alt="" /> 
-                : null
-              }
 
-              {user && profUrl !=='' ? 
-                <img src={
-                  profUrl
-                } alt="" /> 
-                : null
-              }
+                      {user && user.user.profilePic === '' && profUrl === '' && profilePic === ''? 
+                      <img src={
+                        pp
+                      } alt="" /> 
+                      : null
+                    }
 
-              {user && profUrl === '' && profilePic != ''? 
-                <img src={
-                  `http://localhost:4000/uploads/${profilePic}`
-                } alt="" /> 
-                : null
-              }
+                    {profilePic === '' && !hasProf ? <img src={
+                        pp
+                      } alt="" /> 
+                      : null}
+                  
 
-              
+                    {user && profUrl !=='' ? 
+                      <img src={
+                        profUrl
+                      } alt="" /> 
+                      : null
+                    }
+      
+                    {user && profUrl === '' && profilePic != ''? 
+                      <img src={
+                        `http://localhost:4000/uploads/${profilePic}`
+                      } alt="" /> 
+                      : null
+                    }
+                    
+                 
               <input
                 type="file"
                 className="form-control-file"

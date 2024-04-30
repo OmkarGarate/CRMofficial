@@ -54,8 +54,10 @@ function App() {
               {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (
                 <>
                   <Route path='/profile/' element={<CBrif/>}/>
-                  <Route path='/profile/cbpPer' element={<CBPersonalInfo/>}/>
-                  <Route path='cbprofinfo' element={<CBProfessionalInfo/>}/>
+                  <Route path='/profile/cbpPer/:urlId' element={<CBPersonalInfo/>}/>
+                  <Route path='/profile/editProfile' element={<CBPersonalInfo/>}/>
+                  <Route path='editProfInfo' element={<CBProfessionalInfo/>}/>
+                  <Route path='cbpProfInfo/:urlId' element={<CBProfessionalInfo/>}/>
                   {/* <Route path='mySpace' element={<MySpace/>}/>
                 <Route path='workforce' element={<Workforce/>}/>
                 <Route path='inventory' element={<Inventory/>}/>
