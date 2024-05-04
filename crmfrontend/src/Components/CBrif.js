@@ -43,7 +43,7 @@ function CBrif() {
     }
   }, [user]);
 
-  const [pi, setPi] = useState({
+  const [ pi, setPi] = useState({
     transform: "translateX(-200px)",
     opacity: "0",
     animation: "none",

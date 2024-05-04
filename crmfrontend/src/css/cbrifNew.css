@@ -1,0 +1,76 @@
+.pbr{
+    /* border: 1px solid black; */
+    /* height: 100vh; */
+}
+
+.cbNew{
+    /* border: 1px solid black; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    width: 25%;
+}
+
+.cbNew button{
+    padding: 10px 20px;
+    border: 2px solid #800000;
+    border-radius: 50px;
+    /* width: 200px; */
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #800000;
+    color: white;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.cbNew .cbnComps{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cbnComps p{
+    font-weight: 500;
+}
+
+.cbnComps #cbLogo{
+    display: none;
+}
+
+.cbnComps label{
+    /* border: 1px solid black; */
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: block;
+    width: max-content;
+    background-color: #FBF7F7;
+    font-weight: 600;
+    color: #800000;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cbnComps label img{
+    width: 18px;
+    margin-right: 10px;
+}
+
+.cbnComps input, .cbnComps textarea{
+    padding: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    background-color: #FBF7F7;
+    border: none;
+    /* cursor: pointer; */
+}
+
+.cbnComps textarea{
+    height: 80px;
+}

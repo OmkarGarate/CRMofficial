@@ -16,6 +16,9 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../context/useLogout'
 import { AuthContext } from "../context/Authcontext";
 import login3profile from '../Images/login3profile.png'
+import executive from '../Images/executive.png'
+import head from '../Images/head.png'
+import employee from '../Images/employee.png'
 
 function PLNewcontent() {
   
@@ -179,7 +182,7 @@ function PLNewcontent() {
               <img src={profilePic !== '' ? `http://localhost:4000/uploads/${profilePic}` : login3profile} alt="profileImg" className='profileImg'/>
             </Link>
             <div className="executive">
-              <img src={userData.userType === "Org" ? uparrows : userData.userType === "Head" ? uparrows : uparrows} alt="uparrows" />
+              <img src={userData.userType === "Org" ? executive : userData.userType === "Head" ? head : employee} alt="uparrows" />
               <p>{userData.userType === "Org" ? "EXECUTIVE" : userData.userType === "Head" ? "HEAD" : "EMPLOYEE"}</p>
             </div>
             <div className="sirName">

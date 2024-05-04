@@ -4,6 +4,9 @@ import rgtArrow from '../Images/rgtarrow.png'
 import defaultProfile from '../Images/login3profile.png'
 import ProfileLeft from './ProfileLeft'
 import uparrows from "../Images/uparrows.png";
+import executive from '../Images/executive.png'
+import head from '../Images/head.png'
+import employee from '../Images/employee.png'
 import { useAuthContext } from '../hooks/useAuthContext'
 import deleteIcon from '../Images/deleteIcon.png'
 
@@ -148,7 +151,7 @@ const handleDeleteFeed = async(e) =>{
       <div className='feedMain'>
         <div className="postFeed">
             {/* <img src={rgtArrow} alt="rgtArrow" /> */}
-            <img src={user && user.user.userType === "Org" ? uparrows : user && user.user.userType === "Head" ? uparrows : uparrows} alt="uparrows" />
+            <img src={user && user.user.userType === "Org" ? executive : user && user.user.userType === "Head" ? head : employee} alt="uparrows" />
             <form method="post" onSubmit={handleSubmit}>
             <input type="text" value={post} onChange={(e) => setPost(e.target.value)} placeholder="Write what's Brifin'"/>
                 <button className='postBtn'>Post</button>
@@ -162,7 +165,7 @@ const handleDeleteFeed = async(e) =>{
             <div className="postInfo">
               <div className="postHead">
                 {/* <img src={rgtArrow} alt="rgtArrow" /> */}
-                <img src={user && user.user.userType === "Org" ? uparrows : user && user.user.userType === "Head" ? uparrows : uparrows} alt="uparrows" />
+                <img src={user && user.user.userType === "Org" ? executive : user && user.user.userType === "Head" ? head : employee} alt="uparrows" />
                 <p className='pName'>{post.name}</p>
                 <p className='pRole'>-{post.role}</p>
               </div>

@@ -27,6 +27,7 @@ import AllProfiles from './Components/AllProfiles';
 import HeadEmployees from './Components/HeadEmployees';
 import Employees from './Components/Employees';
 import ProfilesNew from './Components/ProfilesNew';
+import CBrifNew from './Components/CBrifNew';
 
 function App() {
   const {user} = useAuthContext()
@@ -54,8 +55,10 @@ function App() {
               {user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? (
                 <>
                   <Route path='/profile/' element={<CBrif/>}/>
+                  <Route path='/profile/cbn' element={<CBrifNew/>}/>
                   <Route path='/profile/cbpPer/:urlId' element={<CBPersonalInfo/>}/>
-                  <Route path='/profile/editProfile' element={<CBPersonalInfo/>}/>
+                  <Route path='/profile/editProfile' element={<CBPersonalInfo/>}/> 
+                  
                   <Route path='editProfInfo' element={<CBProfessionalInfo/>}/>
                   <Route path='cbpProfInfo/:urlId' element={<CBProfessionalInfo/>}/>
                   {/* <Route path='mySpace' element={<MySpace/>}/>
