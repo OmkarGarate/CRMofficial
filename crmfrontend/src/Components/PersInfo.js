@@ -7,8 +7,8 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import PLNewcontent from './PLNewcontent';
 
-function CBPersonalInfo() {
-  const {user} = useAuthContext();
+function PersInfo() {
+    const {user} = useAuthContext();
   const location = window.location.pathname;
   const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
@@ -476,107 +476,18 @@ const handleSubmit = async(e) =>{
 
 console.log(profilePic)
   return (
-    <div className='pbr'>
-    <div className="profileLeft">
-      <PLNewcontent/>
-    </div>
-    <div className='cbpInfo'>
-        <div className="cbTop">
-          <Link to={'/profile/'}><p>Company Brif</p></Link>
-            <img src={rightArrow} alt="rightArrow" style={pi2}/>
-            {/* <Link to={'/profile/'}> */}
-              <p style={pi}>Personal Info</p>
-              {/* </Link> */}
-            
-            {/* <img src={rightArrow} alt="rightArrow" />
-            <p>Professional Info</p>
-            <img src={rightArrow} alt="rightArrow" />
-            <p>Documents</p> */}
-        </div>
-        <form className="cpInMain" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
-          {location === '/profile/cbpPer' && 
-            <div className="uid">
-              <div className="labDrop">
-                {/* <label>UserType</label> */}
-                <select
-                  name="department"
-                  id="department"
-                  onChange={(e) => setUserType(e.target.value)}
-                >
-                  <option value="">Select User Type</option>
-                  <option value="Head">Head</option>
-                  <option value="Employee">Employee</option>
-
-                </select>
-                <input type="text" onChange={(e) => setUId(e.target.value)} value={uId} placeholder='Enter User Id'/>
-              </div>
-            </div>
-            }
-            <div className="cpms">
-            <div className="cpm">
-            <div className="upImg">
-                {/* <img src={
-                  user.user.profilePic === "" && profUrl === "" ? 
-                  profileDefault : 
-                  profUrl !== "" ? 
-          
-                  profUrl : 
-                  `http://localhost:4000/uploads/${user.user.profilePic}`
-                } 
-                  alt="profileDefault" 
-                /> */}
-
-                      {user && user.user.profilePic === '' && profUrl === '' && profilePic === ''? 
-                      <img src={
-                        pp
-                      } alt="" /> 
-                      : null
-                    }
-
-                    {profilePic === '' && !hasProf ? <img src={
-                        pp
-                      } alt="" /> 
-                      : null}
-                  
-
-                    {user && profUrl !=='' ? 
-                      <img src={
-                        profUrl
-                      } alt="" /> 
-                      : null
-                    }
-      
-                    {user && profUrl === '' && profilePic != ''? 
-                      <img src={
-                        `http://localhost:4000/uploads/${profilePic}`
-                      } alt="" /> 
-                      : null
-                    }
-                    
-                 
-              <input
-                type="file"
-                className="form-control-file" 
-                name="uploaded_file"
-                onChange={(e) => {
-                  setProfilePic(e.target.files[0])
-                  setProfUrl(URL.createObjectURL(e.target.files[0]));
-                }}
-                id='upImg'
-              />
-              <label htmlFor="upImg">Upload Image</label>
-            </div>
-                <input type="text" placeholder='First Name' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
-                <input type="text" placeholder='Middle Name' value={middleName} onChange={(e)=>setMiddleName(e.target.value)}/>
-                <input type="text" placeholder='Surname' value={surname} onChange={(e)=>setSurname(e.target.value)}/>
+    <div className="persInfoMain">
+        <div  className='cpms'>
+        <div className='cpm'>
                 <input type="text" placeholder='Mobile Number' value={mobileNumber} onChange={(e)=>setMobileNumber(e.target.value)}/>
                 <input type="text" placeholder='Alternate Mobile Number' value={alternateMobileNumber} onChange={(e)=>setAlternateMobileNumber(e.target.value)}/>
                 <input type="text" placeholder='Email ID' value={email} onChange={(e)=>setEmail(e.target.value)}/>
-            </div>
-            <div className="cpm">
                 <input type="text" placeholder='Residential Address' value={address} onChange={(e)=>setAddress(e.target.value)}/>
                 <input type="text" placeholder='PIN code' value={pinCode} onChange={(e)=>setPinCode(e.target.value)}/>
                 <input type="text" placeholder='Nationality'value={nationality} onChange={(e)=>setNationality(e.target.value)}/>
+            </div>
+            <div className="cpm">
+                
                 <div className="abg">
                     <input type="text" placeholder='Age' value={age} onChange={(e)=>setAge(e.target.value)}/>
                     <select className='bldg' value={bloodGroup} onChange={handleChange} >
@@ -592,14 +503,16 @@ console.log(profilePic)
                     </select>
 
                 </div>
-                <div className="abg genRel">
+                {/* <div className="abg genRel"> */}
                     <select name="" id="" value={gender} onChange={handleGenderChange}>
                     <option value="">Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                     </select>
-                    <select name="" id="" value={religion} onChange={handleReligionChange}>
+                    
+                {/* </div> */}
+                <select name="" id="" value={religion} onChange={handleReligionChange}>
                       <option value="">Religion</option>
                       <option value="christianity">Christianity</option>
                       <option value="islam">Islam</option>
@@ -609,7 +522,6 @@ console.log(profilePic)
                       <option value="judaism">Judaism</option>
                       <option value="other">Other</option>
                     </select>
-                </div>
                 <div className="dob">
                     <label htmlFor="">Date of Birth</label>
                     {/* <div className="dobIn">
@@ -640,7 +552,9 @@ console.log(profilePic)
                     <option value="other">Other</option>
                 </select>
             </div>
-            </div>
+        </div>
+            
+
             <div className="prevNext">
                 {/* <button>Previous</button> */}
               {isHO ? (
@@ -659,11 +573,8 @@ console.log(profilePic)
                 {/* <button className='next'>Next</button> */}
                 {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
             </div>
-        </form>
     </div>
-    </div>
-    
   )
 }
 
-export default CBPersonalInfo
+export default PersInfo

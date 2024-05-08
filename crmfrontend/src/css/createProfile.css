@@ -1,0 +1,249 @@
+.cprfMain{
+        /* border: 1px solid black; */
+        /* display: flex; */
+        background: #FAFAFA;
+        padding: 30px;
+        /* gap: 90px; */
+        /* height: 100%; */
+        border-radius: 30px 30px 30px 0;
+        width: 100%;
+}
+
+.createProfMain .mwis{
+    height: max-content;
+}
+
+
+
+.cprfMain h2{
+    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-left: 50px;
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.cprfMain .cpTop{
+    /* border: 1px solid black; */
+    display: flex;
+    width: 90%;
+}
+
+.cpTop .cpProfile{
+    /* border: 1px solid black; */
+    background: white;
+    width: 50%;
+    display: flex;
+    border-radius: 80px 60px 0px 0px;
+    padding: 30px 35px;
+    justify-content: space-between;
+    position: relative;
+    /* z-index: 1; */
+
+}
+
+.cpProfile .upImg{
+    flex-direction: column;
+    gap: 0;
+    justify-content: center;
+}
+
+.cpProfile .cpm{
+    width: 65%;
+    gap: 10px;
+}
+
+.cpm input, .cpm select, .cpm option {
+    color: #A8A8A8;
+    outline: none;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #E8E8E8;
+    font-size: 0.8rem;
+}
+
+.upImg img{
+    width: 90px;
+    height: 90px;
+}
+
+.upImg label {
+    /* border: 1px solid black; */
+    background-color: rgb(231, 231, 231);
+    padding: 7px 10px;
+    border-radius: 15px;
+    color: #800000;
+    font-weight: 600;
+    font-size: 0.6rem;
+    cursor: pointer;
+}
+
+.cawweMain{
+    /* border: 1px solid black; */
+    width: 50%;
+}
+
+.cawweMain .cawMain{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.caw1{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 45%;
+}
+
+.caw1 select, .caw1 option{
+    padding: 8px 12px;
+    border-radius: 50px;
+    background-color: white;
+    border: none;
+    font-size: 0.8rem;
+    color: #A8A8A8;
+    font-weight: 600;
+}
+
+.cpm .marStat{
+    margin-top: 0;
+}
+
+.accToFeed{
+    /* border: 1px solid black; */
+    background-color: white;
+    padding: 30px 20px ;
+    border-radius: 25px;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 50%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accToFeed input{
+    display: none;
+}
+
+.accToFeed label{
+    /* border: 1px solid black; */
+    width: 55px;
+    border-radius: 50px;
+    /* height: 20px; */
+    height: 32px;
+    /* padding: 4px; */
+    display: flex;
+    align-items: center;
+    background-color: #D0FF52;
+    position: relative;
+    cursor: pointer;
+}
+
+.accToFeed .atfSwitch{
+    /* border: 1px solid black; */
+    width: 24px;
+    height: 24px;
+    border-radius: 40px;
+    background-color: #008005;
+    position: absolute;
+    right: 0;
+    transition: 0.3s ease-in-out;
+    
+}
+
+.cawweMain{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* border: 1px solid black;  */
+    background-color: #FAFAFA;
+    justify-content: center;
+    padding-right: 0;
+    border-bottom-left-radius: 60px;
+    position: relative;
+    z-index: 1;
+    padding-top: 0;
+    padding-left: 25px;
+    padding-bottom: 30px;
+    padding-right: 0;
+}
+
+.wwe{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    border-radius: 40px;
+    padding: 0 10px;
+    background-color: white;
+}
+
+.wwe img{
+    width: 20px;
+}
+
+.wwe input{
+    /* border: 1px solid black; */
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: #A8A8A8;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.wwe input::placeholder{
+    color: #A8A8A8;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.cpOut{
+    /* border: 1px solid black; */
+    height: max-content;
+    background-color: white;
+    width: 90%;
+    border-radius: 0 60px 80px 80px;
+}
+
+.whitePatch{
+    /* border: 1px solid black; */
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+    right: -40px;
+    
+}
+
+.cpoTop{
+    /* border: 1px solid black; */
+    display: flex;
+    gap: 20px;
+    padding: 30px;
+}
+
+.cpoTop .cpOpt{
+    border: 1px solid #800000;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    color: #800000;
+    background-color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.persInfoMain{
+    /* border: 1px solid black; */
+    width: 70%;
+    margin: auto;
+}
+
+.persInfoMain .prevNext{
+    padding-bottom: 20px;
+}

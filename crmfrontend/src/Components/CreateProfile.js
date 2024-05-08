@@ -5,10 +5,14 @@ import profileDefault from '../Images/login3profile.png'
 import { Link, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
-import PLNewcontent from './PLNewcontent';
+import PLNewcontent from './PLNewcontent'
+import '../css/createProfile.css'
+import PersInfo from './PersInfo';
+import emailImg from '../Images/email.png'
 
-function CBPersonalInfo() {
-  const {user} = useAuthContext();
+
+function CreateProfile() {
+    const {user} = useAuthContext();
   const location = window.location.pathname;
   const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
@@ -475,56 +479,40 @@ const handleSubmit = async(e) =>{
   }
 
 console.log(profilePic)
-  return (
-    <div className='pbr'>
-    <div className="profileLeft">
-      <PLNewcontent/>
-    </div>
-    <div className='cbpInfo'>
-        <div className="cbTop">
-          <Link to={'/profile/'}><p>Company Brif</p></Link>
-            <img src={rightArrow} alt="rightArrow" style={pi2}/>
-            {/* <Link to={'/profile/'}> */}
-              <p style={pi}>Personal Info</p>
-              {/* </Link> */}
-            
-            {/* <img src={rightArrow} alt="rightArrow" />
-            <p>Professional Info</p>
-            <img src={rightArrow} alt="rightArrow" />
-            <p>Documents</p> */}
-        </div>
-        <form className="cpInMain" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
-          {location === '/profile/cbpPer' && 
-            <div className="uid">
-              <div className="labDrop">
-                {/* <label>UserType</label> */}
-                <select
-                  name="department"
-                  id="department"
-                  onChange={(e) => setUserType(e.target.value)}
-                >
-                  <option value="">Select User Type</option>
-                  <option value="Head">Head</option>
-                  <option value="Employee">Employee</option>
 
-                </select>
-                <input type="text" onChange={(e) => setUId(e.target.value)} value={uId} placeholder='Enter User Id'/>
-              </div>
-            </div>
-            }
-            <div className="cpms">
-            <div className="cpm">
-            <div className="upImg">
-                {/* <img src={
-                  user.user.profilePic === "" && profUrl === "" ? 
-                  profileDefault : 
-                  profUrl !== "" ? 
-          
-                  profUrl : 
-                  `http://localhost:4000/uploads/${user.user.profilePic}`
-                } 
-                  alt="profileDefault" 
-                /> */}
+
+const[atcStyle, setAtcStyle] = useState({
+    right: "4px"
+})
+
+const handleAtc = ()=>{
+    if(atcStyle.right === "4px")
+        {
+            setAtcStyle({
+                right: "28px"
+            })
+        }else{
+            setAtcStyle({
+                right: "4px"
+            })
+        }
+}
+  return (
+    <div className='pbr createProfMain'>
+        <div className="profileLeft">
+            <PLNewcontent/>
+        </div>
+    <form className="mwis" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+        
+        <div className="cprfMain">
+            <h2>Create Profile</h2>
+            <div className="cpTop">
+                <div className="cpProfile">
+                    {/* <div className="cppi"> */}
+                    
+                    {/* </div> */}
+                    <div className="upImg">
+                    {/* <img src={profileDefault} alt="profileDefault" /> */}
 
                       {user && user.user.profilePic === '' && profUrl === '' && profilePic === ''? 
                       <img src={
@@ -565,105 +553,63 @@ console.log(profilePic)
                 id='upImg'
               />
               <label htmlFor="upImg">Upload Image</label>
-            </div>
-                <input type="text" placeholder='First Name' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
-                <input type="text" placeholder='Middle Name' value={middleName} onChange={(e)=>setMiddleName(e.target.value)}/>
-                <input type="text" placeholder='Surname' value={surname} onChange={(e)=>setSurname(e.target.value)}/>
-                <input type="text" placeholder='Mobile Number' value={mobileNumber} onChange={(e)=>setMobileNumber(e.target.value)}/>
-                <input type="text" placeholder='Alternate Mobile Number' value={alternateMobileNumber} onChange={(e)=>setAlternateMobileNumber(e.target.value)}/>
-                <input type="text" placeholder='Email ID' value={email} onChange={(e)=>setEmail(e.target.value)}/>
-            </div>
-            <div className="cpm">
-                <input type="text" placeholder='Residential Address' value={address} onChange={(e)=>setAddress(e.target.value)}/>
-                <input type="text" placeholder='PIN code' value={pinCode} onChange={(e)=>setPinCode(e.target.value)}/>
-                <input type="text" placeholder='Nationality'value={nationality} onChange={(e)=>setNationality(e.target.value)}/>
-                <div className="abg">
-                    <input type="text" placeholder='Age' value={age} onChange={(e)=>setAge(e.target.value)}/>
-                    <select className='bldg' value={bloodGroup} onChange={handleChange} >
-                      <option value="">Blood Group</option>
-                      <option value="A+">A+</option>
-                      <option value="A-">A-</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B-</option>
-                      <option value="O+">O+</option>
-                      <option value="O-">O-</option>
-                      <option value="AB+">AB+</option>
-                      <option value="AB-">AB-</option>
-                    </select>
-
+                    </div>
+                    <div className="cpm">
+                    {/* <div className="cpm"> */}
+                        <input type="text" placeholder='First Name' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+                        <input type="text" placeholder='Middle Name' value={middleName} onChange={(e)=>setMiddleName(e.target.value)}/>
+                        <input type="text" placeholder='Surname' value={surname} onChange={(e)=>setSurname(e.target.value)}/>
+                        </div>
+                    {/* </div> */}
+                    <div className="whitePatch"></div>
                 </div>
-                <div className="abg genRel">
-                    <select name="" id="" value={gender} onChange={handleGenderChange}>
-                    <option value="">Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    </select>
-                    <select name="" id="" value={religion} onChange={handleReligionChange}>
-                      <option value="">Religion</option>
-                      <option value="christianity">Christianity</option>
-                      <option value="islam">Islam</option>
-                      <option value="hinduism">Hinduism</option>
-                      <option value="buddhism">Buddhism</option>
-                      <option value="sikhism">Sikhism</option>
-                      <option value="judaism">Judaism</option>
-                      <option value="other">Other</option>
-                    </select>
+                <div className="cawweMain">
+                <div className="cawMain">
+                    <div className="caw1">
+                        <select name="" id="">
+                            <option value="">Choose Department</option>
+                            <option value="Department 1">Department 1</option>
+                            <option value="Department 2">Department 2</option>
+                            <option value="Department 3">Department 3</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">Choose Department</option>
+                            <option value="Department 1">Department 1</option>
+                            <option value="Department 2">Department 2</option>
+                            <option value="Department 3">Department 3</option>
+                        </select>
+                    </div>
+                    <div className="accToFeed">
+                        <p>Give Access to <br /> Posting on Feed</p>
+                        <input type="checkbox" id='atf'/>
+                        <label htmlFor="atf" onClick={handleAtc}>
+                            <div className="atfSwitch" style={atcStyle}></div>
+                        </label>
+                    </div>
                 </div>
-                <div className="dob">
-                    <label htmlFor="">Date of Birth</label>
-                    {/* <div className="dobIn">
-                        <input type="number" placeholder='DD' value={dd} onChange={(e)=>{
-                          setDd(e.target.value)
-                          setDateOfBirth(dd +"-"+ mm +"-"+ yy)
-                        }
-                        }/>/
-                        <input type="number" placeholder='MM' value={mm} onChange={(e)=>{
-                          setMm(e.target.value)
-                          setDateOfBirth(dd +"-"+ mm +"-"+ yy)
-                        }
-                      }/>/
-                        <input type="number" placeholder='YYYY' value={yy} onChange={(e)=>{
-                          setYy(e.target.value)
-                          setDateOfBirth(dd +"-"+ mm +"-"+ yy)
-                          }}/>
-                    </div> */}
-                    <input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+                <div className="wwe">
+                    <img src={emailImg} alt="emailImg" />
+                    <input type="text" placeholder='Write Work Email'/>
                 </div>
-                <select name="" id="" className='marStat' value={maritalStatus} onChange={handleStatusChange}>
-                    <option value="">Marital Status</option>
-                    <option value="single">Single</option>
-                    <option value="married">Married</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widowed">Widowed</option>
-                    <option value="separated">Separated</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            </div>
-            <div className="prevNext">
-                {/* <button>Previous</button> */}
-              {isHO ? (
-                // <Link to={'/profile'}>
-                  <button className='previous' onClick={goToPrev}>Previous</button>
-                  // </Link>
-
-              ):(null)}
                 
-                  <button className='next' onClick={goToNext}>
-                  {/* <Link to={'/profile/cbprofinfo'}> */}
-                    Next
-                    {/* </Link> */}
-                    </button>
-                  
-                {/* <button className='next'>Next</button> */}
-                {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
+                </div>
+                
             </div>
-        </form>
-    </div>
+            <div className="cpOut">
+                <div className="cpoTop">
+                    <div className="cpOpt">Personal Info</div>
+                    <div className="cpOpt">Professional Info</div>
+                    <div className="cpOpt">Documents</div>
+                    <div className="cpOpt">Work Settings</div>
+                    <div className="cpOpt">Roles & Responsibilities</div>
+                </div>
+                <PersInfo/>
+            </div>
+        </div>
+    </form>
     </div>
     
   )
 }
 
-export default CBPersonalInfo
+export default CreateProfile

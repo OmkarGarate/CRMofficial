@@ -28,6 +28,7 @@ import HeadEmployees from './Components/HeadEmployees';
 import Employees from './Components/Employees';
 import ProfilesNew from './Components/ProfilesNew';
 import CBrifNew from './Components/CBrifNew';
+import CreateProfile from './Components/CreateProfile';
 
 function App() {
   const {user} = useAuthContext()
@@ -56,6 +57,7 @@ function App() {
                 <>
                   <Route path='/profile/' element={<CBrif/>}/>
                   <Route path='/profile/cbn' element={<CBrifNew/>}/>
+                  <Route path='/profile/createProf' element={<CreateProfile/>}/>
                   <Route path='/profile/cbpPer/:urlId' element={<CBPersonalInfo/>}/>
                   <Route path='/profile/editProfile' element={<CBPersonalInfo/>}/> 
                   
