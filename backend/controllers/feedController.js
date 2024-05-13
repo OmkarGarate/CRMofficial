@@ -18,7 +18,6 @@ const createFeed = async (req, res) => {
     }
   };
   
-
 const getAllFeed = async(req, res) =>{
     const feed = await Feed.find({}).sort({createdAt: -1})
     res.status(200).json(feed)

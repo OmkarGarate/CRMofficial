@@ -51,12 +51,12 @@ function PersInfo() {
     setMaritalStatus(event.target.value)
   };
 
-  useEffect(()=>{
-    if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
-    {
-      setIsHO(!isHO)
-    }
-  }, [user])
+  // useEffect(()=>{
+  //   if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
+  //   {
+  //     setIsHO(!isHO)
+  //   }
+  // }, [user])
 
   //update emp logic
   const [profilePic, setProfilePic] = useState('')
@@ -81,13 +81,10 @@ function PersInfo() {
   const [profUrl, setProfUrl] = useState('')
   const [hasProf, setHasProf] = useState(false)
 
-  
-
-
   const {urlId} = useParams()
   console.log(urlId)
   let parts = ''
-  if(location === `/profile/cbpPer/${urlId}`)
+  if(location === `/profile/createProf/${urlId}`)
   {
      parts = urlId.split("-");
   }
@@ -314,6 +311,9 @@ function PersInfo() {
 const handleSubmit = async(e) =>{
       e.preventDefault()
 
+      if(location === `/profile/createProf/${urlId}`){
+
+
       // console.log("prof2",profilePic)
       const formData = new FormData()
       formData.append("uploaded_file", profilePic)
@@ -444,12 +444,25 @@ const handleSubmit = async(e) =>{
       }
       }
 
-      
+    }else{
+
+    }
 }
 
 // console.log("up", user.user.profilePic)
   // console.log("user data: ", user) 
   // console.log("dateOfBirth", dateOfBirth)
+
+  const [cnText, setCnText] = useState('Next');
+  useEffect(()=>{
+    if(location === `/profile/createProf/${urlId}`)
+      {
+        setCnText('Next');
+      }else{
+        setCnText('Create');
+      }
+  }, [cnText])
+  
 
   const goToPrev = () =>{
     setTimeout(() => {
@@ -464,9 +477,11 @@ const handleSubmit = async(e) =>{
 
   const goToNext = () =>{
     setTimeout(() => {
-      if(location === `/profile/cbpPer/${urlId}`)
+      if(location === `/profile/createProf/` || location === `/profile/createProf/${urlId}`)
     {
-      navigate(`/profile/cbpProfInfo/${urlId}`)
+      setTimeout(() => {
+        navigate(`/profile/createProf/profInfo`)
+      }, 1000);
     }else{
       navigate('/profile/editProfInfo')
     }
@@ -476,7 +491,7 @@ const handleSubmit = async(e) =>{
 
 console.log(profilePic)
   return (
-    <div className="persInfoMain">
+    <form encType="multipart/form-data" method="post" onSubmit={handleSubmit} className="persInfoMain">
         <div  className='cpms'>
         <div className='cpm'>
                 <input type="text" placeholder='Mobile Number' value={mobileNumber} onChange={(e)=>setMobileNumber(e.target.value)}/>
@@ -553,8 +568,7 @@ console.log(profilePic)
                 </select>
             </div>
         </div>
-            
-
+          
             <div className="prevNext">
                 {/* <button>Previous</button> */}
               {isHO ? (
@@ -568,12 +582,12 @@ console.log(profilePic)
                   {/* <Link to={'/profile/cbprofinfo'}> */}
                     Next
                     {/* </Link> */}
-                    </button>
+                  </button>
                   
                 {/* <button className='next'>Next</button> */}
                 {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
             </div>
-    </div>
+    </form>
   )
 }
 

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import rightArrow from '../Images/rgtarrow.png'
 import profileDefault from '../Images/login3profile.png'
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import PLNewcontent from './PLNewcontent'
@@ -597,13 +597,14 @@ const handleAtc = ()=>{
             </div>
             <div className="cpOut">
                 <div className="cpoTop">
-                    <div className="cpOpt">Personal Info</div>
-                    <div className="cpOpt">Professional Info</div>
-                    <div className="cpOpt">Documents</div>
-                    <div className="cpOpt">Work Settings</div>
-                    <div className="cpOpt">Roles & Responsibilities</div>
+                    <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link>
+                    <Link to={'/profile/createProf/profInfo'} className="cpOpt">Professional Info</Link>
+                    <Link to={'/profile/createProf/docs'} className="cpOpt">Documents</Link>
+                    <Link to={'/profile/createProf/mywork'} className="cpOpt">My Work</Link>
+                    <Link to={'/profile/createProf/rolenres'} className="cpOpt">Roles & Responsibilities</Link>
                 </div>
-                <PersInfo/>
+                {/* <PersInfo/> */}
+                <Outlet/>
             </div>
         </div>
     </form>
