@@ -5,11 +5,13 @@ import PLNewcontent from './PLNewcontent';
 import '../css/createProfile.css';
 import emailImg from '../Images/email.png';
 import useSignupHead from '../hooks/useSignupHead';
+import { useNavigate } from 'react-router-dom';
 
 function CreateProfileNew() {
   const { user } = useAuthContext();
+  const navigate = useNavigate()
+  const location = window.location.pathname;
   const { signupHead } = useSignupHead();
-
   const [profilePic, setProfilePic] = useState('');
   const [pp, setPp] = useState('http://localhost:4000/uploads/login3profile.png');
   const [firstName, setFirstName] = useState('');
@@ -19,7 +21,7 @@ function CreateProfileNew() {
   const [department, setDepartment] = useState('');
   const [workEmail, setWorkEmail] = useState('');
   const [userType, setUserType] = useState('');
-  const [accToFeed, setAccToFeed] = useState("false");
+  const [accessToFeed, setAccessToFeed] = useState("false");
   const [orgId, setOrgId] = useState('');
   const [profUrl, setProfUrl] = useState('')
   const [hasProf, setHasProf] = useState(false)
@@ -38,12 +40,12 @@ const handleAtc = ()=>{
             setAtcStyle({
                 right: "28px"
             })
-            setAccToFeed("false")
+            setAccessToFeed("false")
         }else{
             setAtcStyle({
                 right: "4px"
             })
-            setAccToFeed("true")
+            setAccessToFeed("true")
         }
 }
 
@@ -99,74 +101,63 @@ const handleAtc = ()=>{
     setPassword(generatePassword(firstName));
   }, [firstName]);
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
 
-//     const formData = new FormData();
-//     formData.append('firstName', firstName);
-//     formData.append('middleName', middleName);
-//     formData.append('surname', surname);
-//     formData.append('designation', designation);
-//     formData.append('department', department);
-//     formData.append('workEmail', workEmail);
-//     formData.append('accessToFeed', accToFeed === "true");
-//     formData.append('empId', empId);
-//     formData.append('orgId', orgId);
-//     formData.append('userType', userType);
-//     formData.append('password', password);
+const [error, setError] = useState(null)
+const [conf, setConf] = useState('')
+const [createdUser, setCreatedUser] = useState('')
+const [urlId, setUrlId] = useState('')
 
-//     if (profilePic) {
-//         formData.append('profilePic', profilePic);
-//     }
+useEffect(()=>{
+  if(createdUser && createdUser.user)
+    {
+      setUrlId(createdUser.user.userType +"-"+ createdUser.user._id);
+    }
+},[createdUser, createdUser.user])
 
-//     console.log("formData entries:", Array.from(formData.entries())); // For debugging
+console.log(urlId, createdUser)
 
-//     try {
-//         const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
-//             method: 'POST',
-//             body: formData
-//         });
-//         const json = await response.json();
-//         console.log('json', json);
-//     } catch (error) {
-//         console.log('error', error);
-//     }
-// };
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  const formData = new FormData();
-  formData.append('firstName', firstName);
-  formData.append('middleName', middleName);
-  formData.append('surname', surname);
-  formData.append('designation', designation);
-  formData.append('department', department);
-  formData.append('workEmail', workEmail);
-  formData.append('accessToFeed', accToFeed === "true");
-  formData.append('empId', empId);
-  formData.append('orgId', orgId);
-  formData.append('userType', userType);
-  formData.append('password', password);
-
-  if (profilePic) {
-      formData.append('profilePic', profilePic);
-  }
-
-  console.log("formData entries:", Array.from(formData.entries())); // For debugging
+const handleSubmit = async (e) =>{
+  e.preventDefault()
 
   try {
-      const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
-          method: 'POST',
-          body: formData
-      });
-      const json = await response.json();
-      console.log('json', json);
-  } catch (error) {
-      console.log('error', error);
-  }
-};
+    const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType })
+    });
 
-  
+    if (!response.ok) {
+        setError('Failed to sign up');
+    }
+
+    const json = await response.json();
+    setCreatedUser(json)
+    console.log(json);
+} catch (error) {
+    console.error('Error during sign up:', error.message);
+    setError(error.message);
+}
+
+  if(!error){
+      setConf("Successfully Registered!!")
+  }else{
+    setError(error)
+  }
+
+
+  setTimeout(() => {
+    // Check the current location and navigate accordingly
+    if (location === `/profile/createProf` || location === `/profile/createProf/${urlId}`) {
+      setTimeout(() => {
+        // Navigate to the next page
+        navigate(`/profile/createProf/profInfo/${urlId}`);
+      }, 1000);
+    } else {
+      // Navigate to a different page
+      navigate('/profile/editProfInfo');
+    }
+  }, 1000);
+}
   
 
 
@@ -265,12 +256,13 @@ const handleSubmit = async (e) => {
           <div className="cpOut">
             <div className="cpoTop">
               <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link>
-              <Link to={'/profile/createProf/profInfo'} className="cpOpt">Professional Info</Link>
+              <Link to={`/profile/createProf/profInfo/${urlId}`} className="cpOpt">Professional Info</Link>
               <Link to={'/profile/createProf/docs'} className="cpOpt">Documents</Link>
               <Link to={'/profile/createProf/mywork'} className="cpOpt">My Work</Link>
               <Link to={'/profile/createProf/designationnres'} className="cpOpt">designations & Responsibilities</Link>
             </div>
-            {/* <Outlet /> */}
+            <Outlet/>
+            {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
           </div>
         </div>
       </form>

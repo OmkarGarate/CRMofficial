@@ -82,6 +82,7 @@ function PersInfo() {
   const [nationality, setNationality] = useState('')
   const [error, setError] = useState(null)
   const [conf, setConf] = useState('')
+  const [userType, setUserType] = useState('');
   // const [profUrl, setProfUrl] = useState('')
   // const [hasProf, setHasProf] = useState(false)
 
@@ -95,17 +96,21 @@ function PersInfo() {
 
   const {urlId} = useParams()
   // console.log(urlId)
+  
+  
+  // const [userType, setUserType] = useState(parts[0]);
+  const [uId, setUId] = useState('');
+  // const [uId, setUId] = useState(parts[1]);
+  // const userType = parts[0];
+  // const uId = parts[1];
+
   let parts = ''
   if(location === `/profile/createProf/${urlId}`)
   {
      parts = urlId.split("-");
+     setUId(parts[1])
+    setUserType(parts[0])
   }
-  
-  // const [userType, setUserType] = useState(parts[0]);
-  const [uId, setUId] = useState(parts[1]);
-  // const userType = parts[0];
-  // const uId = parts[1];
-
   // const { user } = useAuthContext();
   const { signupHead } = useSignupHead();
 
@@ -117,7 +122,7 @@ function PersInfo() {
   const [designation, setDesignation] = useState('');
   const [department, setDepartment] = useState('');
   const [workEmail, setWorkEmail] = useState('');
-  const [userType, setUserType] = useState('');
+  
   const [accessToFeed, setaccessToFeed] = useState("false");
   const [orgId, setOrgId] = useState('');
   const [profUrl, setProfUrl] = useState('')
@@ -416,164 +421,18 @@ const handleAtc = ()=>{
 
   }, [user, location, uId, userType, btnText]);
 
-
-// const handleSubmit = async(e) =>{
-//       e.preventDefault()
-
-//       // if(location === `/profile/createProf/${urlId}`){
-
-
-//       // console.log("prof2",profilePic)
-//       const formData = {
-//         firstName: firstName,
-//         middleName: middleName,
-//         surname: surname,
-//         designation: designation,
-//         department: department,
-//         workEmail: workEmail,
-//         accessToFeed: accessToFeed,
-//         empId: empId,
-//         orgId: orgId,
-//         userType: userType,
-//         password: password,
-//         uploaded_file: profilePic,
-//         mobileNumber: mobileNumber,
-//         alternateMobileNumber: alternateMobileNumber,
-//         email: email,
-//         address: address,
-//         pinCode: pinCode,
-//         nationality: nationality,
-//         age: age,
-//         bloodGroup: bloodGroup,
-//         gender: gender,
-//         religion: religion,
-//         dateOfBirth: dateOfBirth,
-//         maritalStatus: maritalStatus
-//     };
-    
-
-
-//       console.log("formdata", formData)
-
-        
-//       // if(userType )
-//       // {
-//       //   if(userType === 'Head')
-//       // {
-//       //   try {
-//       //     const response = await fetch(
-//       //       `http://localhost:4000/heads/updateHead/${uId}`
-//       //     ,{
-//       //       method: 'PATCH',
-//       //       body: formData
-//       //     });
-//       //     const json = await response.json();
-//       //     if (!response.ok) {
-//       //         setError(json.error);
-//       //     } else {
-//       //         setError('');
-//       //         setConf("Successfully updated the profile's part 1");
-//       //         console.log("updated", json);
-//       //     }
-//       //   } catch (error) {
-//       //   console.error("Error during form submission:", error);
-//       //   setError("Error during form submission. Please try again later.");
-//       // }
-//       // }else if(userType === 'Employee'){
-//       //   try {
-//       //     const response = await fetch(
-//       //       `http://localhost:4000/employees/updateEmployee/${uId}`
-//       //     ,{
-//       //       method: 'PATCH',
-//       //       body: formData
-//       //     });
-//       //     const json = await response.json();
-//       //     if (!response.ok) {
-//       //         setError(json.error);
-//       //     } else {
-//       //         setError('');
-//       //         setConf("Successfully updated the profile's part 1");
-//       //         console.log("updated", json);
-//       //     }
-//       //   } catch (error) {
-//       //   console.error("Error during form submission:", error);
-//       //   setError("Error during form submission. Please try again later.");
-//       // }
-//       // }
-//       // }else{
-//         // try {
-//           const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
-//               method: 'POST',
-//               body: formData
-//           });
-//           const json = await response.json();
-//           console.log('json', json);
-//           if(response.ok)
-//             {
-//               console.log("created profile successfully")
-//             }
-//       // } catch (error) {
-//       //     console.log('error', error);
-//       // }
-//       // }
-//     // }
-
-//     // if(location === `/profile/createProf/` || location === `/profile/createProf/${urlId}`)
-//     //   {
-//     //     //create profile
-//     //   }else{
-//     //     //update profile
-//     //   }
-// }
-
-// console.log("up", user.user.profilePic)
-  // console.log("user data: ", user) 
-  // console.log("dateOfBirth", dateOfBirth)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
   
-    // Create a new FormData object
-    const formData = new FormData();
-    
-    // Append form data to the FormData object
-    formData.append('firstName', firstName);
-    formData.append('middleName', middleName);
-    formData.append('surname', surname);
-    formData.append('designation', designation);
-    formData.append('department', department);
-    formData.append('workEmail', workEmail);
-    formData.append('accessToFeed', accessToFeed);
-    formData.append('empId', empId);
-    formData.append('orgId', orgId);
-    formData.append('userType', userType);
-    formData.append('password', password);
-  
-    try {
-      // Send a POST request to the backend endpoint with FormData
-      const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
-        method: 'POST',
-        body: formData,
-        // Set the appropriate Content-Type header for FormData
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-  
-      // Parse the response JSON
-      const json = await response.json();
-  
-      // Check if the response is ok
-      if (response.ok) {
-        console.log('Profile created successfully');
-      } else {
-        console.error('Error:', json.error);
-      }
-    } catch (error) {
-      console.error('Error during form submission:', error);
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+
+    await signupHead(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType);
+
+    if(!error){
+        setConf("Successfully Registered!!")
+    }else{
+      setError(error)
     }
-  };
-  
+}
 
   const [cnText, setCnText] = useState('Next');
   useEffect(()=>{
@@ -597,126 +456,34 @@ const handleAtc = ()=>{
 
   // const urlId = userType +"-"+ uId;
 
-  const goToNext = () =>{
-    setTimeout(() => {
-      if(location === `/profile/createProf/` || location === `/profile/createProf/${urlId}`)
-    {
-      
+  const goToNext = () => {
+  
+    // If nextPage is "Yes", proceed with navigation
+    // if (nextPage === "Yes") {
       setTimeout(() => {
-        navigate(`/profile/createProf/profInfo`)
+        // Check the current location and navigate accordingly
+        if (location === `/profile/createProf` || location === `/profile/createProf/${urlId}`) {
+          setTimeout(() => {
+            // Navigate to the next page
+            navigate(`/profile/createProf/profInfo/${urlId}`);
+          }, 1000);
+        } else {
+          // Navigate to a different page
+          navigate('/profile/editProfInfo');
+        }
       }, 1000);
-    }else{
-      navigate('/profile/editProfInfo')
-    }
-    }, 1000);
-    
-  }
+    // } else {
+    //   // If nextPage is "No", set an error
+    //   setError(nextPage);
+    // }
+  };
+  
 
-// console.log(profilePic)
   return (
     // <form encType="multipart/form-data" method="post" onSubmit={handleSubmit} className="persInfoMain">
       
       <div className='pbr createProfMain'>
-      <div className="profileLeft">
-        <PLNewcontent />
-      </div>
-      <form className="mwis" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
-        <div className="cprfMain">
-          <h2>Create Profile</h2>
-          <div className="cpTop">
-            <div className="cpProfile">
-              <div className="upImg">
-                {user && user.user.profilePic === '' && profUrl === '' && profilePic === '' ? 
-                  <img src={pp} alt="" /> 
-                  : null
-                }
-                {profilePic === '' && !hasProf ? <img src={pp} alt="" /> : null}
-                {user && profUrl !== '' ? <img src={profUrl} alt="" /> : null}
-                {user && profUrl === '' && profilePic !== '' ? 
-                  <img src={`http://localhost:4000/uploads/${profilePic}`} alt="" /> 
-                  : null
-                }
-                <input
-                  type="file"
-                  className="form-control-file"
-                  name="uploaded_file"
-                  onChange={(e) => {
-                    setProfilePic(e.target.files[0]);
-                    setProfUrl(URL.createObjectURL(e.target.files[0]));
-                  }}
-                  id='upImg'
-                />
-                <label htmlFor="upImg">Upload Image</label>
-              </div>
-              <div className="cpm">
-                <input type="text" placeholder='First Name'
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input type="text" placeholder='Middle Name'
-                  value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
-                />
-                <input type="text" placeholder='Surname'
-                  value={surname}
-                  onChange={(e) => setSurname(e.target.value)}
-                />
-                <select name="" id="" className='marStat'
-                  value={userType} onChange={handleUserType}
-                >
-                  <option value="">UserType</option>
-                  <option value="Employee">Employee</option>
-                  <option value="Head">Head</option>
-                </select>
-              </div>
-              <div className="whitePatch"></div>
-            </div>
-            <div className="cawweMain">
-              <div className="cawMain">
-                <div className="caw1">
-                  <select name="" id=""
-                    value={department} onChange={handleDep}
-                  >
-                    <option value="">Choose Department</option>
-                    <option value="Department 1">Department 1</option>
-                    <option value="Department 2">Department 2</option>
-                    <option value="Department 3">Department 3</option>
-                  </select>
-                  <select name="" id=""
-                    value={designation} onChange={handleDes}
-                  >
-                    <option value="">Assign Designation</option>
-                    <option value="Human Resource Head1">Human Resource Head1</option>
-                    <option value="Human Resource Head2">Human Resource Head2</option>
-                    <option value="Human Resource Head3">Human Resource Head3</option>
-                  </select>
-                </div>
-                <div className="accToFeed">
-                  <p>Give Access to <br /> Posting on Feed</p>
-                  <input type="checkbox" id='atf' />
-                  <label htmlFor="atf" onClick={handleAtc}>
-                    <div className="atfSwitch" style={atcStyle}></div>
-                  </label>
-                </div>
-              </div>
-              <div className="wwe">
-                <img src={emailImg} alt="emailImg" />
-                <input type="text" placeholder='Write Work Email'
-                  value={workEmail} onChange={(e) => setWorkEmail(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="cpOut">
-            <div className="cpoTop">
-              <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link>
-              <Link to={'/profile/createProf/profInfo'} className="cpOpt">Professional Info</Link>
-              <Link to={'/profile/createProf/docs'} className="cpOpt">Documents</Link>
-              <Link to={'/profile/createProf/mywork'} className="cpOpt">My Work</Link>
-              <Link to={'/profile/createProf/designationnres'} className="cpOpt">designations & Responsibilities</Link>
-            </div>
-            {/* <Outlet /> */}
-            <div className="persInfoMain">
+      <div className="persInfoMain">
         <div  className='cpms'>
         <div className='cpm'>
                 <input type="text" placeholder='Mobile Number' value={mobileNumber} onChange={(e)=>setMobileNumber(e.target.value)}/>
@@ -801,7 +568,7 @@ const handleAtc = ()=>{
 
               ):(null)} */}
                 
-                  <button className='next'>
+                  <button className='next' onClick={goToNext}>
                   {/* <Link to={'/profile/cbprofinfo'}> */}
                     {btnText}
                     {/* </Link> */}
@@ -811,9 +578,7 @@ const handleAtc = ()=>{
                 {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
             </div>
       </div>
-          </div>
-        </div>
-      </form>
+      
     </div>
     // </form>
   )

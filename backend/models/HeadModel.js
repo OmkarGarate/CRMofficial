@@ -3,6 +3,42 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const headSchema = mongoose.Schema({
+    fullName:{
+        type: String,
+        // required: true
+    },
+    email:{
+        type: String,
+        // required: true
+    },
+    phoneNumber:{
+        type: String,
+        // required: true
+    },
+    password:{
+        type: String,
+        // required: true
+    },
+    companyName:{
+        type: String,
+        // required: true  
+    },
+    companyEmail:{
+        type: String,
+        // required: true
+    },
+    orgId:{
+        type: String,
+        // required: true
+    },
+    empId:{
+        type: String, 
+        // required: true
+    },   
+    tnc:{
+        type: Boolean,
+        // required: true
+    },
     profilePic: {
         type: String,
         default: ""
@@ -24,10 +60,6 @@ const headSchema = mongoose.Schema({
         default: ""
     },
     alternateMobileNumber: {
-        type: String,
-        default: ""
-    },
-    email: {
         type: String,
         default: ""
     },
@@ -123,78 +155,82 @@ const headSchema = mongoose.Schema({
         type: String,
         default: ""
     },
-    orgId:{
+    department:{
+        type:String,
+        default: ""
+    },
+    designation:{
+        type:String,
+        default: ""
+    },
+    accessToFeed:{
+        type: String,
+        // default: false
+    },
+    workEmail:{
         type: String,
         default: ""
     },
-    department:{
-        type:String,
-        required: true
+    documents:[{
+        type: String
+    }],
+    attendanceDays:[
+        {
+            type: String
+        }
+    ],
+    clockIn:{
+        type: String
     },
-    role: {
-        type: String,
-        required: true
+    clockOut:{
+        type: String
     },
-    empId:{
-        type: String,
-        required: true
+    BreakTime:{
+        type: String
     },
-    password:{
-        type: String,
-        required: true  
-    }, 
+    reportingTo:{
+        type: String
+    },
+    wrOfferLetter:{
+        type: String
+    },
     userType: {
         type: String,
-        required: true
+        // required: true
     },
     createdAt: {
         type: Date,
         default: Date.now
     }
-})
+}) 
 
-headSchema.statics.signupHead = async function(orgId, department, role, empId, password, userType)
-{
-    if(!orgId || !empId || !password || !role || !department || !userType)
-    {
-        throw Error("All fields must be filled")
+headSchema.statics.signupHead = async function(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType) {
+    if (!firstName || !middleName || !surname || !designation || !workEmail || !orgId || !department || !empId || !password || !userType) {
+        throw Error("All fields must be filled");
     }
 
-    // if(!validator.isEmail(empId))
-    // {
-    //     throw Error("Enter valid email address")
-    // }
-
-    if(!validator.isStrongPassword(password))
-    {
-        throw Error("Password not strong enough")
-
+    const exists = await this.findOne({ orgId, empId });
+    if (exists) {
+        throw Error("Employee ID already in use");
     }
-
-    const exists = await this.findOne({orgId, empId})
-        if(exists)
-        {
-            throw Error("Employee ID already in use")
-        }
-
-    // const salt = await bcrypt.genSalt(10)
-    // console.log("Salt:", salt)
-    // const hash = await bcrypt.hash(password, salt)
-    // console.log("Hash:", hash)
 
     const head = await this.create({
-        orgId: orgId,
-        department: department,
-        role: role,
-        empId: empId,
-        password: password,
-        userType: userType
-    })
+        firstName, 
+        middleName, 
+        surname, 
+        designation, 
+        workEmail, 
+        accessToFeed, 
+        orgId, 
+        department, 
+        empId, 
+        password, 
+        userType
+    });
 
-    return head
-
-}   
-
+    return head;
+}
+  
 headSchema.statics.loginHead = async function(orgId, empId, password) {
     if (!orgId || !empId || !password) {
         throw Error("All fields must be filled");

@@ -1,6 +1,6 @@
 const Org = require('../models/OrgModel')
 const Employee = require('../models/EmployeeModel')
-const Head = require('../models/HeadModel')
+const Head = require('../models/HeadModelNew')
     const jwt = require('jsonwebtoken')
 
     const createToken = (_id) =>{
