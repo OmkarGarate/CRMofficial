@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import PLNewcontent from './PLNewcontent';
 import '../css/createProfile.css';
@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateProfileNew() {
   const { user } = useAuthContext();
-  const navigate = useNavigate()
-  const location = window.location.pathname;
   const { signupHead } = useSignupHead();
   const [profilePic, setProfilePic] = useState('');
   const [pp, setPp] = useState('http://localhost:4000/uploads/login3profile.png');
@@ -32,22 +30,21 @@ function CreateProfileNew() {
 
   const[atcStyle, setAtcStyle] = useState({
     right: "4px"
-})
+  })
 
-const handleAtc = ()=>{
-    if(atcStyle.right === "4px")
-        {
-            setAtcStyle({
-                right: "28px"
-            })
-            setAccessToFeed("false")
-        }else{
-            setAtcStyle({
-                right: "4px"
-            })
-            setAccessToFeed("true")
-        }
-}
+  const handleAtc = () => {
+    if (atcStyle.right === "4px") {
+      setAtcStyle({
+        right: "28px"
+      })
+      setAccessToFeed("false")
+    } else {
+      setAtcStyle({
+        right: "4px"
+      })
+      setAccessToFeed("true")
+    }
+  }
 
   useEffect(() => {
     if (user && user.user) {
@@ -101,66 +98,45 @@ const handleAtc = ()=>{
     setPassword(generatePassword(firstName));
   }, [firstName]);
 
+  const [error, setError] = useState(null)
+  const [conf, setConf] = useState('')
+  const [createdUser, setCreatedUser] = useState('')
+  const [urlId, setUrlId] = useState('')
 
-const [error, setError] = useState(null)
-const [conf, setConf] = useState('')
-const [createdUser, setCreatedUser] = useState('')
-const [urlId, setUrlId] = useState('')
-
-useEffect(()=>{
-  if(createdUser && createdUser.user)
-    {
-      setUrlId(createdUser.user.userType +"-"+ createdUser.user._id);
-    }
-},[createdUser, createdUser.user])
-
-console.log(urlId, createdUser)
-
-const handleSubmit = async (e) =>{
-  e.preventDefault()
-
-  try {
-    const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType })
-    });
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
         setError('Failed to sign up');
+      }
+
+      const json = await response.json();
+      setCreatedUser(json)
+      console.log(json);
+    } catch (error) {
+      console.error('Error during sign up:', error.message);
+      setError(error.message);
     }
 
-    const json = await response.json();
-    setCreatedUser(json)
-    console.log(json);
-} catch (error) {
-    console.error('Error during sign up:', error.message);
-    setError(error.message);
-}
-
-  if(!error){
+    if (!error) {
       setConf("Successfully Registered!!")
-  }else{
-    setError(error)
-  }
-
-
-  setTimeout(() => {
-    // Check the current location and navigate accordingly
-    if (location === `/profile/createProf` || location === `/profile/createProf/${urlId}`) {
-      setTimeout(() => {
-        // Navigate to the next page
-        navigate(`/profile/createProf/profInfo/${urlId}`);
-      }, 1000);
     } else {
-      // Navigate to a different page
-      navigate('/profile/editProfInfo');
+      setError(error)
     }
-  }, 1000);
-}
+  }
   
 
-
+  useEffect(() => {
+    if (createdUser && createdUser.user) {
+      setUrlId(createdUser.user.userType + "-" + createdUser.user._id);
+    }
+  }, [createdUser, createdUser.user, urlId])
   return (
     <div className='pbr createProfMain'>
       <div className="profileLeft">
@@ -255,7 +231,13 @@ const handleSubmit = async (e) =>{
           </div>
           <div className="cpOut">
             <div className="cpoTop">
-              <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link>
+                  {urlId ? 
+                  <Link to={`/profile/createProf/${urlId}`} className="cpOpt">Personal Info</Link> :
+
+                  <Link to={'/profile/createProf'} className="cpOpt">Personal Info</Link>
+                }
+                  
+              {/* <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link> */}
               <Link to={`/profile/createProf/profInfo/${urlId}`} className="cpOpt">Professional Info</Link>
               <Link to={'/profile/createProf/docs'} className="cpOpt">Documents</Link>
               <Link to={'/profile/createProf/mywork'} className="cpOpt">My Work</Link>
