@@ -10,7 +10,7 @@ function CBProfessionalInfo() {
   const {user} = useAuthContext();
   const location = window.location.pathname;
   const {urlId} = useParams()
-  console.log(urlId)
+  // console.log(urlId)
   let parts = ''
   if(location === `/profile/cbpProfInfo/${urlId}`)
   {
@@ -20,7 +20,7 @@ function CBProfessionalInfo() {
   const [userType, setUserType] = useState(parts[0]);
   const [uId, setUId] = useState(parts[1]);
 
-  console.log('dfsdfd', userType, uId)
+  // console.log('dfsdfd', userType, uId)
 
 
   const navigate = useNavigate()
@@ -301,7 +301,7 @@ const handleSubmit = async(e) =>{
     formData.append("employeeBenefits", empBen)
     formData.append("dateOfLeave", dateOfLeave)
     formData.append("systemUsage", systemUsage)
-    console.log("formdata", formData)
+    // console.log("formdata", formData)
 
     if(!userType)
     {

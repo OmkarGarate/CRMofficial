@@ -289,13 +289,13 @@ function CBrif() {
     }
   }, [user]);
 
-  const handleHEClick = (e) =>{
-    setTimeout(() => {
-      const urlId = e.userType +"-"+ e._id;
-      navigate(`/profile/cbpPer/${urlId}`)
-    }, 1000);
+  // const handleHEClick = (e) =>{
+  //   setTimeout(() => {
+  //     const urlId = e.userType +"-"+ e._id;
+  //     navigate(`/profile/cbpPer/${urlId}`)
+  //   }, 1000);
     
-  }
+  // }
 
   return (
    
@@ -323,7 +323,8 @@ function CBrif() {
           </div>
           {heads &&
             heads.map((head, index) => (
-              <div key={index} className="ahDetails" onClick={(e) =>handleHEClick(head)}>
+              <div key={index} className="ahDetails">
+              {/* <div key={index} className="ahDetails" onClick={(e) =>handleHEClick(head)}> */}
                 <p>{head.department}</p>
                 <p>{head.role}</p>
                 <p>{head.empId}</p>
@@ -345,7 +346,8 @@ function CBrif() {
           </div>
           {emps &&
             emps.map((emp, index) => (
-              <div key={index} className="ahDetails" onClick={(e) =>handleHEClick(emp)}>
+              <div key={index} className="ahDetails">
+              {/* <div key={index} className="ahDetails" onClick={(e) =>handleHEClick(emp)}> */}
                 <p>{emp.department}</p>
                 <p>{emp.role}</p>
                 <p>{emp.empId}</p>

@@ -43,7 +43,7 @@ function RolesnRes() {
         
       }
   return (
-    <form encType="multipart/form-data" method="post" className="persInfoMain docMain">
+    <div className="persInfoMain docMain">
         <div className="ur">
           <img src={uparrows} alt="uparrows" />
           <h4>Human Resource Head</h4>
@@ -75,7 +75,7 @@ function RolesnRes() {
                     {/* </Link> */}
                   </button>
         </div>
-    </form>
+    </div>
   )
 }
 

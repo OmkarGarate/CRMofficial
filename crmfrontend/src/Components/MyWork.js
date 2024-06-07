@@ -41,7 +41,7 @@ function MyWork() {
         
       }
   return (
-    <form encType="multipart/form-data" method="post" className="persInfoMain docMain myWorkMain">
+    <div className="persInfoMain docMain myWorkMain">
         <div className='adatMain'>
             <div className="adat">
                 <div className="rtad">
@@ -126,7 +126,7 @@ function MyWork() {
                     {/* </Link> */}
                   </button>
         </div>
-    </form>
+    </div>
   )
 }
 

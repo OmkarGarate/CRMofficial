@@ -7,15 +7,15 @@ export const useSignupHead = () => {
     const [isLoading, setIsLoading] = useState(null)
     const {dispatch} = useAuthContext()
 
-    const signupHead = async (orgId, department, role, empId, password, userType) =>{
+    const signupHead = async (firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType) =>{
         setIsLoading(true)
         setError(null)
 
-        console.log(orgId, department, role, empId, password, userType)
+        console.log(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType)
         const response = await fetch('http://localhost:4000/heads/signupHead', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({orgId, department, role, empId, password, userType})
+            body: JSON.stringify({firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType})
         })
 
         const json = await response.json()

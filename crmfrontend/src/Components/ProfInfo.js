@@ -411,9 +411,7 @@ const handleSubmit = async(e) =>{
         setError("Error during form submission. Please try again later.");
       }
       }
-    }
-
-    
+    }    
 }
 
 // console.log("up", user.user.profilePic)
@@ -438,7 +436,7 @@ const goToPrev = () =>{
     // {
     //   navigate('/profile/editProfile')
     // }else{
-      navigate(`/profile/createProf//${urlId}`)
+      navigate(`/profile/createProf/profInfo/${urlId}`)
     // }
   }, 1000);
 }

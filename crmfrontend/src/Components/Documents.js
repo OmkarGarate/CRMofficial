@@ -41,7 +41,7 @@ function Documents() {
         
       }
   return (
-    <form encType="multipart/form-data" method="post" className="persInfoMain docMain">
+    <div className="persInfoMain docMain">
         <h4>Upload National ID / Aadhaar Card / PAN</h4>
         <input type="file" id='pan'/>
         <label htmlFor="pan" className='pan'>Upload File</label>
@@ -77,7 +77,7 @@ function Documents() {
                     {/* </Link> */}
                   </button>
         </div>
-    </form>
+    </div>
   )
 }
 
