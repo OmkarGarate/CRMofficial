@@ -5,17 +5,18 @@ import { Link, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import PLNewcontent from './PLNewcontent';
+import emailImg from '../Images/email.png';
 
 
 function ProfInfo() {
     const {user} = useAuthContext();
   const location = window.location.pathname;
-  const {urlId} = useParams()
-  console.log(urlId)
+  const {urlIdNew} = useParams()
+  console.log("profInfoUrl",location)
   let parts = ''
-  if(location === `/profile/cbpProfInfo/${urlId}`)
+  if(location === `/profile/createProf/profInfo/${urlIdNew}`)
   {
-     parts = urlId.split("-");
+     parts = urlIdNew.split("-");
   }
   
   const [userType, setUserType] = useState(parts[0]);
@@ -108,6 +109,45 @@ const [systemUsage, setSystemUsage] = useState('')
 const [error, setError] = useState(null)
 const [conf, setConf] = useState('')
 
+const [profilePic, setProfilePic] = useState('');
+  const [pp, setPp] = useState('http://localhost:4000/uploads/login3profile.png');
+  const [firstName, setFirstName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [department, setDepartment] = useState('');
+  const [workEmail, setWorkEmail] = useState('');
+  const [accessToFeed, setAccessToFeed] = useState(false);
+  const [orgId, setOrgId] = useState('');
+  const [profUrl, setProfUrl] = useState('')
+  const [hasProf, setHasProf] = useState(false)
+  const [btnText, setBtnText] = useState('Create')
+
+  const handleUserType = (event) => setUserType(event.target.value);
+  const handleDes = (event) => setDesignation(event.target.value);
+  const handleDep = (event) => setDepartment(event.target.value);
+
+  const[atcStyle, setAtcStyle] = useState({
+    right: "4px"
+})
+
+const handleAtc = ()=>{
+  if(atcStyle.right === "4px")
+      {
+          setAtcStyle({
+              right: "28px"
+          })
+          setAccessToFeed(false)
+      }else{
+          setAtcStyle({
+              right: "4px"
+          })
+          setAccessToFeed(true)
+      }
+}
+
+console.log("uidProf", uId)
+
 useEffect(()=>{
 
   if(userType)
@@ -149,9 +189,19 @@ useEffect(()=>{
     {
       const fetchData = async ()=>{
         try {
-          const response = await fetch(`http://localhost:4000/heads/getOneHead/${uId}`);
+          const response = await fetch(`http://localhost:4000/headsNew/getOneHeadNew/${uId}`);
           const json = await response.json();
           if (response.ok) {
+            setFirstName(json.firstName);
+            setMiddleName(json.middleName);
+            setSurname(json.surname);
+            setDesignation(json.designation);
+            setWorkEmail(json.workEmail);
+            setAccessToFeed(json.accessToFeed);
+            setOrgId(json.orgId);
+            setDepartment(json.department);
+            setUserType(json.userType);
+
             setDateOfJoining(json.dateOfJoining)
             setWorkExp(json.workExperience)
             setPrevComp(json.prevCompany)
@@ -310,7 +360,7 @@ const handleSubmit = async(e) =>{
       {
         try {
           const response = await fetch(
-            `http://localhost:4000/heads/updateHead/${user.user._id}`
+            `http://localhost:4000/headsNew/updateHeadNew/${user.user._id}`
           ,{
             method: 'PATCH',
             body: formData
@@ -373,7 +423,7 @@ const handleSubmit = async(e) =>{
       {
         try {
           const response = await fetch(
-            `http://localhost:4000/heads/updateHead/${uId}`
+            `http://localhost:4000/headsNew/updateHeadNew/${uId}`
           ,{
             method: 'PATCH',
             body: formData
@@ -419,7 +469,7 @@ const handleSubmit = async(e) =>{
 
 const goToNext = () =>{
   setTimeout(() => {
-    navigate('/profile/cbprofinfo')
+    navigate(`/profile/createProf/docs/${urlIdNew}`)
   }, 1000);
 }
 const goToPrev = () =>{
@@ -436,14 +486,119 @@ const goToPrev = () =>{
     // {
     //   navigate('/profile/editProfile')
     // }else{
-      navigate(`/profile/createProf/profInfo/${urlId}`)
+      navigate(`/profile/createProf/${urlIdNew}`)
     // }
   }, 1000);
 }
 
 
   return (
-    <div className="persInfoMain">
+    <div className='pbr createProfMain'>
+      <div className="profileLeft">
+        <PLNewcontent />
+      </div>
+      <form className="mwis" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+        <div className="cprfMain">
+          <h2>Create Profile</h2>
+          <div className="cpTop">
+            <div className="cpProfile">
+              <div className="upImg">
+                {user && user.user.profilePic === '' && profUrl === '' && profilePic === '' ? 
+                  <img src={pp} alt="" /> 
+                  : null
+                }
+                {profilePic === '' && !hasProf ? <img src={pp} alt="" /> : null}
+                {user && profUrl !== '' ? <img src={profUrl} alt="" /> : null}
+                {user && profUrl === '' && profilePic !== '' ? 
+                  <img src={`http://localhost:4000/uploads/${profilePic}`} alt="" /> 
+                  : null
+                }
+                <input
+                  type="file"
+                  className="form-control-file"
+                  name="uploaded_file"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
+                    setProfUrl(URL.createObjectURL(e.target.files[0]));
+                  }}
+                  id='upImg'
+                />
+                <label htmlFor="upImg">Upload Image</label>
+              </div>
+              <div className="cpm">
+                <input type="text" placeholder='First Name'
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <input type="text" placeholder='Middle Name'
+                  value={middleName}
+                  onChange={(e) => setMiddleName(e.target.value)}
+                />
+                <input type="text" placeholder='Surname'
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                />
+                <select name="" id="" className='marStat'
+                  value={userType} onChange={handleUserType}
+                >
+                  <option value="">UserType</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Head">Head</option>
+                </select>
+              </div>
+              <div className="whitePatch"></div>
+            </div>
+            <div className="cawweMain">
+              <div className="cawMain">
+                <div className="caw1">
+                  <select name="" id=""
+                    value={department} onChange={handleDep}
+                  >
+                    <option value="">Choose Department</option>
+                    <option value="Department 1">Department 1</option>
+                    <option value="Department 2">Department 2</option>
+                    <option value="Department 3">Department 3</option>
+                  </select>
+                  <select name="" id=""
+                    value={designation} onChange={handleDes}
+                  >
+                    <option value="">Assign Designation</option>
+                    <option value="Human Resource Head1">Human Resource Head1</option>
+                    <option value="Human Resource Head2">Human Resource Head2</option>
+                    <option value="Human Resource Head3">Human Resource Head3</option>
+                  </select>
+                </div>
+                <div className="accToFeed">
+                  <p>Give Access to <br /> Posting on Feed</p>
+                  <input type="checkbox" id='atf' />
+                  <label htmlFor="atf" onClick={handleAtc}>
+                    <div className="atfSwitch" style={atcStyle}></div>
+                  </label>
+                </div>
+              </div>
+              <div className="wwe">
+                <img src={emailImg} alt="emailImg" />
+                <input type="text" placeholder='Write Work Email'
+                  value={workEmail} onChange={(e) => setWorkEmail(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="cpOut">
+            <div className="cpoTop">
+                  {urlIdNew ? 
+                  <Link to={`/profile/createProf/${urlIdNew}`} className="cpOpt">Personal Info</Link> :
+
+                  <Link to={'/profile/createProf'} className="cpOpt">Personal Info</Link>
+                }
+                  
+              {/* <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link> */}
+              <Link to={`/profile/createProf/profInfo/${urlIdNew}`} className="cpOpt">Professional Info</Link>
+              <Link to={'/profile/createProf/docs'} className="cpOpt">Documents</Link>
+              <Link to={'/profile/createProf/mywork'} className="cpOpt">My Work</Link>
+              <Link to={'/profile/createProf/designationnres'} className="cpOpt">designations & Responsibilities</Link>
+            </div>
+            <div className="persInfoMain">
         <div  className='cpms'>
         <div className="cpm">
             <div className="dob">
@@ -524,6 +679,12 @@ const goToPrev = () =>{
                 {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
             </div>
     </div>
+            {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
+          </div>
+        </div>
+      </form>
+    </div>
+   
   )
 }
 

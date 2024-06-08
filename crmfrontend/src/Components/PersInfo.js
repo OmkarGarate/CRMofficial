@@ -11,6 +11,8 @@ import useSignupHead from '../hooks/useSignupHead';
 
 function PersInfo() {
     const {user} = useAuthContext();
+    // const [urlIdNew, setUrlIdNew] = useState('')
+    
   const location = window.location.pathname;
   const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
@@ -94,7 +96,14 @@ function PersInfo() {
     
   }
 
-  const {urlId} = useParams()
+  const [createdUser, setCreatedUser] = useState('')
+  const [urlId, setUrlId] = useState('')
+  
+
+
+
+
+  // const {urlId} = useParams()
   // console.log(urlId)
   
   
@@ -104,15 +113,35 @@ function PersInfo() {
   // const userType = parts[0];
   // const uId = parts[1];
 
-  let parts = ''
-  if(location === `/profile/createProf/${urlId}`)
-  {
-     parts = urlId.split("-");
-     setUId(parts[1])
-    setUserType(parts[0])
-  }
+  // let parts = ''
+  // useEffect(() => {
+  //   if(location === `/profile/createProf/${urlIdNew}`)
+  //     {
+  //        parts = urlIdNew.split("-");
+  //        setUId(parts[1])
+  //       setUserType(parts[0])
+  //     }
+  // }, [location, urlIdNew])
+
+  const {urlIdNew} = useParams()
+
+  useEffect(() => {
+    if(urlIdNew)
+      {
+        const parts = urlIdNew.split("-");
+        setUId(parts[1])
+        setUserType(parts[0])
+      }
+
+    
+  }, [urlIdNew])
+  
+  console.log("urlIdCurrent", userType)
+  console.log("urlIdCurrent", uId)
+  
+  
   // const { user } = useAuthContext();
-  const { signupHead } = useSignupHead();
+  // const { signupHead } = useSignupHead();
 
   const [profilePic, setProfilePic] = useState('');
   // const [pp, setPp] = useState('http://localhost:4000/uploads/login3profile.png');
@@ -122,8 +151,7 @@ function PersInfo() {
   const [designation, setDesignation] = useState('');
   const [department, setDepartment] = useState('');
   const [workEmail, setWorkEmail] = useState('');
-  
-  const [accessToFeed, setaccessToFeed] = useState("false");
+  const [accessToFeed, setAccessToFeed] = useState(false);
   const [orgId, setOrgId] = useState('');
   const [profUrl, setProfUrl] = useState('')
   const [hasProf, setHasProf] = useState(false)
@@ -137,18 +165,37 @@ function PersInfo() {
     right: "4px"
 })
 
+const {urlIdCurrent} = useParams()
+
+// useEffect(()=>{
+//   if(createdUser && createdUser.user)
+//     {
+//       setUrlId(createdUser.user.userType + "-" + createdUser.user._id);
+      
+//     }else{
+//       setUrlId(urlIdCurrent)
+//     }
+//     setUrlIdNew(urlId);
+//     console.log("urlIdsdfd", createdUser.user)
+// },[createdUser, createdUser.user, , urlIdCurrent])
+
+
+console.log("urlId", uId)
+
+
+
 const handleAtc = ()=>{
     if(atcStyle.right === "4px")
         {
             setAtcStyle({
                 right: "28px"
             })
-            setaccessToFeed("false")
+            setAccessToFeed(false)
         }else{
             setAtcStyle({
                 right: "4px"
             })
-            setaccessToFeed("true")
+            setAccessToFeed(true)
         }
 }
 
@@ -199,250 +246,388 @@ const handleAtc = ()=>{
     return shuffle(password.split('')).join('');
   };
 
+ 
+
   useEffect(() => {
     setEmpId(generateEmployeeId(firstName));
     setPassword(generatePassword(firstName));
-  }, [firstName]);
 
-  useEffect(()=>{
-    if(location === `/profile/createProf/${urlId}`)
+
+    //fetch data
+
+    const fetchData = async ()=>{
+      try {
+        const response = await fetch(`http://localhost:4000/headsNew/getOneHeadNew/${uId}`)
+        const json = await response.json();
+        if (response.ok) {
+          setFirstName(json.firstName);
+          setMiddleName(json.middleName);
+          setSurname(json.surname);
+          setDesignation(json.designation);
+          setWorkEmail(json.workEmail);
+          setAccessToFeed(json.accessToFeed);
+          setOrgId(json.orgId);
+          setDepartment(json.department);
+          setEmpId(json.empId);
+          setPassword(json.password);
+          setUserType(json.userType);
+          setMobileNumber(json.mobileNumber);
+          setAlternateMobileNumber(json.alternateMobileNumber);
+          setEmail(json.email);
+          setAddress(json.address);
+          setPinCode(json.pinCode);
+          setNationality(json.nationality);
+          setAge(json.age);
+          setBloodGroup(json.bloodGroup);
+          setGender(json.gender);
+          setReligion(json.religion);
+          setDateOfBirth(json.dateOfBirth);
+          setMaritalStatus(json.maritalStatus);
+  
+        } else {
+          setError(json.error);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data. Please try again later.");
+      }
+    }
+   
+    if(location === `/profile/createProf/${urlIdNew}`)
       {
         setBtnText('Update')
       }
 
-    if(location === '/profile/editProfile')
-    {
-      if(user && user.user.userType === 'Employee')
-    {
-      const fetchData = async ()=>{
-        try {
-          const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
-          const json = await response.json();
-    
-          if (response.ok) {
-            setProfilePic(json.profilePic);
-            console.log("prof2", json.profilePic)
-            setFirstName(json.firstName);
-            setMiddleName(json.middleName);
-            setSurname(json.surname);
-            setMobileNumber(json.mobileNumber);
-            setAlternateMobileNumber(json.alternateMobileNumber);
-            setEmail(json.email);
-            setAddress(json.address);
-            setPinCode(json.pinCode);
-            setNationality(json.nationality);
-            setAge(json.age);
-            setBloodGroup(json.bloodGroup);
-            setGender(json.gender);
-            setReligion(json.religion);
-            setDateOfBirth(json.dateOfBirth);
-            setMaritalStatus(json.maritalStatus);
-            
-          } else {
-            setError(json.error);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          setError("Error fetching user data. Please try again later.");
-        }
-      }
-  
-      if(user)  
+    // setTimeout(() => {
+      if(location === `/profile/createProf/${urlIdNew}` && btnText === 'Update')
         {
-          fetchData();
+          fetchData()
         }
-      }else if(user && user.user.userType === 'Head')
-      {
-        const fetchData = async ()=>{
-          try {
-            const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
-            const json = await response.json();
-      
-            if (response.ok) {
-              setProfilePic(json.profilePic);
-              console.log("prof2", json.profilePic)
-              setFirstName(json.firstName);
-              setMiddleName(json.middleName);
-              setSurname(json.surname);
-              setMobileNumber(json.mobileNumber);
-              setAlternateMobileNumber(json.alternateMobileNumber);
-              setEmail(json.email);
-              setAddress(json.address);
-              setPinCode(json.pinCode);
-              setNationality(json.nationality);
-              setAge(json.age);
-              setBloodGroup(json.bloodGroup);
-              setGender(json.gender);
-              setReligion(json.religion);
-              setDateOfBirth(json.dateOfBirth);
-              setMaritalStatus(json.maritalStatus);
-              
-            } else {
-              setError(json.error);
-            }
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-            setError("Error fetching user data. Please try again later.");
-          }
-        }
+    // }, 1000);
     
-        if(user)  
-          {
-            fetchData();
-          }
-      }else
-      {
-        const fetchData = async ()=>{
-          try {
-            const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
-            const json = await response.json();
-            if (response.ok) {
-              setProfilePic(json.profilePic);
-              console.log("prof2", json.profilePic)
-              setFirstName(json.firstName);
-              setMiddleName(json.middleName);
-              setSurname(json.surname);
-              setMobileNumber(json.mobileNumber);
-              setAlternateMobileNumber(json.alternateMobileNumber);
-              setEmail(json.email);
-              setAddress(json.address);
-              setPinCode(json.pinCode);
-              setNationality(json.nationality);
-              setAge(json.age);
-              setBloodGroup(json.bloodGroup);
-              setGender(json.gender);
-              setReligion(json.religion);
-              setDateOfBirth(json.dateOfBirth);
-              setMaritalStatus(json.maritalStatus);
-              
-            } else {
-              setError(json.error);
-            }
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-            setError("Error fetching user data. Please try again later.");
-          }
-        }
     
-        if(user)  
-          {
-            fetchData();
-          }
-      } 
-    }else{
-      if(uId && userType === 'Employee')
-    {
-      const fetchData = async ()=>{
-        try {
-          const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${uId}`);
-          const json = await response.json();
+  }, [firstName, urlIdNew, uId]);
+
+
+
+  // useEffect(()=>{
+
+  //   if(location === '/profile/editProfile')
+  //   {
+  //     if(user && user.user.userType === 'Employee')
+  //   {
+  //     const fetchData = async ()=>{
+  //       try {
+  //         const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
+  //         const json = await response.json();
     
-          if (response.ok) {
-            setProfilePic(json.profilePic);
-            if(json.profilePic)
-            {
-              setHasProf(true)
-            }
-            console.log("prof2", hasProf)
-            setFirstName(json.firstName);
-            setMiddleName(json.middleName);
-            setSurname(json.surname);
-            setMobileNumber(json.mobileNumber);
-            setAlternateMobileNumber(json.alternateMobileNumber);
-            setEmail(json.email);
-            setAddress(json.address);
-            setPinCode(json.pinCode);
-            setNationality(json.nationality);
-            setAge(json.age);
-            setBloodGroup(json.bloodGroup);
-            setGender(json.gender);
-            setReligion(json.religion);
-            setDateOfBirth(json.dateOfBirth);
-            setMaritalStatus(json.maritalStatus);
+  //         if (response.ok) {
+  //           setProfilePic(json.profilePic);
+  //           console.log("prof2", json.profilePic)
+  //           setFirstName(json.firstName);
+  //           setMiddleName(json.middleName);
+  //           setSurname(json.surname);
+  //           setMobileNumber(json.mobileNumber);
+  //           setAlternateMobileNumber(json.alternateMobileNumber);
+  //           setEmail(json.email);
+  //           setAddress(json.address);
+  //           setPinCode(json.pinCode);
+  //           setNationality(json.nationality);
+  //           setAge(json.age);
+  //           setBloodGroup(json.bloodGroup);
+  //           setGender(json.gender);
+  //           setReligion(json.religion);
+  //           setDateOfBirth(json.dateOfBirth);
+  //           setMaritalStatus(json.maritalStatus);
             
-          } else {
-            setError(json.error);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          setError("Error fetching user data. Please try again later.");
-        }
-      }
+  //         } else {
+  //           setError(json.error);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching user data:", error);
+  //         setError("Error fetching user data. Please try again later.");
+  //       }
+  //     }
   
-      if(user)  
-        {
-          fetchData();
-        }
-      }else if(uId && userType === 'Head')
-      {
-        const fetchData = async ()=>{
-          try {
-            const response = await fetch(`http://localhost:4000/heads/getOneHead/${uId}`);
-            const json = await response.json();
+  //     if(user)  
+  //       {
+  //         fetchData();
+  //       }
+  //     }else if(user && user.user.userType === 'Head')
+  //     {
+  //       const fetchData = async ()=>{
+  //         try {
+  //           const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
+  //           const json = await response.json();
       
-            if (response.ok) {
-              setProfilePic(json.profilePic);
-              if(json.profilePic)
-            {
-              setHasProf(true)
-            }
-              console.log("prof2", hasProf)
-              setFirstName(json.firstName);
-              setMiddleName(json.middleName);
-              setSurname(json.surname);
-              setMobileNumber(json.mobileNumber);
-              setAlternateMobileNumber(json.alternateMobileNumber);
-              setEmail(json.email);
-              setAddress(json.address);
-              setPinCode(json.pinCode);
-              setNationality(json.nationality);
-              setAge(json.age);
-              setBloodGroup(json.bloodGroup);
-              setGender(json.gender);
-              setReligion(json.religion);
-              setDateOfBirth(json.dateOfBirth);
-              setMaritalStatus(json.maritalStatus);
+  //           if (response.ok) {
+  //             setProfilePic(json.profilePic);
+  //             console.log("prof2", json.profilePic)
+  //             setFirstName(json.firstName);
+  //             setMiddleName(json.middleName);
+  //             setSurname(json.surname);
+  //             setMobileNumber(json.mobileNumber);
+  //             setAlternateMobileNumber(json.alternateMobileNumber);
+  //             setEmail(json.email);
+  //             setAddress(json.address);
+  //             setPinCode(json.pinCode);
+  //             setNationality(json.nationality);
+  //             setAge(json.age);
+  //             setBloodGroup(json.bloodGroup);
+  //             setGender(json.gender);
+  //             setReligion(json.religion);
+  //             setDateOfBirth(json.dateOfBirth);
+  //             setMaritalStatus(json.maritalStatus);
               
-            } else {
-              setError(json.error);
-            }
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-            setError("Error fetching user data. Please try again later.");
-          }
-        }
+  //           } else {
+  //             setError(json.error);
+  //           }
+  //         } catch (error) {
+  //           console.error("Error fetching user data:", error);
+  //           setError("Error fetching user data. Please try again later.");
+  //         }
+  //       }
     
-        if(user)  
-          {
-            fetchData();
-          }
+  //       if(user)  
+  //         {
+  //           fetchData();
+  //         }
+  //     }else
+  //     {
+  //       const fetchData = async ()=>{
+  //         try {
+  //           const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
+  //           const json = await response.json();
+  //           if (response.ok) {
+  //             setProfilePic(json.profilePic);
+  //             console.log("prof2", json.profilePic)
+  //             setFirstName(json.firstName);
+  //             setMiddleName(json.middleName);
+  //             setSurname(json.surname);
+  //             setMobileNumber(json.mobileNumber);
+  //             setAlternateMobileNumber(json.alternateMobileNumber);
+  //             setEmail(json.email);
+  //             setAddress(json.address);
+  //             setPinCode(json.pinCode);
+  //             setNationality(json.nationality);
+  //             setAge(json.age);
+  //             setBloodGroup(json.bloodGroup);
+  //             setGender(json.gender);
+  //             setReligion(json.religion);
+  //             setDateOfBirth(json.dateOfBirth);
+  //             setMaritalStatus(json.maritalStatus);
+              
+  //           } else {
+  //             setError(json.error);
+  //           }
+  //         } catch (error) {
+  //           console.error("Error fetching user data:", error);
+  //           setError("Error fetching user data. Please try again later.");
+  //         }
+  //       }
+    
+  //       if(user)  
+  //         {
+  //           fetchData();
+  //         }
+  //     } 
+  //   }else{
+  //     if(uId && userType === 'Employee')
+  //   {
+  //     const fetchData = async ()=>{
+  //       try {
+  //         const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${uId}`);
+  //         const json = await response.json();
+    
+  //         if (response.ok) {
+  //           setProfilePic(json.profilePic);
+  //           if(json.profilePic)
+  //           {
+  //             setHasProf(true)
+  //           }
+  //           console.log("prof2", hasProf)
+  //           setFirstName(json.firstName);
+  //           setMiddleName(json.middleName);
+  //           setSurname(json.surname);
+  //           setMobileNumber(json.mobileNumber);
+  //           setAlternateMobileNumber(json.alternateMobileNumber);
+  //           setEmail(json.email);
+  //           setAddress(json.address);
+  //           setPinCode(json.pinCode);
+  //           setNationality(json.nationality);
+  //           setAge(json.age);
+  //           setBloodGroup(json.bloodGroup);
+  //           setGender(json.gender);
+  //           setReligion(json.religion);
+  //           setDateOfBirth(json.dateOfBirth);
+  //           setMaritalStatus(json.maritalStatus);
+            
+  //         } else {
+  //           setError(json.error);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching user data:", error);
+  //         setError("Error fetching user data. Please try again later.");
+  //       }
+  //     }
+  
+  //     if(user)  
+  //       {
+  //         fetchData();
+  //       }
+  //     }else if(uId && userType === 'Head')
+  //     {
+  //       const fetchData = async ()=>{
+  //         try {
+  //           const response = await fetch(`http://localhost:4000/headsNew/updateHeadNew/${uId}`);
+  //           const json = await response.json();
+      
+  //           if (response.ok) {
+  //             setProfilePic(json.profilePic);
+  //             if(json.profilePic)
+  //           {
+  //             setHasProf(true)
+  //           }
+  //             console.log("prof2", hasProf)
+  //             setFirstName(json.firstName);
+  //         setMiddleName(json.middleName);
+  //         setSurname(json.surname);
+  //         setDesignation(json.designation);
+  //         setWorkEmail(json.workEmail);
+  //         setAccessToFeed(json.accessToFeed);
+  //         setOrgId(json.orgId);
+  //         setDepartment(json.department);
+  //         setEmpId(json.empId);
+  //         setPassword(json.password);
+  //         setUserType(json.userType);
+  //         setMobileNumber(json.mobileNumber);
+  //         setAlternateMobileNumber(json.alternateMobileNumber);
+  //         setEmail(json.email);
+  //         setAddress(json.address);
+  //         setPinCode(json.pinCode);
+  //         setNationality(json.nationality);
+  //         setAge(json.age);
+  //         setBloodGroup(json.bloodGroup);
+  //         setGender(json.gender);
+  //         setReligion(json.religion);
+  //         setDateOfBirth(json.dateOfBirth);
+  //         setMaritalStatus(json.maritalStatus);
+              
+  //           } else {
+  //             setError(json.error);
+  //           }
+  //         } catch (error) {
+  //           console.error("Error fetching user data:", error);
+  //           setError("Error fetching user data. Please try again later.");
+  //         }
+  //       }
+    
+  //       if(user)  
+  //         {
+  //           fetchData();
+  //         }
+  //     }
+  //   }
+
+  // }, [user, location, uId, userType, btnText]);
+
+  
+  const handleSubmit = async (e) => {
+   e.preventDefault()
+
+    if(btnText === 'Create')
+      {
+        handleCreateHead()
+      }else{
+        handleUpdateHead()
       }
+  }
+
+  const handleCreateHead = async () =>{
+
+    try {
+      const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus})
+      });
+
+      if (!response.ok) {
+        setError('Failed to sign up');
+
+      }
+
+      const json = await response.json();
+      // setCreatedUser(json)
+      // setUrlIdNew(json.user.userType + "-" + json.user._id);
+      navigate(`/profile/createProf/profInfo/${json.user.userType + "-" + json.user._id}`);
+      console.log(json);
+    } catch (error) {
+      console.error('Error during sign up:', error.message);
+      setError(error.message);
     }
 
-  }, [user, location, uId, userType, btnText]);
-
-  
-  const handleSubmit = async (e) =>{
-    e.preventDefault()
-
-    await signupHead(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType);
-
-    if(!error){
-        setConf("Successfully Registered!!")
-    }else{
+    if (!error) {
+      setConf("Successfully Registered!!")
+      setBtnText('Update')
+    } else {
       setError(error)
     }
-}
 
-  const [cnText, setCnText] = useState('Next');
-  useEffect(()=>{
-    if(location === `/profile/createProf/${urlId}`)
-      {
-        setCnText('Next');
-      }else{
-        setCnText('Create');
+  }
+
+  const handleUpdateHead = async () => {
+
+    const formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('middleName', middleName);
+    formData.append('surname', surname);
+    formData.append('designation', designation);
+    formData.append('workEmail', workEmail);
+    formData.append('accessToFeed', accessToFeed);
+    formData.append('orgId', orgId);
+    formData.append('department', department);
+    formData.append('empId', empId);
+    formData.append('password', password);
+    formData.append('userType', userType);
+    formData.append('mobileNumber', mobileNumber);
+    formData.append('alternateMobileNumber', alternateMobileNumber);
+    formData.append('email', email);
+    formData.append('address', address);
+    formData.append('pinCode', pinCode);
+    formData.append('nationality', nationality);
+    formData.append('age', age);
+    formData.append('bloodGroup', bloodGroup);
+    formData.append('gender', gender);
+    formData.append('religion', religion);
+    formData.append('dateOfBirth', dateOfBirth);
+    formData.append('maritalStatus', maritalStatus);
+    // formData.append('upload', profilePic);
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/headsNew/updateHeadNew/${uId}`
+      ,{
+        method: 'PATCH',
+        body: formData
+      });
+      const json = await response.json();
+      if (!response.ok) {
+          setError(json.error);
+      } else {
+          setError('');
+          setConf("Successfully updated the profile's part 1");
+          console.log("updated", json);
+          navigate(`/profile/createProf/profInfo/${json.userType + "-" + json._id}`);
       }
-  }, [cnText])
+
+    } catch (error) {
+    console.error("Error during form submission:", error);
+    setError("Error during form submission. Please try again later.");
+  }
+
+  } 
+
   
 
   const goToPrev = () =>{
@@ -456,21 +641,26 @@ const handleAtc = ()=>{
 
   // const urlId = userType +"-"+ uId;
 
+  
+console.log("urslerIDD", urlIdNew)
   const goToNext = () => {
+
+      // console.log("urlIdsdfd", createdUser.user)
   
     // If nextPage is "Yes", proceed with navigation
     // if (nextPage === "Yes") {
       setTimeout(() => {
         // Check the current location and navigate accordingly
-        if (location === `/profile/createProf` || location === `/profile/createProf/${urlId}`) {
-          setTimeout(() => {
+        // if (location === `/profile/createProf`) {
+          // setTimeout(() => {
             // Navigate to the next page
-            navigate(`/profile/createProf/profInfo/${urlId}`);
-          }, 1000);
-        } else {
+            navigate(`/profile/createProf/profInfo/${urlIdNew}`);
+            // console.log("navigate", `/profile/createProf/profInfo/${urlIdNew}`)
+          // }, 1000);
+        // } else {
           // Navigate to a different page
-          navigate('/profile/editProfInfo');
-        }
+          // navigate('/profile/editProfInfo');
+        // }
       }, 1000);
     // } else {
     //   // If nextPage is "No", set an error
@@ -482,7 +672,112 @@ const handleAtc = ()=>{
   return (
     // <form encType="multipart/form-data" method="post" onSubmit={handleSubmit} className="persInfoMain">
       
-      <div className='pbr createProfMain'>
+    <div className='pbr createProfMain'>
+      <div className="profileLeft">
+        <PLNewcontent />
+      </div>
+      <form className="mwis" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+        <div className="cprfMain">
+          <h2>Create Profile</h2>
+          <div className="cpTop">
+            <div className="cpProfile">
+              <div className="upImg">
+                {user && user.user.profilePic === '' && profUrl === '' && profilePic === '' ? 
+                  <img src={pp} alt="" /> 
+                  : null
+                }
+                {profilePic === '' && !hasProf ? <img src={pp} alt="" /> : null}
+                {user && profUrl !== '' ? <img src={profUrl} alt="" /> : null}
+                {user && profUrl === '' && profilePic !== '' ? 
+                  <img src={`http://localhost:4000/uploads/${profilePic}`} alt="" /> 
+                  : null
+                }
+                <input
+                  type="file"
+                  className="form-control-file"
+                  name="upload"
+                  onChange={(e) => {
+                    setProfilePic(e.target.files[0]);
+                    setProfUrl(URL.createObjectURL(e.target.files[0]));
+                  }}
+                  id='upImg'
+                />
+                <label htmlFor="upImg">Upload Image</label>
+              </div>
+              <div className="cpm">
+                <input type="text" placeholder='First Name'
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <input type="text" placeholder='Middle Name'
+                  value={middleName}
+                  onChange={(e) => setMiddleName(e.target.value)}
+                />
+                <input type="text" placeholder='Surname'
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                />
+                <select name="" id="" className='marStat'
+                  value={userType} onChange={handleUserType}
+                >
+                  <option value="">UserType</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Head">Head</option>
+                </select>
+              </div>
+              <div className="whitePatch"></div>
+            </div>
+            <div className="cawweMain">
+              <div className="cawMain">
+                <div className="caw1">
+                  <select name="" id=""
+                    value={department} onChange={handleDep}
+                  >
+                    <option value="">Choose Department</option>
+                    <option value="Department 1">Department 1</option>
+                    <option value="Department 2">Department 2</option>
+                    <option value="Department 3">Department 3</option>
+                  </select>
+                  <select name="" id=""
+                    value={designation} onChange={handleDes}
+                  >
+                    <option value="">Assign Designation</option>
+                    <option value="Human Resource Head1">Human Resource Head1</option>
+                    <option value="Human Resource Head2">Human Resource Head2</option>
+                    <option value="Human Resource Head3">Human Resource Head3</option>
+                  </select>
+                </div>
+                <div className="accToFeed">
+                  <p>Give Access to <br /> Posting on Feed</p>
+                  <input type="checkbox" id='atf' />
+                  <label htmlFor="atf" onClick={handleAtc}>
+                    <div className="atfSwitch" style={atcStyle}></div>
+                  </label>
+                </div>
+              </div>
+              <div className="wwe">
+                <img src={emailImg} alt="emailImg" />
+                <input type="text" placeholder='Write Work Email'
+                  value={workEmail} onChange={(e) => setWorkEmail(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="cpOut">
+            <div className="cpoTop">
+                  {urlId ? 
+                  <Link to={`/profile/createProf/${urlId}`} className="cpOpt">Personal Info</Link> :
+
+                  <Link to={'/profile/createProf'} className="cpOpt">Personal Info</Link>
+                }
+                  
+              {/* <Link to={'/profile/createProf/'} className="cpOpt">Personal Info</Link> */}
+              <Link to={`/profile/createProf/profInfo/${urlId}`} className="cpOpt">Professional Info</Link>
+              <Link to={'/profile/createProf/docs'} className="cpOpt">Documents</Link>
+              <Link to={'/profile/createProf/mywork'} className="cpOpt">My Work</Link>
+              <Link to={'/profile/createProf/designationnres'} className="cpOpt">designations & Responsibilities</Link>
+            </div>
+            <div className='pbr createProfMain'>
       <div className="persInfoMain">
         <div  className='cpms'>
         <div className='cpm'>
@@ -568,18 +863,26 @@ const handleAtc = ()=>{
 
               ):(null)} */}
                 
-                  <button className='next' onClick={goToNext}>
+                  <button className='next'>
                   {/* <Link to={'/profile/cbprofinfo'}> */}
                     {btnText}
                     {/* </Link> */}
                   </button>
                   
                 {/* <button className='next'>Next</button> */}
-                {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
+                {/* {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) } */}
             </div>
       </div>
       
     </div>
+            {!error && error!= '' ?(<div className="success">{conf}</div>) : (<div className="error">{error}</div>) }
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+     
     // </form>
   )
 }

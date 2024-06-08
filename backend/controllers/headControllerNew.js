@@ -10,10 +10,10 @@ const createToken = (_id) =>{
 const signupHeadNew = async (req, res) => {
     console.log("Request Body:", req.body);
 
-    const { firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType } = await req.body;
+    const { firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus } = await req.body;
 
     try {
-        const head = await HeadNew.signupHead(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType);
+        const head = await HeadNew.signupHead(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus);
         console.log(head)
 
         res.status(200).json({ user: head });

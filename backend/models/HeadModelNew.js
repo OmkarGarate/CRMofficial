@@ -16,7 +16,8 @@ password:{
     required: true
 },
 companyName:{
-    type: String,},
+    type: String,
+},
 companyEmail:{
     type: String,
 },
@@ -197,29 +198,10 @@ createdAt: {
 });
 
 headSchema.statics.signupHead = async function (
-  firstName,
-  middleName,
-  surname,
-  designation,
-  workEmail,
-  accessToFeed,
-  orgId,
-  department,
-  empId,
-  password,
-  userType
+    firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus
 ) {
   if (
-    !firstName ||
-    !middleName ||
-    !surname ||
-    !designation ||
-    !workEmail ||
-    !orgId ||
-    !department ||
-    !empId ||
-    !password ||
-    !userType
+    !firstName || !middleName || !surname || !designation || !workEmail  ||accessToFeed ||  !orgId || !department || !empId || !password || !userType || !mobileNumber || !alternateMobileNumber || !email || !address || !pinCode || !nationality || !age || !bloodGroup || !gender || !religion || !dateOfBirth  || !maritalStatus
   ) {
     throw new Error("All fields must be filled");
   }
@@ -249,6 +231,19 @@ headSchema.statics.signupHead = async function (
     orgId: orgId,
     userType: userType,
     password: password,
+    mobileNumber: mobileNumber,
+    alternateMobileNumber : alternateMobileNumber, 
+    email : email, 
+    address : address, 
+    pinCode : pinCode, 
+    nationality : nationality, 
+    age : age, 
+    bloodGroup : bloodGroup, 
+    gender : gender, 
+    religion : religion, 
+    dateOfBirth : dateOfBirth, 
+    maritalStatus : maritalStatus
+
   });
 
   return head;
