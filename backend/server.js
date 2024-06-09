@@ -29,6 +29,7 @@ app.get('/', (req, res)=>{
 app.use(cors())
 app.use(bodyParser.json())//to use body of request(req.body())
 app.use(bodyParser.urlencoded({extended:true}))
+// app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.json())
 
 //routes

@@ -192,6 +192,7 @@ useEffect(()=>{
           const response = await fetch(`http://localhost:4000/headsNew/getOneHeadNew/${uId}`);
           const json = await response.json();
           if (response.ok) {
+            setProfilePic(json.profilePic)
             setFirstName(json.firstName);
             setMiddleName(json.middleName);
             setSurname(json.surname);

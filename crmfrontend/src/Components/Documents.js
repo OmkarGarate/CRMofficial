@@ -100,6 +100,7 @@ const handleAtc = ()=>{
                 const json = await response.json();
                 console.log("jsons", json)
                 if (response.ok) {
+                  setProfilePic(json.profilePic)
                   setFirstName(json.firstName);
                   setMiddleName(json.middleName);
                   setSurname(json.surname);
@@ -159,6 +160,7 @@ const handleAtc = ()=>{
                 const response = await fetch(`http://localhost:4000/headsNew/getOneHeadNew/${user.user._id}`);
                 const json = await response.json();
                 if (response.ok) {
+                  setProfilePic(json.profilePic)
                   setFirstName(json.firstName);
                   setMiddleName(json.middleName);
                   setSurname(json.surname);
@@ -362,7 +364,7 @@ const handleAtc = ()=>{
           <div className="cpTop">
             <div className="cpProfile">
               <div className="upImg">
-                {user && user.user.profilePic === '' && profUrl === '' && profilePic === '' ? 
+              {/* {user && user.user.profilePic === '' && profUrl === '' && profilePic === '' ? 
                   <img src={pp} alt="" /> 
                   : null
                 }
@@ -371,10 +373,13 @@ const handleAtc = ()=>{
                 {user && profUrl === '' && profilePic !== '' ? 
                   <img src={`http://localhost:4000/uploads/${profilePic}`} alt="" /> 
                   : null
-                }
+                } */}
+
+                {!profilePic && !profUrl ? <img src={pp} alt="" /> : 
+                 profUrl ? <img src={profUrl} alt="" /> : <img src={`http://localhost:4000/uploads/${profilePic}`} alt="" /> }
                 <input
                   type="file"
-                  className="form-control-file"
+                  // className="form-control-file"
                   name="uploaded_file"
                   onChange={(e) => {
                     setProfilePic(e.target.files[0]);

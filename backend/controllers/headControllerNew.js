@@ -10,17 +10,27 @@ const createToken = (_id) =>{
 const signupHeadNew = async (req, res) => {
     console.log("Request Body:", req.body);
 
-    const { firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus } = await req.body;
+    const { firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus } = req.body;
+
+    let profilePic = '';
+    if (req.file) {
+        profilePic = req.file.filename;
+        console.log("Uploaded file:", req.file.filename);
+    }
 
     try {
-        const head = await HeadNew.signupHead(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus);
-        console.log(head)
+        const head = await HeadNew.signupHead(
+            firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus, profilePic
+        );
+        console.log("Created head:", head);
 
         res.status(200).json({ user: head });
     } catch (error) {
+        console.error("Error during signup:", error.message);
         res.status(400).json({ error: error.message });
     }
 };
+
 
 const loginHeadNew = async (req, res) => {
     const { orgId, empId, password } = req.body;

@@ -96,7 +96,6 @@ function PersInfo() {
     
   }
 
-  const [createdUser, setCreatedUser] = useState('')
   const [urlId, setUrlId] = useState('')
   
 
@@ -246,7 +245,7 @@ const handleAtc = ()=>{
     return shuffle(password.split('')).join('');
   };
 
- 
+//  const [createdUser, setCreatedUser] = useState('')
 
   useEffect(() => {
     setEmpId(generateEmployeeId(firstName));
@@ -260,6 +259,7 @@ const handleAtc = ()=>{
         const response = await fetch(`http://localhost:4000/headsNew/getOneHeadNew/${uId}`)
         const json = await response.json();
         if (response.ok) {
+          setProfilePic(json.profilePic)
           setFirstName(json.firstName);
           setMiddleName(json.middleName);
           setSurname(json.surname);
@@ -543,38 +543,55 @@ const handleAtc = ()=>{
       }
   }
 
-  const handleCreateHead = async () =>{
-
+  const handleCreateHead = async () => {
     try {
+      const formData = new FormData();
+      formData.append('firstName', firstName);
+      formData.append('middleName', middleName);
+      formData.append('surname', surname);
+      formData.append('designation', designation);
+      formData.append('workEmail', workEmail);
+      formData.append('accessToFeed', accessToFeed);
+      formData.append('orgId', orgId);
+      formData.append('department', department);
+      formData.append('empId', empId);
+      formData.append('password', password);
+      formData.append('userType', userType);
+      formData.append('mobileNumber', mobileNumber);
+      formData.append('alternateMobileNumber', alternateMobileNumber);
+      formData.append('email', email);
+      formData.append('address', address);
+      formData.append('pinCode', pinCode);
+      formData.append('nationality', nationality);
+      formData.append('age', age);
+      formData.append('bloodGroup', bloodGroup);
+      formData.append('gender', gender);
+      formData.append('religion', religion);
+      formData.append('dateOfBirth', dateOfBirth);
+      formData.append('maritalStatus', maritalStatus);
+      formData.append('uploaded_file', profilePic); // Assuming profilePic is a file object
+  
       const response = await fetch('http://localhost:4000/headsNew/signupHeadNew', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType, mobileNumber, alternateMobileNumber, email, address, pinCode, nationality, age, bloodGroup, gender, religion, dateOfBirth, maritalStatus})
+        body: formData
       });
-
+  
       if (!response.ok) {
-        setError('Failed to sign up');
-
+        throw new Error('Failed to sign up');
       }
-
+  
       const json = await response.json();
-      // setCreatedUser(json)
-      // setUrlIdNew(json.user.userType + "-" + json.user._id);
-      navigate(`/profile/createProf/profInfo/${json.user.userType + "-" + json.user._id}`);
+      navigate(`/profile/createProf/profInfo/${json.user.userType}-${json.user._id}`);
       console.log(json);
+  
+      setConf("Successfully Registered!!");
+      setBtnText('Update');
     } catch (error) {
       console.error('Error during sign up:', error.message);
       setError(error.message);
     }
-
-    if (!error) {
-      setConf("Successfully Registered!!")
-      setBtnText('Update')
-    } else {
-      setError(error)
-    }
-
-  }
+  };
+  
 
   const handleUpdateHead = async () => {
 
@@ -694,8 +711,8 @@ console.log("urslerIDD", urlIdNew)
                 }
                 <input
                   type="file"
-                  className="form-control-file"
-                  name="upload"
+                  // className="form-control-file"
+                  name="uploaded_file"
                   onChange={(e) => {
                     setProfilePic(e.target.files[0]);
                     setProfUrl(URL.createObjectURL(e.target.files[0]));
