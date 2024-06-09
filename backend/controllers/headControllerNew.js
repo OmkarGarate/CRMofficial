@@ -95,8 +95,12 @@ const updateHeadNew = async(req, res) =>{
         const {id} = req.params
         let updateData = { ...req.body }
 
-        if(req.file){
+        if(req.file && req.file.fieldname === 'workRoles'){
             // console.log("file is here")
+            
+            updateData.wrOfferLetter = req.file.filename;
+            // console.log(req.file)
+        }else if(req.file){
             updateData.profilePic = req.file.filename;
         }
 

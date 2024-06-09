@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import rightArrow from '../Images/rgtarrow.png'
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +6,9 @@ import PLNewcontent from './PLNewcontent';
 import emailImg from '../Images/email.png';
 
 function Documents() {
-    const navigate = useNavigate()
-    const {user} = useAuthContext()
-    const location = window.location.pathname;
-    const {urlIdNew} = useParams()
-  console.log("profInfoUrl",urlIdNew)
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+  const { urlIdNew } = useParams();
 
   const parts = urlIdNew.split("-");
   
@@ -58,7 +55,11 @@ const handleAtc = ()=>{
           setAccessToFeed(true)
       }
 }
-    
+const [doc1, setDoc1] = useState('')
+const [doc2, setDoc2] = useState('')
+const [doc3, setDoc3] = useState('')
+const [doc4, setDoc4] = useState('')
+const [docs, setDocs] = useState('')
 
       useEffect(()=>{
 
@@ -110,7 +111,31 @@ const handleAtc = ()=>{
                   setOrgId(json.orgId);
                   setDepartment(json.department);
                   setUserType(json.userType);
+
+
       
+                } else {
+                  setError(json.error);
+                }
+              } catch (error) {
+                console.error("Error fetching user data:", error);
+                setError("Error fetching user data. Please try again later.");
+              }
+            }
+
+            const fetchDocs = async ()=>{
+              try {
+                const response = await fetch(`http://localhost:4000/headDocs/getAllHeadDocs`);
+                const json = await response.json();
+                console.log("jsonsDocs", json)
+                if (response.ok) {
+                  // console.log(json)
+                  setDoc1(json[0].doc1)
+                  setDoc2(json[0].doc2)
+                  setDoc3(json[0].doc3)
+                  setDoc4(json[0].doc4)
+                  setDocs(json)
+                  console.log("doc11", json[0].doc1)
                 } else {
                   setError(json.error);
                 }
@@ -122,6 +147,7 @@ const handleAtc = ()=>{
             if(user)  
               {
                 fetchData();
+                fetchDocs();
               }
           }
         }else{
@@ -216,18 +242,22 @@ const handleAtc = ()=>{
         
       }, [user, userType, uId]);
 
-      const [doc1, setDoc1] = useState('')
-      const [doc2, setDoc2] = useState('')
-      const [doc3, setDoc3] = useState('')
-      const [doc4, setDoc4] = useState('')
+      
+
+      useEffect(() => {
+        console.log("doc1", doc1)
+      }, [doc1])
+      
 
       const handleSubmit = async(e) =>{
         e.preventDefault()
         const formData = new FormData()
-        formData.append('document1', doc1);
-        formData.append('document2', doc2);
-        formData.append('document3', doc3);
-        formData.append('document4', doc4);
+        formData.append('doc1', doc1);
+        formData.append('doc2', doc2);
+        formData.append('doc3', doc3);
+        formData.append('doc4', doc4);
+
+        console.log("docs", formData)
     
         if(!userType)
         {
@@ -296,25 +326,37 @@ const handleAtc = ()=>{
         }else{
           if(userType === "Head")
           {
+            if (!doc1 && !doc2 && !doc3 && !doc4) {
+              setError("Please select at least one file to upload.");
+              return;
+            }
+          
+            const formData = new FormData();
+            if (doc1) formData.append('doc1', doc1);
+            if (doc2) formData.append('doc2', doc2);
+            if (doc3) formData.append('doc3', doc3);
+            if (doc4) formData.append('doc4', doc4);
+          
             try {
               const response = await fetch(
-                `http://localhost:4000/headsNew/updateHeadNew/${uId}`
-              ,{
-                method: 'PATCH',
+                `http://localhost:4000/headDocs/uploadHeadDocs/${uId}`, {
+                method: 'POST',
                 body: formData
               });
+          
               const json = await response.json();
+          
               if (!response.ok) {
-                  setError(json.error);
+                setError(json.error);
               } else {
-                  setError('');
-                  setConf("Successfully updated the profile's part 1");
-                  console.log("updated", json);
+                setError('');
+                setConf("Successfully updated the profile's part 1");
+                console.log("Updated", json);
               }
             } catch (error) {
-            console.error("Error during form submission:", error);
-            setError("Error during form submission. Please try again later.");
-          }
+              console.error("Error during form submission:", error);
+              setError("Error during form submission. Please try again later.");
+            }
           }else if(userType === "Employee"){
             try {
               const response = await fetch(
@@ -468,24 +510,24 @@ const handleAtc = ()=>{
         <label htmlFor="pan" className='pan'>Upload File</label>
         <div className="allDocs">
             <div className="ad">
-                {doc1 ? <p>{doc1}</p> : <p>Certificate / File Name 1</p>}
+                {doc1 ? <p>{doc1.name ? doc1.name : `${docs[0].doc1}`}</p> : <p>Certificate / File Name 1</p>}
                 
-                <input type="file" id='pan1' value={doc1} onChange={(e)=>setDoc1(e.target.value)}/>
+                <input type="file" id='pan1' name='doc1'  onChange={(e)=>setDoc1(e.target.files[0])}/>
                 <label htmlFor="pan1">Upload File</label>
             </div>
             <div className="ad">
-            {doc2 ? <p>{doc2}</p> : <p>Certificate / File Name 2</p>}
-                <input type="file" id='pan2' value={doc2} onChange={(e)=>setDoc2(e.target.value)}/>
+            {doc2 ? <p>{doc2.name ? doc2.name : doc2}</p> : <p>Certificate / File Name 2</p>}
+                <input type="file" id='pan2' name='doc2'  onChange={(e)=>setDoc2(e.target.files[0])}/>
                 <label htmlFor="pan2">Upload File</label>
             </div>
             <div className="ad">
-            {doc3 ? <p>{doc3}</p> : <p>Certificate / File Name 3</p>}
-                <input type="file" id='pan3' value={doc3} onChange={(e)=>setDoc3(e.target.value)}/>
+            {doc3 ? <p>{doc3.name ? doc3.name : doc3}</p> : <p>Certificate / File Name 3</p>}
+                <input type="file" id='pan3' name='doc3'  onChange={(e)=>setDoc3(e.target.files[0])}/>
                 <label htmlFor="pan3">Upload File</label>
             </div>
             <div className="ad">
-            {doc4 ? <p>{doc4}</p> : <p>Certificate / File Name 4</p>} 
-                <input type="file" id='pan4' value={doc4} onChange={(e)=>setDoc4(e.target.value)}/>
+            {doc4 ? <p>{doc4.name ? doc4.name : doc4}</p> : <p>Certificate / File Name 4</p>} 
+                <input type="file" id='pan4' name='doc4'  onChange={(e)=>setDoc4(e.target.files[0])}/>
                 <label htmlFor="pan4">Upload File</label>
             </div>
         </div>

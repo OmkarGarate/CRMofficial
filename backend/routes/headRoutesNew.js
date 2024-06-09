@@ -32,6 +32,7 @@ router.get('/getOrgHeadsNew/:orgId', getOrgHeadsNew)
 router.get('/getOneHeadNew/:id', getOneHeadNew)
 
 // router.patch('/updateHeadNew/:id',  updateHeadNew)
-router.patch('/updateHeadNew/:id', upload.array('docs', 4), updateHeadNew)
+router.patch('/updateHeadNew/:id', upload.single('workRoles'), updateHeadNew)
+router.patch('/updateHeadNew/:id', upload.single('uploaded_file'), updateHeadNew)
 
 module.exports = router
