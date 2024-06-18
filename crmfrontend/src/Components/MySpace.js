@@ -6,6 +6,7 @@ import PLNewcontent from './PLNewcontent'
 import login3profile from '../Images/login3profile.png'
 import { useAuthContext } from '../hooks/useAuthContext'
 
+
 function MySpace() {
   const {user} = useAuthContext()
 
@@ -129,12 +130,13 @@ setUsers(sortedUsers);
         
         <Feed/>
       </div>
-      <div className="dashboard">
+      {/* <div className="dashboard">
         <h2>Dashboard</h2>
         <div className="dashboardInner">
-
+        
         </div>
-      </div>
+      </div> */}
+      
     </div>
     </div>
     

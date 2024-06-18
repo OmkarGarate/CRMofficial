@@ -27,6 +27,12 @@ import AllProfiles from './Components/AllProfiles';
 import HeadEmployees from './Components/HeadEmployees';
 import Employees from './Components/Employees';
 import ProfilesNew from './Components/ProfilesNew';
+import ClockMain from './Components/ClockMain';
+import AllDepartment from './Components/AllDepartment';
+import AllProfile from './Components/AllProfile';
+import AllDesignation from './Components/AllDesignation';
+import CreateDesignation from './Components/CreateDesignation';
+import ViewDesignation from './Components/ViewDesignation';
 
 function App() {
   const {user} = useAuthContext()
@@ -44,6 +50,7 @@ function App() {
     <Router>
       <Loader/>
       {!user ? <div className="pageCover"></div> : null}
+      {/* <ClockMain/> */}
       <Routes>
         <Route path='/' element={<Login/>}/>
         
@@ -73,6 +80,11 @@ function App() {
         <Route path='/mwis' element={<Mwis/>}>
               <Route path='/mwis' element={<MySpace/>}/>
               <Route path='/mwis/workforce' element={<WorkforceNew/>}/>
+              <Route path='/mwis/alldepartment' element={<AllDepartment/>}/>
+              <Route path='/mwis/allprofile' element={<AllProfile/>}/>
+              <Route path='/mwis/alldesignation' element={<AllDesignation/>}/>
+              <Route path='/mwis/createdesignation' element={<CreateDesignation/>}/>
+              <Route path='/mwis/viewdesignation' element={<ViewDesignation/>}/>
               {/* <Route path='/mwis/workforce/' element={<AllPositions/>}/> */}
               {/* </Route> */}
               <Route path='/mwis/inventory' element={<Inventory/>}/>

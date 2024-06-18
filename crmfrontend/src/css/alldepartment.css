@@ -1,0 +1,101 @@
+.allDepartment{
+    display: block;
+    width: 78%;
+}
+
+.allDepartTop{
+    display: flex;
+    width: 75%;
+    /* border: 1px solid black; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.allDepartTop h1{
+    font-size: 1.8rem;
+}
+
+.createDepart, .searchDepart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 22px;
+    cursor: pointer;
+}
+
+.searchDepart{
+    box-shadow: 0px 3px 20px #0000000D;
+}
+
+.createDepart p{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.createDepart img{
+   width: 12px;
+}
+
+.searchDepart img{
+width: 15px;
+}
+
+.searchDepart input{
+    outline: none;
+    border: none;
+    width: 250px;
+}
+
+.searchDepart input::placeholder{
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-style:italic;
+}
+
+.allDSort{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.allDSort p{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.allDSort button{
+    padding: 8px 23px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    width: max-content;
+}
+
+.allDepartBottom{
+    display: flex;
+    width: 90%;
+    /* border: 1px solid black; */
+    margin: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 150px;
+    margin-top: 50px;
+}
+
+.allDContent{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 60%;
+}
+
+.department1{
+    padding: 8px 10px;
+    background-color: white;
+    border-radius: 13px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}

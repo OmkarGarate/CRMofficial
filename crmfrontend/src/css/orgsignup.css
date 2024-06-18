@@ -237,7 +237,7 @@
     cursor: pointer;
 }
 
-::placeholder{
+.orgSg ::placeholder{
     color: #F08989;
 }
 
