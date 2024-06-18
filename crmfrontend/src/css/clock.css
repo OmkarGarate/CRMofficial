@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+.App {
+  font-family: sans-serif;
+}
+
+.clock {
+  width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: 39%;
+    left: 29%;
+    transform: translate(-50%, -50%);
+    /* box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2); */
+    border: 2px solid #800000;
+    font-size: 24px;
+    color: #444;
+    text-align: center;
+    
+}
+
+.clock::after {
+  background: #800000;
+  content: "";
+  width: 0.8px;
+  height: 0.8px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #800000;
+}
+
+.hour_hand {
+  position: absolute;
+  width: 4px;
+  height: 15px;
+  background: #800000;
+  top: 28.5%;
+  left: 47%;
+  transform-origin: bottom;
+  border-radius: 2px;
+}
+
+.min_hand {
+  position: absolute;
+  width: 4px;
+  height: 23px;
+  background: #800000;
+  top: 15%;
+    left: 47%;
+  transform-origin: bottom;
+  border-radius: 2px;
+}
+
+/* .sec_hand {
+  position: absolute;
+  width: 2px;
+  height: 118px;
+  background: red;
+  top: 10.5%;
+  left: 50%;
+  transform-origin: bottom;
+} */
+
+.clock span {
+  position: absolute;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+}
+
+/* .twelve {
+  top: 10px;
+  left: 46%;
+}
+
+.one {
+  top: 10%;
+  right: 26%;
+}
+
+.eleven {
+  top: 10%;
+  left: 26%;
+}
+
+.two {
+  top: 25%;
+  right: 10%;
+}
+
+.three {
+  right: 10px;
+  top: 46%;
+}
+
+.four {
+  right: 30px;
+  top: 67%;
+}
+
+.five {
+  right: 78px;
+  top: 80%;
+}
+
+.six {
+  bottom: 10px;
+  left: 50%;
+}
+
+.seven {
+  left: 80px;
+  top: 82%;
+}
+
+.eight {
+  left: 30px;
+  top: 67%;
+}
+
+.nine {
+  left: 10px;
+  top: 46%;
+}
+
+.ten {
+  top: 25%;
+  left: 10%;
+} */

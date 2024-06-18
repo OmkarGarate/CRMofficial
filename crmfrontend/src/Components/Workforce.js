@@ -4,21 +4,19 @@ import search from '../Images/search.png'
 import plus from '../Images/plus.png'
 import Designation from './Designation'
 import Profiles from './Profiles'
+import ClockMain from './ClockMain'
 
 function Workforce() {
   return (
     <>
-    <div className="wMain">
+    {/* <div className="wMain">
       <div className="wTop">
       <div className="searchbar">
         <img src={search} alt="" />
         <input type="text" placeholder='Search Profiles' />
       </div>
 
-      <div className="createprof">
-        <img src={plus} alt="" />
-        <p>Create Profiles</p>
-      </div>
+      <ClockMain/>
       </div>
 
       <div className="designation">
@@ -27,7 +25,12 @@ function Workforce() {
       </div>
 
 
-    </div>
+    </div> */}
+
+
+
+
+    
     </>
   )
 }
