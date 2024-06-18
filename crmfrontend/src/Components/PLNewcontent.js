@@ -16,6 +16,9 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../context/useLogout'
 import { AuthContext } from "../context/Authcontext";
 import login3profile from '../Images/login3profile.png'
+import executive from '../Images/executive.png'
+import head from '../Images/head.png'
+import employee from '../Images/employee.png'
 
 function PLNewcontent() {
   
@@ -94,8 +97,6 @@ function PLNewcontent() {
     // }
     
   }, [user]);
-
- 
 
   function formatDate(dateString) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -177,16 +178,16 @@ function PLNewcontent() {
         <img src={crmlogo} alt="" />
         <div className="ncMain">
           <div className="nc1">
-            <Link to={user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? ('/profile/cbpPer') : ('/profile/')}>
+            <Link to={user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org") ? ('/profile/editProfile') : ('/profile/')}>
               <img src={profilePic !== '' ? `http://localhost:4000/uploads/${profilePic}` : login3profile} alt="profileImg" className='profileImg'/>
             </Link>
             <div className="executive">
-              <img src={userData.userType === "Org" ? uparrows : userData.userType === "Head" ? uparrows : uparrows} alt="uparrows" />
+              <img src={userData.userType === "Org" ? executive : userData.userType === "Head" ? head : employee} alt="uparrows" />
               <p>{userData.userType === "Org" ? "EXECUTIVE" : userData.userType === "Head" ? "HEAD" : "EMPLOYEE"}</p>
             </div>
             <div className="sirName">
               <p>{userData.firstName} {userData.surname}</p>
-              <span>Registered on: {formatDate(userData.createdAt)}</span>
+              <span>Registered on : {formatDate(userData.createdAt)}</span>
             </div>
           </div>
           <div className="nc2">
@@ -199,7 +200,7 @@ function PLNewcontent() {
               <p style={compColor}>My space</p>
             </Link>
             <Link to={'/mwis/workforce'} className="mySpace">
-              <div className="vrSlide"style={{height: compColor2.color=== "#800000" ? "50px" : "0"}} ></div>
+              <div className="vrSlide" style={{height: compColor2.color=== "#800000" ? "50px" : "0"}}></div>
               <div className="ncImg">
                 <img src={workforceg} alt="" style={{display: compColor2.color=== "gray" ? "block" : "none"}} />
                 <img src={workforcer} alt="" style={{display: compColor2.color=== "#800000" ? "block" : "none"}}/>

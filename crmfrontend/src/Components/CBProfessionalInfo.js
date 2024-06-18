@@ -1,13 +1,28 @@
 // import React from 'react'
 import React, { useEffect, useState } from 'react';
 import rightArrow from '../Images/rgtarrow.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import PLNewcontent from './PLNewcontent';
 
 function CBProfessionalInfo() {
   const {user} = useAuthContext();
+  const location = window.location.pathname;
+  const {urlId} = useParams()
+  // console.log(urlId)
+  let parts = ''
+  if(location === `/profile/cbpProfInfo/${urlId}`)
+  {
+     parts = urlId.split("-");
+  }
+  
+  const [userType, setUserType] = useState(parts[0]);
+  const [uId, setUId] = useState(parts[1]);
+
+  // console.log('dfsdfd', userType, uId)
+
+
   const navigate = useNavigate()
   const [isHO, setIsHO] = useState(false)
   const [pi, setPi] = useState({
@@ -94,109 +109,180 @@ const [conf, setConf] = useState('')
 
 useEffect(()=>{
 
-  if(user && user.user.userType === 'Employee')
+  if(userType)
   {
-    const fetchData = async ()=>{
-      try {
-        const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
-        const json = await response.json();
-        if (response.ok) {
-          setDateOfJoining(json.dateOfJoining)
-          setWorkExp(json.workExperience)
-          setPrevComp(json.prevCompany)
-          setEducation(json.education)
-          setSoftSkills(json.softSkills)
-          setProfSkills(json.professionalSkills)
-          setOfficeEmail(json.officeEmailId)
-          setOptAcc(json.accommodation)
-          setOfcBranch(json.branch)
-          setEmpType(json.employeeType)
-          setCurrentCTC(json.currentCTC)
-          setEmpBen(json.employeeBenefits)
-          setDateOfLeave(json.dateOfLeave)
-          setSystemUsage(json.systemUsage)
-        } else {
-          setError(json.error);
+    if(userType === 'Employee')
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${uId}`);
+          const json = await response.json();
+          if (response.ok) {
+            setDateOfJoining(json.dateOfJoining)
+            setWorkExp(json.workExperience)
+            setPrevComp(json.prevCompany)
+            setEducation(json.education)
+            setSoftSkills(json.softSkills)
+            setProfSkills(json.professionalSkills)
+            setOfficeEmail(json.officeEmailId)
+            setOptAcc(json.accommodation)
+            setOfcBranch(json.branch)
+            setEmpType(json.employeeType)
+            setCurrentCTC(json.currentCTC)
+            setEmpBen(json.employeeBenefits)
+            setDateOfLeave(json.dateOfLeave)
+            setSystemUsage(json.systemUsage)
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setError("Error fetching user data. Please try again later.");
       }
-    }
-    if(user)  
-      {
-        fetchData();
-      }
-  }else if(user && user.user.userType === 'Head')
-  {
-    const fetchData = async ()=>{
-      try {
-        const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
-        const json = await response.json();
-        if (response.ok) {
-          setDateOfJoining(json.dateOfJoining)
-          setWorkExp(json.workExperience)
-          setPrevComp(json.prevCompany)
-          setEducation(json.education)
-          setSoftSkills(json.softSkills)
-          setProfSkills(json.professionalSkills)
-          setOfficeEmail(json.officeEmailId)
-          setOptAcc(json.accommodation)
-          setOfcBranch(json.branch)
-          setEmpType(json.employeeType)
-          setCurrentCTC(json.currentCTC)
-          setEmpBen(json.employeeBenefits)
-          setDateOfLeave(json.dateOfLeave)
-          setSystemUsage(json.systemUsage)
-        } else {
-          setError(json.error);
+      if(user)  
+        {
+          fetchData();
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setError("Error fetching user data. Please try again later.");
-      }
-    }
-    if(user)  
-      {
-        fetchData();
-      }
-  }else
-  {
-    const fetchData = async ()=>{
-      try {
-        const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
-        const json = await response.json();
-        if (response.ok) {
-          setDateOfJoining(json.dateOfJoining)
-          setWorkExp(json.workExperience)
-          setPrevComp(json.prevCompany)
-          setEducation(json.education)
-          setSoftSkills(json.softSkills)
-          setProfSkills(json.professionalSkills)
-          setOfficeEmail(json.officeEmailId)
-          setOptAcc(json.accommodation)
-          setOfcBranch(json.branch)
-          setEmpType(json.employeeType)
-          setCurrentCTC(json.currentCTC)
-          setEmpBen(json.employeeBenefits)
-          setDateOfLeave(json.dateOfLeave)
-          setSystemUsage(json.systemUsage)
-        } else {
-          setError(json.error);
+    }else if(userType === 'Head')
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/heads/getOneHead/${uId}`);
+          const json = await response.json();
+          if (response.ok) {
+            setDateOfJoining(json.dateOfJoining)
+            setWorkExp(json.workExperience)
+            setPrevComp(json.prevCompany)
+            setEducation(json.education)
+            setSoftSkills(json.softSkills)
+            setProfSkills(json.professionalSkills)
+            setOfficeEmail(json.officeEmailId)
+            setOptAcc(json.accommodation)
+            setOfcBranch(json.branch)
+            setEmpType(json.employeeType)
+            setCurrentCTC(json.currentCTC)
+            setEmpBen(json.employeeBenefits)
+            setDateOfLeave(json.dateOfLeave)
+            setSystemUsage(json.systemUsage)
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setError("Error fetching user data. Please try again later.");
       }
+      if(user)  
+        {
+          fetchData();
+        }
     }
-    if(user)  
-      {
-        fetchData();
+  }else{
+    if(user && user.user.userType === 'Employee')
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/employees/getOneEmployee/${user.user._id}`);
+          const json = await response.json();
+          if (response.ok) {
+            setDateOfJoining(json.dateOfJoining)
+            setWorkExp(json.workExperience)
+            setPrevComp(json.prevCompany)
+            setEducation(json.education)
+            setSoftSkills(json.softSkills)
+            setProfSkills(json.professionalSkills)
+            setOfficeEmail(json.officeEmailId)
+            setOptAcc(json.accommodation)
+            setOfcBranch(json.branch)
+            setEmpType(json.employeeType)
+            setCurrentCTC(json.currentCTC)
+            setEmpBen(json.employeeBenefits)
+            setDateOfLeave(json.dateOfLeave)
+            setSystemUsage(json.systemUsage)
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
+        }
       }
+      if(user)  
+        {
+          fetchData();
+        }
+    }else if(user && user.user.userType === 'Head')
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/heads/getOneHead/${user.user._id}`);
+          const json = await response.json();
+          if (response.ok) {
+            setDateOfJoining(json.dateOfJoining)
+            setWorkExp(json.workExperience)
+            setPrevComp(json.prevCompany)
+            setEducation(json.education)
+            setSoftSkills(json.softSkills)
+            setProfSkills(json.professionalSkills)
+            setOfficeEmail(json.officeEmailId)
+            setOptAcc(json.accommodation)
+            setOfcBranch(json.branch)
+            setEmpType(json.employeeType)
+            setCurrentCTC(json.currentCTC)
+            setEmpBen(json.employeeBenefits)
+            setDateOfLeave(json.dateOfLeave)
+            setSystemUsage(json.systemUsage)
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
+        }
+      }
+      if(user)  
+        {
+          fetchData();
+        }
+    }else
+    {
+      const fetchData = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:4000/orgs/getOneOrg/${user.user._id}`);
+          const json = await response.json();
+          if (response.ok) {
+            setDateOfJoining(json.dateOfJoining)
+            setWorkExp(json.workExperience)
+            setPrevComp(json.prevCompany)
+            setEducation(json.education)
+            setSoftSkills(json.softSkills)
+            setProfSkills(json.professionalSkills)
+            setOfficeEmail(json.officeEmailId)
+            setOptAcc(json.accommodation)
+            setOfcBranch(json.branch)
+            setEmpType(json.employeeType)
+            setCurrentCTC(json.currentCTC)
+            setEmpBen(json.employeeBenefits)
+            setDateOfLeave(json.dateOfLeave)
+            setSystemUsage(json.systemUsage)
+          } else {
+            setError(json.error);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setError("Error fetching user data. Please try again later.");
+        }
+      }
+      if(user)  
+        {
+          fetchData();
+        }
+    }
   }
 
   
-}, [user]);
+}, [user, userType, uId]);
 
 const handleSubmit = async(e) =>{
     e.preventDefault()
@@ -215,9 +301,11 @@ const handleSubmit = async(e) =>{
     formData.append("employeeBenefits", empBen)
     formData.append("dateOfLeave", dateOfLeave)
     formData.append("systemUsage", systemUsage)
-    console.log("formdata", formData)
+    // console.log("formdata", formData)
 
-    if(user && user.user.userType === "Head")
+    if(!userType)
+    {
+      if(user && user.user.userType === "Head")
       {
         try {
           const response = await fetch(
@@ -279,6 +367,52 @@ const handleSubmit = async(e) =>{
         setError("Error during form submission. Please try again later.");
       }
       }
+    }else{
+      if(userType === "Head")
+      {
+        try {
+          const response = await fetch(
+            `http://localhost:4000/heads/updateHead/${uId}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }else if(userType === "Employee"){
+        try {
+          const response = await fetch(
+            `http://localhost:4000/employees/updateEmployee/${uId}`
+          ,{
+            method: 'PATCH',
+            body: formData
+          });
+          const json = await response.json();
+          if (!response.ok) {
+              setError(json.error);
+          } else {
+              setError('');
+              setConf("Successfully updated the profile's part 1");
+              console.log("updated", json);
+          }
+        } catch (error) {
+        console.error("Error during form submission:", error);
+        setError("Error during form submission. Please try again later.");
+      }
+      }
+    }
+
+    
 }
 
 // console.log("up", user.user.profilePic)
@@ -292,14 +426,22 @@ const goToNext = () =>{
 const goToPrev = () =>{
   
   setTimeout(() => {
-    if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
+    // if(user && (user.user.role === "Human Resource Head2" || user.user.userType === "Org"))
+    // {
+    //   navigate('/profile/cbpPer')
+    // }else{
+    //   navigate('/profile/')
+    // }
+
+    if(location === '/profile/editProfInfo')
     {
-      navigate('/profile/cbpPer')
+      navigate('/profile/editProfile')
     }else{
-      navigate('/profile/')
+      navigate(`/profile/cbpPer/${urlId}`)
     }
   }, 1000);
 }
+
 
 
   return (

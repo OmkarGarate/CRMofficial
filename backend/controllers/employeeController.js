@@ -9,10 +9,10 @@ const createToken = (_id) =>{
 }
 
 const signupEmployee = async (req, res) =>{
-    const {orgId, department, role, empId, password, userType} = req.body
+    const {firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, role, empId, password, userType} = req.body
 
     try{
-        const emp = await Employee.signupEmployee(orgId, department, role, empId, password, userType)
+        const emp = await Employee.signupEmployee(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, role, empId, password, userType)
 
         // const token = createToken(head._id)
         res.status(200).json({user: emp});

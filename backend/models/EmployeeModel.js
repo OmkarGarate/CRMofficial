@@ -3,6 +3,42 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const employeeSchema = mongoose.Schema({
+    fullName:{
+        type: String,
+        // required: true
+    },
+    email:{
+        type: String,
+        // required: true
+    },
+    phoneNumber:{
+        type: String,
+        // required: true
+    },
+    password:{
+        type: String,
+        required: true
+    },
+    companyName:{
+        type: String,
+        // required: true  
+    },
+    companyEmail:{
+        type: String,
+        // required: true
+    },
+    orgId:{
+        type: String,
+        required: true
+    },
+    empId:{
+        type: String, 
+        required: true
+    },   
+    tnc:{
+        type: Boolean,
+        // required: true
+    },
     profilePic: {
         type: String,
         default: ""
@@ -24,10 +60,6 @@ const employeeSchema = mongoose.Schema({
         default: ""
     },
     alternateMobileNumber: {
-        type: String,
-        default: ""
-    },
-    email: {
         type: String,
         default: ""
     },
@@ -123,26 +155,48 @@ const employeeSchema = mongoose.Schema({
         type: String,
         default: ""
     },
-    orgId:{
+    department:{
+        type:String,
+        default: ""
+    },
+    designation:{
+        type:String,
+        default: ""
+    },
+    accessToFeed:{
+        type: Boolean
+    },
+    workEmail:{
         type: String,
         default: ""
     },
-    department:{
-        type:String,
-        required: true
+    documents:[{
+        type: String
+    }],
+    attendanceDays:[
+        {
+            type: String
+        }
+    ],
+    clockIn:{
+        type: String
+    },
+    clockOut:{
+        type: String
+    },
+    BreakTime:{
+        type: String
     },
     role: {
         type: String,
-        required: true
+        default: ""
     },
-    empId:{
-        type: String,
-        required: true
+    reportingTo:{
+        type: String
     },
-    password:{
-        type: String,
-        required: true  
-    }, 
+    wrOfferLetter:{
+        type: String
+    },
     userType: {
         type: String,
         required: true
@@ -151,11 +205,11 @@ const employeeSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-})
+}) 
 
-employeeSchema.statics.signupEmployee = async function(orgId, department, role, empId, password, userType)
+employeeSchema.statics.signupEmployee = async function(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, role, empId, password, userType)
 {
-    if(!orgId || !empId || !password || !role || !department || !userType)
+    if(!firstName || !middleName || !surname || !designation || !workEmail || !accessToFeed || !orgId || !empId || !password || !role || !department || !userType)
     {
         throw Error("All fields must be filled")
     }
@@ -183,9 +237,14 @@ employeeSchema.statics.signupEmployee = async function(orgId, department, role, 
     // console.log("Hash:", hash)
 
     const emp = await this.create({
+        firstName: firstName,
+        middleName: middleName,
+        surname: surname,
+        designation: designation,
+        workEmail: workEmail,
+        accessToFeed: accessToFeed,
         orgId: orgId,
         department: department,
-        role: role,
         empId: empId,
         password: password,
         userType: userType

@@ -33,6 +33,10 @@ input, select, option, textarea{
   outline: none;
 }
 
+option{
+  cursor: pointer;
+}
+
 select{
   cursor: pointer;
 }

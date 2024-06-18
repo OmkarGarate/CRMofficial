@@ -1,6 +1,5 @@
     const mongoose = require('mongoose')
     const validator = require('validator')
-    const bcrypt = require('bcrypt')
 
     const orgSchema = mongoose.Schema({
         fullName:{
@@ -159,9 +158,43 @@
             type:String,
             default: ""
         },
+        designation:{
+            type:String,
+            default: ""
+        },
+        accessToFeed:{
+            type: Boolean
+        },
+        workEmail:{
+            type: String,
+            default: ""
+        },
+        documents:[{
+            type: String
+        }],
+        attendanceDays:[
+            {
+                type: String
+            }
+        ],
+        clockIn:{
+            type: String
+        },
+        clockOut:{
+            type: String
+        },
+        BreakTime:{
+            type: String
+        },
         role: {
             type: String,
             default: ""
+        },
+        reportingTo:{
+            type: String
+        },
+        wrOfferLetter:{
+            type: String
         },
         userType: {
             type: String,

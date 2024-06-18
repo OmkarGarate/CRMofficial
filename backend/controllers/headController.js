@@ -7,18 +7,17 @@ const createToken = (_id) =>{
     return jwt.sign({_id}, process.env.SECRET, {expiresIn: "1d"})
 }
 
-const signupHead = async (req, res) =>{
-    const {orgId, department, role, empId, password, userType} = req.body
+const signupHead = async (req, res) => {
+    const {firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType} = req.body;
 
-    try{
-        const head = await Head.signupHead(orgId, department, role, empId, password, userType)
-
-        // const token = createToken(head._id)
-        res.status(200).json({user: head});
-    }catch(error){
-        res.status(400).json({error: error.message})
+    try {
+        const head = await Head.signupHead(firstName, middleName, surname, designation, workEmail, accessToFeed, orgId, department, empId, password, userType);
+        res.status(200).json({ user: head });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-}
+};
+
 
 const loginHead = async (req, res) => {
     const { orgId, empId, password } = req.body;
