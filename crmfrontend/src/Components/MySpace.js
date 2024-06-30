@@ -5,9 +5,10 @@ import sir from '../Images/sir.png'
 import PLNewcontent from './PLNewcontent'
 import login3profile from '../Images/login3profile.png'
 import { useAuthContext } from '../hooks/useAuthContext'
+import ClockMain from './ClockMain'
 
 
-function MySpace() {
+function  MySpace() {
   const {user} = useAuthContext()
 
   const [users, setUsers] = useState('')
@@ -125,6 +126,7 @@ setUsers(sortedUsers);
         </div>
 
         {/* status component */}
+        <ClockMain/>
        </div>
         }
         

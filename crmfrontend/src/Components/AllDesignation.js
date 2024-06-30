@@ -10,6 +10,7 @@ import '../css/allprofile.css'
 import '../css/alldepartment.css'
 import '../css/myspace.css'
 import '../css/alldesignation.css'
+import { Link } from 'react-router-dom';
 
 function AllDesignation() {
 
@@ -219,10 +220,12 @@ const handleBtnColor8 = () => {
       <div className="allDepartTop allProfTop">
             <h1>Designations</h1>
             <div className="createSearch">
+              <Link to={"/mwis/createdesignation"}>
             <div className="createDepart">
                 <p>Create New</p>
                 <img src={plusb} alt="Create" />
             </div>
+              </Link>
             <div className="searchDepart">
                 <img src={search} alt="Search" />
                 <input type="text" placeholder='Search Designations'/>

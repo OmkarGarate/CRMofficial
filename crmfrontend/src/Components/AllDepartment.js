@@ -3,6 +3,7 @@ import plusb from '../Images/plusb.png'
 import search from '../Images/search.png'
 import '../css/alldepartment.css'
 import '../css/myspace.css'
+import { Link } from 'react-router-dom'
 
 
 
@@ -48,10 +49,12 @@ const handleBtnColor1 = () => {
     <div className="allDepartment mySpaceMain">
         <div className="allDepartTop">
             <h1>Departments</h1>
+            <Link to={"/mwis/createdesignation"}>
             <div className="createDepart">
                 <p>Create Designation</p>
                 <img src={plusb} alt="Create" />
             </div>
+              </Link>
             <div className="searchDepart">
                 <img src={search} alt="Search" />
                 <input type="text" placeholder='Search Departments'/>
@@ -64,7 +67,7 @@ const handleBtnColor1 = () => {
                 <button style={btnColor} onClick={handleBtnColor} >A to Z</button>
                 <button style={btnColor1} onClick={handleBtnColor1} >Z to A</button>
             </div>
-            <div className="allDContent">
+            <div className="allDContent adtc">
                 <div className="department1">Accounting</div>
                 <div className="department1">Administration</div>
                 <div className="department1">Civil & Structural</div>

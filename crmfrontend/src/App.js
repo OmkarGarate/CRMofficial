@@ -35,6 +35,11 @@ import MyWork from "./Components/MyWork";
 import RolesnRes from "./Components/RolesnRes";
 import CreateProfileNew from "./Components/CreateProfilleNew";
 import Designation from "./Components/Designation";
+import DesignationNew from "./Components/DesignationNew";
+import AllDesignation from "./Components/AllDesignation";
+import AllProfile from "./Components/AllProfile";
+import AllDepartment from "./Components/AllDepartment";
+import CreateDesignation from "./Components/CreateDesignation";
 
 function App() {
   const { user } = useAuthContext();
@@ -53,9 +58,9 @@ function App() {
       {!user ? <div className="pageCover"></div> : null}
       {/* <ClockMain/> */}
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
-        <Route path="/orgsignup" element={<OrgSignup />} />
+        <Route path="/" element={<OrgSignup />} />
         <Route path="/mySpace" element={<Feed />} />
         <Route path="/profile" element={<Profile />}>
           <Route path="/profile" element={<DRP />}>
@@ -115,8 +120,11 @@ function App() {
         </Route>
         <Route path="/mwis" element={<Mwis />}>
           <Route path="/mwis" element={<MySpace />} />
-          {/* <Route path="/mwis/workforce" element={<WorkforceNew />} /> */}
-          {/* <Route path='/mwis/workforce/' element={<AllPositions/>}/> */}
+          <Route path="/mwis/workforce" element={<WorkforceNew />} />
+            <Route path='/mwis/alldesignation' element={<AllDesignation/>}/>
+            <Route path='/mwis/allprofile' element={<AllProfile/>}/>
+            <Route path='/mwis/alldepartment' element={<AllDepartment/>}/>
+            <Route path='/mwis/createdesignation' element={<CreateDesignation/>}/>
           {/* </Route> */}
           <Route path="/mwis/inventory" element={<Inventory />} />
           <Route path="/mwis/des" element={<Workforce />} />

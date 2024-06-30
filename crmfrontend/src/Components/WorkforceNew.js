@@ -20,7 +20,7 @@ function WorkforceNew() {
                 <img src={search} alt="search" />
                 <input type="text" placeholder='Search Profiles'/>
             </div>
-            {/* <ClockMain/> */}
+            <ClockMain/>
         </div>
         <div className="desprof">
         <DesignationNew/>

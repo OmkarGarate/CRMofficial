@@ -49,9 +49,11 @@ function ProfilesNew() {
       <div className="designationMain">
         <div className="desTopbar">
           <h1>Profiles</h1>
-          <div className="plusimg">
-            <img src={plusb} alt="Create" />
-          </div>
+          <Link  to={'/profile/createProf'}>
+            <div className="plusimg">
+              <img src={plusb} alt="Create" />
+            </div>
+          </Link>
           <Link to={'/mwis/allprofile'} className="viewall">
             <p>View All</p>
             <img src={rgtarrow} alt="View All" />
