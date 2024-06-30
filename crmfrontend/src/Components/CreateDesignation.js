@@ -44,7 +44,7 @@ function CreateDesignation() {
                   <option value="Option 3">Option 3</option>
                 </select>
                 <div className="ptbf"><p> Position to be filled -<input type="number" /></p></div>
-                <div className="cpf"><p>Current position filled - 0</p></div>
+                {/* <div className="cpf"><p>Current position filled - 0</p></div> */}
               </div>
             </div>
             <div className="createCDown">

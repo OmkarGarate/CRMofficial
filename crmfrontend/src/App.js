@@ -40,6 +40,7 @@ import AllDesignation from "./Components/AllDesignation";
 import AllProfile from "./Components/AllProfile";
 import AllDepartment from "./Components/AllDepartment";
 import CreateDesignation from "./Components/CreateDesignation";
+import ViewDesignation from "./Components/ViewDesignation";
 
 function App() {
   const { user } = useAuthContext();
@@ -127,6 +128,7 @@ function App() {
             <Route path='/mwis/createdesignation' element={<CreateDesignation/>}/>
           {/* </Route> */}
           <Route path="/mwis/inventory" element={<Inventory />} />
+          <Route path="/mwis/viewDes" element={<ViewDesignation />} />
           <Route path="/mwis/des" element={<Workforce />} />
           <Route path="/mwis/settings" element={<Settings />} />
         </Route>
