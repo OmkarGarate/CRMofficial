@@ -1,0 +1,246 @@
+.clockMain{
+    
+}
+
+.clockTop{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    width: max-content;
+    position: absolute;
+    right: 60px;
+    top: 40px;
+    z-index: 1;
+}
+
+.clockImg, .bellImg, .analyticImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    /* border: 1px solid black; */
+    border-radius: 50%;
+}
+
+.clockImg img, .bellImg img, .analyticImg img{
+    width: 25px;
+    /* height: 18px; */
+}
+
+.clockImg{
+background-color: #FDD6D5;
+}
+
+.bellImg, .analyticImg{
+    background-color: white;
+}
+
+.clockin{
+    background-color: white;
+    border: none ;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+    padding-bottom: 15px;
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 360px;
+    position: absolute;
+    right: 60px;
+    top: 80px;
+    z-index: 2;
+}
+
+.clockout{
+    background-color: white;
+}
+
+.cInUp{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 60px;
+}
+
+.upLeft{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 75px;
+    /* border: 1px solid black; */
+}
+
+.upLeft img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(#FFFFFF, #FDD6D5);
+}
+
+.clockout img{
+    background: linear-gradient(#FFFFFF, #E5FF9F);
+}
+
+.upLeft p{
+    color: #800000;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.clockout .upLeft p{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.upRgt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    /* border: 1px solid black; */
+}
+
+.upRgtt{
+    gap: 5px;
+}
+
+.upRgt p{
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+.upRgt span{
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+.clockinBtn button{
+    color: white;
+    padding: 8px 22px;
+    font-size: 0.7rem;
+    border-radius: 30px;
+    background-color: black;
+    cursor: pointer;
+}
+
+.clockinBtnn button{
+    font-size: 0.7rem;
+    padding: 6px 16px;
+    color: black;
+    font-weight: 600;
+    padding: 7px 18px;
+    border: none;
+    border-radius: 30px;
+    background-color: #FFC454;
+    cursor: pointer;
+}
+
+
+.cInDown{
+    font-weight: 700;
+    font-size: 0.7rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.cReport{
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    gap: 15px;
+    margin-top: 20px;
+    width: 360px;
+    position: absolute;
+    right: 80px;
+    top: 280px;
+    z-index: 2;
+}
+
+.reportTo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+
+.reportTo p{
+    color: #767676;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.head p{
+    color: black;
+}
+
+.head img{
+    width: 10px;
+}
+
+
+.ipInput{
+    font-size: 2rem;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    outline: none;
+    border: none;
+    width: 290px;
+    /* border: 1px solid black; */
+    padding: 5px;
+    font-weight: bold;
+    text-wrap: wrap;
+}
+
+.ipInput::placeholder{
+    color: #C3C3C3;
+}
+
+.ipPara{
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    width: 320px;
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+    /* border: 1px solid black; */
+}
+
+.reportSubmit button{
+color: white;
+background-color: #D6D6D6;
+box-shadow: 0px 10px 20px #88888829;
+padding: 10px 30px;
+border-radius: 30px;
+border :none;
+cursor: pointer;
+}
+
+.reportSubmit{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 290px;
+}

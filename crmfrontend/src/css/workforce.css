@@ -162,3 +162,221 @@ width: 18px;
     width: 0;  
     height: 0; 
 }
+
+
+/*..................DESIGNATION UPDATED............... */
+
+.desprof{
+    display: flex;
+    /* gap: 50px; */
+    /* align-items: center; */
+    justify-content: space-around;
+    padding: 20px;
+    width: 100%;
+}
+
+.departMain{
+    padding: 65px;
+    width: max-content;
+}
+
+.desTopbar, .viewall{
+    display: flex;
+    width: max-content;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0
+}
+
+.departTopbar{
+    justify-content: space-between;
+    width: 340px;
+}
+
+
+
+.plusimg, .viewall{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 14px;
+    background-color: white;
+}
+
+.viewall{
+    gap: 4px;
+}
+
+.plusimg img{
+    width: 14px;
+    height: 14px;
+}
+
+.viewall img{
+   width: 17px;
+   height: 17px;
+   filter: grayscale(100%);
+   /* filter: contrast(150%); */
+   
+}
+
+.viewall p{
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.desTopbar h1{
+    font-size: 1.9rem;
+}
+
+.desBottom{
+    /* border: 1px solid black; */
+    width: 380px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 45px 30px;
+}
+
+.desBMain{
+    margin-top: 35px;
+}
+
+.desBox1{
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    justify-content: space-between;
+    flex-direction: column;
+    width: 170px;
+    height: 145px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.boxTop{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 10px;
+}
+
+.boxTop img{
+    width: 12px;
+    height: 15px;
+}
+
+.boxTop p{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #848484;
+}
+
+.boxTop span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #790400;
+}
+
+.boxBottom{
+    font-size: 0.90rem;
+    font-weight: 600;
+}
+
+
+/* ..................profiles................. */
+
+.profBottom{
+    width: 530px;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+}
+
+.prof1{
+    margin-top: 50px;
+}
+
+.whiteBoxMain{
+    /* border: 1px solid black; */
+width: 240px;
+height: 90px;
+background-color: white;
+/* padding: 20px; */
+padding: 30px 15px 20px 20px;
+border-radius: 0px 30px 30px 30px;
+margin-top: -15px;
+}
+
+.whiteBoxTop{
+    /* border: 1px solid black; */
+    display: flex;
+    margin-bottom: -15px;
+}
+
+.whiteBoxSmall, .colorBox{
+    /* border: 1px solid black; */
+    width: 125px;
+    height: 45px;
+   
+    background-color: white;
+    z-index: 1;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whiteBoxSmall{
+    border-radius: 30px 20px 0px 0px;
+    /* height: 30px; */
+}
+
+.whiteBoxSmall img{
+    width: 80px;
+    margin-bottom: 40px;
+}
+
+.colorBox{
+    background-color: #f3f3f3;
+    gap: 10px;
+    border-radius: 0 0 0px 20px
+}
+
+.boxC1{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.head{
+    background-color: white;
+    padding: 11px 18px;
+    border-radius: 10px;
+}
+
+.email{
+    background-color: #0056DE;
+    width: 45px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.email img{
+    width: 23px;
+}
+
+.h4gray{
+    color: #767676;
+}
+
+.boxContent h4{
+    font-size: 0.85rem;
+}

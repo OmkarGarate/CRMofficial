@@ -3,13 +3,13 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .workforceMain .searchAndCp{
     /* border: 1px solid black; */
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
@@ -40,16 +40,16 @@
 }
 
 .searchAndCp button{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    background-color: #790400;
-    color: white;
-    gap: 10px;
+    /* padding: 10px 15px; */
+    /* background-color: #790400; */
+    /* color: white; */
+    /* gap: 10px; */
     border-radius: 50px;
     border: none;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
 }
 
@@ -273,4 +273,9 @@
 .allProf .apRole{
     color: #A8A8A8;
     font-weight: 500;
+}
+
+.departBottom{
+    font-size: 0.8rem;
+    font-weight: 600;
 }

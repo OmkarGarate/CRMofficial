@@ -7,6 +7,8 @@ import '../css/workforceNew.css'
 import { Outlet } from 'react-router-dom'
 import AllPositions from './AllPositions'
 import AllProfiles from './AllProfiles'
+import ClockMain from './ClockMain'
+import Departments from './Departments'
 
 
 function WorkforceNew() {
@@ -18,13 +20,13 @@ function WorkforceNew() {
                 <img src={search} alt="search" />
                 <input type="text" placeholder='Search Profiles'/>
             </div>
-            <button>
-                <img src={plus} alt="plus" />
-                <p>Create Profiles</p>
-            </button>
+            {/* <ClockMain/> */}
         </div>
+        <div className="desprof">
         <DesignationNew/>
         <ProfilesNew/>
+        </div>
+        <Departments/>
         {/* <Outlet/> */}
     </div>
     </div>

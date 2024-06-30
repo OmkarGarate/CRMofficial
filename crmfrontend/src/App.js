@@ -51,6 +51,7 @@ function App() {
     <Router>
       <Loader />
       {!user ? <div className="pageCover"></div> : null}
+      {/* <ClockMain/> */}
       <Routes>
         <Route path="/" element={<Login />} />
 

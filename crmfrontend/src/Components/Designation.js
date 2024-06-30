@@ -5,7 +5,7 @@ import uparrows from '../Images/uparrows.png'
 function Designation() {
   return (
     <>
-    <div className="dnMain">
+    {/* <div className="dnMain">
         <h1>Designation</h1>
         <div className="threedivMain">
         <div className="all threediv">All</div>
@@ -100,7 +100,7 @@ function Designation() {
                 </div>
             </div>
         </div>
-    </div>
+    </div> */}
     </>
   )
 }

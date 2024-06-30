@@ -1,0 +1,54 @@
+.createSearch{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.allProfTop{
+    width: 70%;
+}
+
+.allProfBottom{
+    gap: 80px;
+}
+
+.allDSortLeft{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.allPContent{
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    width: 75%;
+    /* border: 1px solid black; */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 520px;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 10px 10px 10px 0;
+}
+
+
+.allPContent::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+    border-radius: 100px; /* Border radius of the scrollbar */
+  }
+  
+  .allPContent::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+    border-radius: 100px; /* Border radius of the scrollbar */
+  }
+  
+  .allPContent::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 100px; /* Border radius of the scrollbar */
+  }
+  
+  .allPContent::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
+  }
