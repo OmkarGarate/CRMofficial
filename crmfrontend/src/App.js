@@ -34,6 +34,7 @@ import Documents from "./Components/Documents";
 import MyWork from "./Components/MyWork";
 import RolesnRes from "./Components/RolesnRes";
 import CreateProfileNew from "./Components/CreateProfilleNew";
+import Designation from "./Components/Designation";
 
 function App() {
   const { user } = useAuthContext();
@@ -113,10 +114,11 @@ function App() {
         </Route>
         <Route path="/mwis" element={<Mwis />}>
           <Route path="/mwis" element={<MySpace />} />
-          <Route path="/mwis/workforce" element={<WorkforceNew />} />
+          {/* <Route path="/mwis/workforce" element={<WorkforceNew />} /> */}
           {/* <Route path='/mwis/workforce/' element={<AllPositions/>}/> */}
           {/* </Route> */}
           <Route path="/mwis/inventory" element={<Inventory />} />
+          <Route path="/mwis/des" element={<Workforce />} />
           <Route path="/mwis/settings" element={<Settings />} />
         </Route>
       </Routes>

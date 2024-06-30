@@ -33,7 +33,7 @@ function Login() {
             if(!error){
                 setConf("Successfully logged in!!")
                 setTimeout(() => {
-                    navigate('/profile');
+                    navigate('/mwis');
                   }, 1500);
             }
         }
